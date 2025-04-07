@@ -17,12 +17,18 @@ public class Main {
     public static String[] opcionesConJornadas;
 
     public static void main(String[] args) {
+        ModeloController modeloController = new ModeloController();
+        VistaController vistaController = new VistaController(modeloController);
+        modeloController.setVistaController(vistaController);
+        /*
         declararVariables();
         opcionesSinJuego();
         eligeElJuego();
         opcionesSinJornadas();
         opcionesConJornadas();
     }
+
+         *//*
     public static void declararVariables() {
         juegoController = new JuegoController();
         jugadorController = new JugadorController();
@@ -199,5 +205,7 @@ public class Main {
                 default -> yes = false;
             }
         }while(yes);
+    }
+    */
     }
 }
