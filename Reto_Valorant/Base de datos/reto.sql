@@ -10,6 +10,7 @@ drop table juegos;
 create table juegos(
     cod_juego number(2) generated always as identity,
     fecha_salida date not null,
+    nombre varchar2(20) not null,
     constraint jue_cod_pk primary key(cod_juego)
 );
 
@@ -63,11 +64,14 @@ create table enfrentamientos(
     resultados_eq_2 number(2),
     cod_equ_1 number(2),
     cod_equ_2 number(2),
+    num_jornada number(2),
     constraint enf_id_pk primary key(id_enfrentamiento),
     constraint enf_eq1_fk foreign key (cod_equ_1) 
         references equipos (cod_equipo),
-    constraint enf_e12_fk foreign key (cod_equ_2) 
-        references equipos (cod_equipo)
+    constraint enf_eq2_fk foreign key (cod_equ_2) 
+        references equipos (cod_equipo),
+    constraint enf_jor_fk foreign key (num_jornada) 
+        references jornadas (num_jornada)
 );
 
 create table jugadores(
