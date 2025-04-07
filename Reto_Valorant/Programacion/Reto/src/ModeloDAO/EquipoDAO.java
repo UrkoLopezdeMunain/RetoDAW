@@ -21,20 +21,16 @@ public class EquipoDAO {
     }
 
     public Equipo obtenerEquipoPorCodigo(int codEquipo) {
-        return listaEquipos.stream()
-                .filter(e -> e.getCodEquipo() == codEquipo)
-                .findFirst().orElse(null);
+        return new Equipo();
     }
     public void actualizarEquipo(Equipo nuevoEquipo) {
-        listaEquipos.replaceAll(e -> e.getCodEquipo() == nuevoEquipo.getCodEquipo() ? nuevoEquipo: e);
-            //si e.getCodEquipo == nuevoEquipo.getCodEquipo, sustituimos, si no, dejamos a 'e' igual
+
     }
+    //hechos asi para que no afecten a nada en especial, queda hacer las SELECT, UPDATE o DELETE
     public boolean eliminarEquipo(int codEquipo) {
-        return listaEquipos.removeIf(e -> e.getCodEquipo() == codEquipo);
-        //quita el equipo en caso de encontrarlo por su codigo
-        //devuelve boolean para confirmar en Controller
+        return false;
     }
-    public void anadirJugador(Equipo eq, Jugador j) {
-        eq.agregarJugador(j);
+    public boolean anadirJugador(Equipo eq, Jugador j) {
+        return false;
     }
 }

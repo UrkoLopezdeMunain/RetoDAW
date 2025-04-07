@@ -21,12 +21,12 @@ import javax.swing.JOptionPane;
 
 public class EquipoController{
 
-    private static EquipoDAO eDAO;
-    private static LocalDate FECHAFUNDACION;
+    private EquipoDAO eDAO;
+    private LocalDate FECHAFUNDACION;
     //fecha fundacion hay que meterla en Juego
 
-    public EquipoController() {
-        eDAO = new EquipoDAO();
+    public EquipoController(EquipoDAO eDAO) {
+        this.eDAO = eDAO;
     }
 
     public void definirFechaFundacion(Juego j) {

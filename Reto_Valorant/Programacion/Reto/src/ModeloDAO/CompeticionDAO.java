@@ -5,14 +5,12 @@ import Modelo.Competicion;
 import java.util.ArrayList;
 
 public class CompeticionDAO {
-    private static ArrayList<Competicion> competiciones = new ArrayList<>();
-    public void anadirCompeticion(Competicion c) {
-        if (c == null) {
-            competiciones = new ArrayList<>();
-        }
-        competiciones.add(c);
+    private ArrayList<Competicion> competiciones;
+
+    public boolean anadirCompeticion(Competicion c) {
+        return false;
     }
     public ArrayList<Competicion> obtenerTodasCompeticiones() {
-        return competiciones;
+        return null;
     }
 }

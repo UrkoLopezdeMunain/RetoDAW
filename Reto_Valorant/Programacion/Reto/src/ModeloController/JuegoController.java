@@ -17,13 +17,13 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class JuegoController {
-    private static JuegoDAO juegoDAO;
-    private static RolController rolController;
-    private static final LocalDate SALIDAPRIMERJUEGO = LocalDate.of(1972,11,29);
+    private JuegoDAO juegoDAO;
+    private RolController rolController;
+    private final LocalDate SALIDAPRIMERJUEGO = LocalDate.of(1972,11,29);
 
-    public JuegoController() {
-        rolController = new RolController();
-        juegoDAO = new JuegoDAO();}
+    public JuegoController(JuegoDAO juegoDAO) {
+        //rolController = new RolController();
+        this.juegoDAO = juegoDAO;}
 
     public void anadirJuego() {
         Juego juego = new Juego();
