@@ -90,3 +90,96 @@ create table jugadores(
     constraint jug_equ_fk foreign key (cod_equipo) 
         references equipos (cod_equipo)
     );
+
+create or replace trigger tr_jug_nac
+before insert or update of fecha_nac on jugadores
+for each row
+    declare
+        e_mensaje varchar2(255);
+        edad_mayor exception;
+        edad_menor exception;
+    begin
+        if :new.fecha_nac > add_months(sysdate,-192) then
+            raise edad_menor;
+        elsif :new.fecha_nac < add_months(sysdate,-780) then
+           raise edad_mayor;
+        end if;
+    exception
+        when edad_mayor then
+            e_mensaje := 'La persona que se ha intentado ';
+            if inserting then
+                e_mensaje := e_mensaje || 'insertar';
+            else
+                e_mensaje := e_mensaje || 'actualizar';
+            end if;
+            e_mensaje := e_mensaje || ' tiene mas de 65 años.';
+            raise_application_error(-20001,e_mensaje);
+        when edad_menor then
+            e_mensaje := 'La persona que se ha intentado ';
+            if inserting then
+                e_mensaje := e_mensaje || 'insertar';
+            else
+                e_mensaje := e_mensaje || 'actualizar';
+            end if;
+            e_mensaje := e_mensaje || ' tiene menos de 16 años.';
+            raise_application_error(-20001,e_mensaje);
+end tr_jug_nac;
+
+create or replace trigger tr_jug_sueldo
+before insert or update of sueldo on jugadores
+for each row when (new.sueldo < 1137)
+    declare
+        e_mensaje varchar2(255);
+        sueldo exception;
+    begin
+        raise sueldo;
+    exception
+        when sueldo then
+            e_mensaje := 'La persona que se ha intentado ';
+            if inserting then
+                e_mensaje := e_mensaje || 'insertar';
+            else
+                e_mensaje := e_mensaje || 'actualizar';
+            end if;
+            e_mensaje := e_mensaje || ' tiene un sueldo menos a 1137.';
+            raise_application_error(-20002,e_mensaje);
+end tr_jug_sueldo;
+
+create or replace trigger tr_equi_fecha_fund
+before insert or update of fecha_fundacion on equipos
+for each row 
+    declare
+        fecha_salida date;
+    
+        e_mensaje varchar2(255);
+        fecha_no_valida exception;
+    begin
+    
+        select fecha_salida into fecha_salida
+        from juegos
+        where cod_juego = 1;
+        
+        if :new.fecha_fundacion < fecha_salida then
+            raise fecha_no_valida;
+        end if;
+    exception
+        when fecha_no_valida then
+            e_mensaje := 'El equipo que se ha intentado ';
+            if inserting then
+                e_mensaje := e_mensaje || 'insertar';
+            else
+                e_mensaje := e_mensaje || 'actualizar';
+            end if;
+            e_mensaje := e_mensaje || ' se funda antes de la creacion ' ||
+            'del juego, que es: ' || fecha_salida;
+            raise_application_error(-20003,e_mensaje);
+end tr_equi_fecha_fund;
+
+
+
+create or replace package paquete_reto_equipo_3 is
+    
+end paquete_reto_equipo_3;
+create or replace package body paquete_reto_equipo_3 as
+    
+end paquete_reto_equipo_3;
