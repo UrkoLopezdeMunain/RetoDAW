@@ -19,12 +19,11 @@ import static java.util.stream.Collectors.*;
 
 public class JugadorController {
 
-    private static JugadorDAO jugadorDAO;
-    private static EquipoDAO equipoDAO;
-    ArrayList<Equipo> equipos;
-    private static final int SUELDO = 1184;
+    private JugadorDAO jugadorDAO;
+    private EquipoDAO equipoDAO;
+    private ArrayList<Equipo> equipos;
 
-    public JugadorController() {
+    public JugadorController(JugadorDAO jugadorDAO) {
     }
 
     public void dataValidation(){
@@ -158,6 +157,7 @@ public class JugadorController {
         do {
             try {
                 sueldo = Integer.parseInt(JOptionPane.showInputDialog(null,"Ingresa el sueldo del jugador"));
+                int SUELDO = 1184;
                 if (sueldo < SUELDO) {
                     JOptionPane.showMessageDialog(null,"El sueldo no puede ser menor que " + SUELDO);
                 }else {

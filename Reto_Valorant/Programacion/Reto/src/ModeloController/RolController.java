@@ -11,7 +11,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class RolController {
-    RolDAO rolDAO = new RolDAO();
+    private final RolDAO rolDAO;
+
+    public RolController(RolDAO rolDAO) {
+        this.rolDAO = rolDAO;
+    }
 
     public ArrayList<Rol> conseguirRoles() {
 

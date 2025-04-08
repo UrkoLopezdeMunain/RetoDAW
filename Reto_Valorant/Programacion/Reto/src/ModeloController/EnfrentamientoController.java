@@ -20,10 +20,13 @@ import java.util.stream.Collectors;
 public class EnfrentamientoController {
     private EquipoDAO equipoDAO;
     private EnfrentamientoDAO enfrentamientoDAO;
-    ArrayList<Enfrentamiento> enfrentamientos;
-    ArrayList<Enfrentamiento> enfrentamientosMitad1;
-    ArrayList<Jornada> jornadas;
-    ArrayList<Equipo> equipos;
+    private ArrayList<Enfrentamiento> enfrentamientos;
+    private ArrayList<Enfrentamiento> enfrentamientosMitad1;
+    private ArrayList<Jornada> jornadas;
+    private ArrayList<Equipo> equipos;
+
+    public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO) {
+    }
 
     public void crearEnfrentamientos() {
         declararVariables();

@@ -11,11 +11,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CompeticionController {
-    private static CompeticionDAO competicionDAO;
-    private static JornadaDAO jornadaDAO;
+    private final CompeticionDAO competicionDAO;
+    private final JornadaDAO jornadaDAO;
 
-    public CompeticionController() {
-        competicionDAO = new CompeticionDAO();
+    public CompeticionController(CompeticionDAO competicionDAO) {
+        this.competicionDAO = competicionDAO;
         jornadaDAO = new JornadaDAO();
     }
 

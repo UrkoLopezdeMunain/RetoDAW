@@ -9,7 +9,6 @@ public class JugadorDAO {
 
         private static ArrayList<Jugador> jugadores = new ArrayList<>();
 
-
         public JugadorDAO() {}
 
 

@@ -5,6 +5,7 @@ import ModeloController.VistaController;
 import javax.swing.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.sql.SQLException;
 
 public class IniciarSesion extends JFrame{
     private JPanel pPricipal;
@@ -13,7 +14,7 @@ public class IniciarSesion extends JFrame{
     private JButton aceptarButton;
     protected VistaController vistaController;
 
-    public IniciarSesion() {
+    public IniciarSesion(VistaController vistaController) {
         setTitle("Iniciar Sesión");
         setContentPane(pPricipal);
         tfPassword.setVisible(false);
@@ -21,6 +22,7 @@ public class IniciarSesion extends JFrame{
         setSize(400, 220);
         setLocationRelativeTo(null);
         setResizable(false); //para que sea de posicion y tamaño fijo
+        this.vistaController = vistaController;
 
 
         //crear Listeners
@@ -35,8 +37,12 @@ public class IniciarSesion extends JFrame{
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e); //aui hara el la petiocion a BD para saber si existe el usuario
-                if (vistaController.validarUsuario(tfUsuario.getText())){
-                    tfPassword.setVisible(false);
+                try {
+                    if (vistaController.validarUsuario(tfUsuario.getText())){
+                        tfPassword.setVisible(false);
+                    }
+                } catch (SQLException ex) { //falta configurar o lanzar a una clase EX propia
+                    throw new RuntimeException(ex);
                 }
             }
         });

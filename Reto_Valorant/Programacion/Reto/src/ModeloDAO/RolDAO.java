@@ -8,7 +8,7 @@ import java.util.Iterator;
 
 public class RolDAO {
 
-    private Juego juego;
+    private final Juego juego;
     private static ArrayList<Rol> listaRoles = new ArrayList<>();
 
     public RolDAO() {
