@@ -29,22 +29,12 @@ public class EnfrentamientoController {
     }
 
     public void crearEnfrentamientos() {
-        declararVariables();
         try {
             primeraMitad();
             segundaMitad();
         } catch (IllegalArgumentException e) {
             System.out.println("No se han encontrado equipos. " + e.getMessage());
         }
-    }
-    private void declararVariables(){
-        enfrentamientoDAO = new EnfrentamientoDAO();
-        JornadaDAO jornadaDAO = new JornadaDAO();
-        equipoDAO = new EquipoDAO();
-        enfrentamientos = enfrentamientoDAO.getEnfrentamientos();
-        enfrentamientosMitad1 = new ArrayList<>();
-        equipos = new ArrayList<>();
-        jornadas = jornadaDAO.getJornadas();
     }
     private void primeraMitad(){
         for (int p = 0; p < jornadas.size()/2; p++) {

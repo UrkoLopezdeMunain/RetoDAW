@@ -1,10 +1,10 @@
 package ModeloController;
 
-import Modelo.Competicion;
-import Modelo.Enfrentamiento;
+import BaseDatos.BaseDatos;
 import Modelo.Usuario;
 import ModeloDAO.*;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class ModeloController {
@@ -17,24 +17,24 @@ public class ModeloController {
     protected JuegoController juegoController;
     protected JugadorController jugadorController;
     protected RolController rolController;
-    protected UsuarioController usuarioController;
+    private UsuarioController usuarioController;
 
     protected Usuario usuario;
 
     public ModeloController() {
         try {
             //BD
-            //BaseDatos = new BaseDatos();
-
-            //dao
-            CompeticionDAO competicionDAO = new CompeticionDAO();
-            EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO();
-            EquipoDAO equipoDAO = new EquipoDAO();
-            JornadaDAO jornadaDAO = new JornadaDAO();
-            JuegoDAO juegoDAO = new JuegoDAO();
-            JugadorDAO jugadorDAO = new JugadorDAO();
-            RolDAO rolDAO = new RolDAO();
-            UsuarioDAO usuarioDAO = new UsuarioDAO();
+            //Connection c = BaseDatos.abrirCon();
+            Connection c = null;
+            //dao + conexion a BD
+            CompeticionDAO competicionDAO = new CompeticionDAO(c);
+            EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
+            EquipoDAO equipoDAO = new EquipoDAO(c);
+            JornadaDAO jornadaDAO = new JornadaDAO(c);
+            JuegoDAO juegoDAO = new JuegoDAO(c);
+            JugadorDAO jugadorDAO = new JugadorDAO(c);
+            RolDAO rolDAO = new RolDAO(c);
+            UsuarioDAO usuarioDAO = new UsuarioDAO(c);
 
             //Controllers
             competicionController = new CompeticionController(competicionDAO);
@@ -57,5 +57,8 @@ public class ModeloController {
     public boolean validarUsuario(String nombreUsuario) throws SQLException {
         usuario = usuarioController.validarUsuario(nombreUsuario);
         return usuario != null;
+    }
+    public boolean validarPassWord(String passWord){
+        return usuario.getPaswd().equals(passWord);
     }
 }

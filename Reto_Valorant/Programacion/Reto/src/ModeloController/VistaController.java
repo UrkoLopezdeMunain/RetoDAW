@@ -14,13 +14,14 @@ public class VistaController {
     public void setIniciarSesion() {
         IniciarSesion iniciarSesion = new IniciarSesion(this);
         iniciarSesion.setVisible(true);
-        validarDatos(iniciarSesion);
-    }
-    public void validarDatos(IniciarSesion iniciarSesion) {
 
     }
+
     public boolean validarUsuario(String nombreUsuario) throws SQLException {
         return modeloController.validarUsuario(nombreUsuario);
+    }
+    public boolean validarPassWord(String passWord) throws SQLException {
+        return modeloController.validarPassWord(passWord);
     }
 
 

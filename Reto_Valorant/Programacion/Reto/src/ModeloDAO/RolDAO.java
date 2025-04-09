@@ -3,6 +3,7 @@ package ModeloDAO;
 import Modelo.Juego;
 import Modelo.Rol;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -10,8 +11,9 @@ public class RolDAO {
 
     private final Juego juego;
     private static ArrayList<Rol> listaRoles = new ArrayList<>();
-
-    public RolDAO() {
+    protected Connection con;
+    public RolDAO(Connection c) {
+        this.con = c;
         this.juego = new Juego();
     }
 

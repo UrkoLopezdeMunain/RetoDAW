@@ -3,13 +3,16 @@ package ModeloDAO;
 import Modelo.Equipo;
 import Modelo.Jugador;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 
 public class EquipoDAO {
 
     private static ArrayList<Equipo> listaEquipos = new ArrayList<>();
-
-    public EquipoDAO() {}
+    protected Connection con;
+    public EquipoDAO(Connection c) {
+        this.con = c;
+    }
 
     public void crearEquipo(Equipo e) {
         listaEquipos.add(e);

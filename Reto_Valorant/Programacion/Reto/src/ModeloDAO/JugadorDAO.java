@@ -2,14 +2,17 @@ package ModeloDAO;
 
 import Modelo.Jugador;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JugadorDAO {
 
         private static ArrayList<Jugador> jugadores = new ArrayList<>();
-
-        public JugadorDAO() {}
+        protected Connection con;
+        public JugadorDAO(Connection c) {
+            this.con = c;
+        }
 
 
         public void agregar(Jugador jugador) {

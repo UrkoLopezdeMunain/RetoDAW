@@ -36,10 +36,14 @@ public class IniciarSesion extends JFrame{
 
             @Override
             public void focusLost(FocusEvent e) {
-                super.focusLost(e); //aui hara el la petiocion a BD para saber si existe el usuario
+                super.focusLost(e); //aqui hara el la petiocion a BD para saber si existe el usuario
                 try {
                     if (vistaController.validarUsuario(tfUsuario.getText())){
-                        tfPassword.setVisible(false);
+                        tfPassword.setVisible(true);
+                        if (vistaController.validarPassWord(tfPassword.getText())){
+                            PanelUsuario panelUsuario = new PanelUsuario(vistaController);
+                            panelUsuario.setVisible(true);
+                        }
                     }
                 } catch (SQLException ex) { //falta configurar o lanzar a una clase EX propia
                     throw new RuntimeException(ex);

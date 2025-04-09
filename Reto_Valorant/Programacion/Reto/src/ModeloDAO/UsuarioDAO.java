@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsuarioDAO {
-    private final Connection con;
     private String sql;
-//
-    public UsuarioDAO() throws SQLException, ClassNotFoundException {
-        this.con = BaseDatos.abrirCon();
+    protected Connection con;
+
+    public UsuarioDAO(Connection c) {
+        this.con = c;
     }
 
     //crud

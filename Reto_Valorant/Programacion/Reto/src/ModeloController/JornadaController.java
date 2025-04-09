@@ -15,23 +15,13 @@ import java.util.Random;
 
 public class JornadaController {
     private final JornadaDAO jornadaDAO;
-    private final CompeticionDAO competicionDAO;
-    private final CompeticionController competicionController;
-    private final ArrayList<Jornada> jornadas;
-    private final ArrayList<Equipo> equipos;
 
     private static final int[] meses31 = {1,3,5,7,8,10,12};
 
     public JornadaController(JornadaDAO jornadaDAO) {
         this.jornadaDAO = jornadaDAO;
-        competicionDAO = new CompeticionDAO();
-        competicionController = new CompeticionController(competicionDAO);
-        EquipoDAO equipoDAO = new EquipoDAO();
-        competicionDAO.obtenerTodasCompeticiones();
-        jornadas = this.jornadaDAO.getJornadas(); // Asegúrate de inicializar aquí
-        equipos = equipoDAO.obtenerTodosLosEquipos();
     }
-
+/*
     public boolean validarCreacionJornada(){
         boolean resultado = true;
         try {
@@ -51,6 +41,8 @@ public class JornadaController {
         return resultado;
     }
 
+ */
+/*
     private boolean equiposMas2Jugadores(){
         boolean resultado = true;
         for (Equipo equipo : equipos) {
@@ -62,7 +54,9 @@ public class JornadaController {
         }
         return resultado;
     }
-    private void crearJornada(){
+
+ */
+    /*private void crearJornada(){
         for (int i = 0; i < equipos.size(); i++){
             Jornada jornada = new Jornada();
                 jornada.setNumJornada(elegirNumJornada());
@@ -71,6 +65,9 @@ public class JornadaController {
             jornadaDAO.anadirJornada(jornada);
         }
     }
+
+     */
+    /*
     private int elegirNumJornada(){
         int numJornada;
         try {
@@ -127,4 +124,6 @@ public class JornadaController {
         }
         return jornadas.getLast().getFechaInicio().plusDays(diasHastaDomingo).plusDays(randomDia);
     }
+
+     */
 }
