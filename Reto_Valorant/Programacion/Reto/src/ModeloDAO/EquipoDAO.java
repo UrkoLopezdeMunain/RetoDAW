@@ -3,16 +3,13 @@ package ModeloDAO;
 import Modelo.Equipo;
 import Modelo.Jugador;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 
 public class EquipoDAO {
 
     private static ArrayList<Equipo> listaEquipos = new ArrayList<>();
-    protected Connection con;
-    public EquipoDAO(Connection c) {
-        this.con = c;
-    }
+
+    public EquipoDAO() {}
 
     public void crearEquipo(Equipo e) {
         listaEquipos.add(e);
@@ -24,16 +21,20 @@ public class EquipoDAO {
     }
 
     public Equipo obtenerEquipoPorCodigo(int codEquipo) {
-        return new Equipo();
+        return listaEquipos.stream()
+                .filter(e -> e.getCodEquipo() == codEquipo)
+                .findFirst().orElse(null);
     }
     public void actualizarEquipo(Equipo nuevoEquipo) {
-
+        listaEquipos.replaceAll(e -> e.getCodEquipo() == nuevoEquipo.getCodEquipo() ? nuevoEquipo: e);
+            //si e.getCodEquipo == nuevoEquipo.getCodEquipo, sustituimos, si no, dejamos a 'e' igual
     }
-    //hechos asi para que no afecten a nada en especial, queda hacer las SELECT, UPDATE o DELETE
     public boolean eliminarEquipo(int codEquipo) {
-        return false;
+        return listaEquipos.removeIf(e -> e.getCodEquipo() == codEquipo);
+        //quita el equipo en caso de encontrarlo por su codigo
+        //devuelve boolean para confirmar en Controller
     }
-    public boolean anadirJugador(Equipo eq, Jugador j) {
-        return false;
+    public void anadirJugador(Equipo eq, Jugador j) {
+        eq.agregarJugador(j);
     }
 }
