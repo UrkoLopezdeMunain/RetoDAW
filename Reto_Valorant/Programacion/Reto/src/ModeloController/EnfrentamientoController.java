@@ -20,21 +20,28 @@ import java.util.stream.Collectors;
 public class EnfrentamientoController {
     private EquipoDAO equipoDAO;
     private EnfrentamientoDAO enfrentamientoDAO;
-    private ArrayList<Enfrentamiento> enfrentamientos;
-    private ArrayList<Enfrentamiento> enfrentamientosMitad1;
-    private ArrayList<Jornada> jornadas;
-    private ArrayList<Equipo> equipos;
-
-    public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO) {
-    }
+    ArrayList<Enfrentamiento> enfrentamientos;
+    ArrayList<Enfrentamiento> enfrentamientosMitad1;
+    ArrayList<Jornada> jornadas;
+    ArrayList<Equipo> equipos;
 
     public void crearEnfrentamientos() {
+        declararVariables();
         try {
             primeraMitad();
             segundaMitad();
         } catch (IllegalArgumentException e) {
             System.out.println("No se han encontrado equipos. " + e.getMessage());
         }
+    }
+    private void declararVariables(){
+        enfrentamientoDAO = new EnfrentamientoDAO();
+        JornadaDAO jornadaDAO = new JornadaDAO();
+        equipoDAO = new EquipoDAO();
+        enfrentamientos = enfrentamientoDAO.getEnfrentamientos();
+        enfrentamientosMitad1 = new ArrayList<>();
+        equipos = new ArrayList<>();
+        jornadas = jornadaDAO.getJornadas();
     }
     private void primeraMitad(){
         for (int p = 0; p < jornadas.size()/2; p++) {
