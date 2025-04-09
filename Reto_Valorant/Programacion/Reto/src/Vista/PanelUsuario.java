@@ -39,7 +39,7 @@ public class PanelUsuario extends JFrame{
             vistaController.setCrearEquipo(vistaController);
         });
         iConsultarEquipo.addActionListener(e -> {
-            //vistaController.setConsultarEquipo(this);
+            vistaController.setConsultarEquipo(vistaController);
         });
         iActualizarEquipo.addActionListener(e -> {
             //vistaController.setActualizarEquipo(this);

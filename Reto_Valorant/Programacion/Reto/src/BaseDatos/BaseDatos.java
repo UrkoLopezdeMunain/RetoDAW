@@ -1,6 +1,5 @@
 package BaseDatos;
 
-import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,7 +12,7 @@ public class BaseDatos {
         Connection c = null;
         try {
             Class.forName("oracle.jdbc.OracleDriver");
-            String user = "equipoDani";//poner user y contra de la bd de oracle
+            String user = "equipoDani";
             String password = "Jm12345";
             String url ="jdbc:oracle:thin:@ccsatserv.dnsdojo.com:1521/xepdb1";
             c = DriverManager.getConnection(url, user, password);

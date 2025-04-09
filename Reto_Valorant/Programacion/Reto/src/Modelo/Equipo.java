@@ -91,18 +91,15 @@ public class Equipo {
     public void eliminarJugador(Jugador jugador) {
         this.listaJugadores.remove(jugador);
     }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: " + getNombre()+"\n" +
-                "Codigo de equipo: " + getCodEquipo() + "\n" +
-                "Fecha de fundacion: " + getFechaFundacion());
-        if (!listaJugadores.isEmpty()) {
-            for (Jugador jugador : getListaJugadores()) {
-                sb.append("\nNickname: " + jugador.getNickname());
-            }
-        }else
-            sb.append("\nNo hay jugadores");
-        return sb.toString();
+        sb.append("Nombre: ").append(getNombre())
+                .append("\n").append("Codigo de equipo: ").append(getCodEquipo())
+                .append("\n").append("Fecha de fundacion: ").append(getFechaFundacion())
+                .append("\n").append("Puntuacion: ").append(getPuntuacion())
+                .append(getListaJugadores().toString());
+    return sb.toString();
     }
 }

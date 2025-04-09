@@ -1,6 +1,7 @@
 package Vista;
 
 import ModeloController.VistaController;
+import ModeloDAO.JugadorDAO;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -54,7 +55,13 @@ public class CrearEquipo extends JDialog {
     }
 
     private void onOK() throws Exception {
-        vistaController.validarEquipo(tfNombreEquipo.getText(), tfFechaFund.getText());
+        if (vistaController.validarEquipo(tfNombreEquipo.getText())){ //mira que exista ese Equipo en la bd, en caso de no, pasa a la funcion crearEquipo, que lo manda a DAO directamente
+            if (vistaController.crearEquipo(tfNombreEquipo.getText(),tfFechaFund.getText())){
+                JOptionPane.showMessageDialog(pPrincipal, "Equipo creada con exito");
+            }
+        }else {
+            throw new Exception("El equipo ya existe");
+        }
         dispose();
     }
 

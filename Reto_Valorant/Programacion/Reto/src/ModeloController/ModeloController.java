@@ -54,7 +54,9 @@ public class ModeloController {
     public void setVistaController(VistaController vistaController) {
         this.vistaController = vistaController;
     }
-
+    public Equipo getEquipo(){
+        return equipo;
+    }
     public boolean validarUsuario(String nombreUsuario) throws SQLException {
         usuario = usuarioController.validarUsuario(nombreUsuario);
         return usuario != null;
@@ -62,9 +64,17 @@ public class ModeloController {
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
-    public boolean validarEquipo(String nombreEquipo, String fechaFund) throws Exception {
-        //falta meter Patron aqui para el nombre y fecha
-        equipo = equipoController.validarEquipo(nombreEquipo, fechaFund);
-        return equipo!= null;
+
+    public boolean validarEquipo(String nombreEquipo) throws Exception {
+        //falta meter Patron aqui para el nombre del equipo
+        equipo = equipoController.validarEquipo(nombreEquipo);
+        if (equipo != null){
+            equipo.setListaJugadores(jugadorController.obtenerJugadores(String.valueOf(equipo.getCodEquipo())));
+            //para poder aprovechar directamente todos sus atributos lo relleno ya
+        }
+        return equipo != null;
+    }
+    public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
+        return equipoController.crearEquipo(nombre, fechaFund);
     }
 }

@@ -33,15 +33,11 @@ public class EquipoController {
         FECHAFUNDACION = j.getFechaSalida();
     }
 
-    public Equipo validarEquipo(String nombre, String fechaFundacion) throws Exception {
-        return eDAO.validarEquipo(nombre,fechaFundacion);
+    public Equipo validarEquipo(String nombre) throws Exception {
+        return eDAO.validarEquipo(nombre);
     }
     public boolean crearEquipo(String nombre, String fechaFundacion) throws Exception {
-        Equipo equ = new Equipo();
-        equ.setNombre(this.validarNombre(nombre));
-        equ.setFechaFundacion(this.validarFecha(fechaFundacion));
-        //return eDAO.crearEquipo(equ);
-        return false;
+        return eDAO.crearEquipo(nombre,fechaFundacion);
     }
     private String validarNombre(String nombre) throws Exception {
         Pattern p = Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9 _-]{3,15}$"); //15 como mucho como en MER/MR

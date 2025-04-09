@@ -36,6 +36,12 @@ public class Jugador {
         this.rol = rol;
         this.nickname = nickname;
     }
+    public Jugador(int codJugador, String nombre, String apellido, String nacionalidad) {
+        this.codJugador = codJugador;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.nacionalidad = nacionalidad;
+    }
 
     public Jugador() {
     }
@@ -114,12 +120,6 @@ public class Jugador {
 
     @Override
     public String toString(){
-    return  "Nombre: " + getNombre()+"\n" +
-            "Apellido: " + getApellido()+"\n" +
-            "Fecha de nacimiento: " + getFechaNacimiento()+"\n" +
-            "Nickname: " + getNickname()+"\n" +
-            "Nacionalidad: " + getNacionalidad()+"\n" +
-            "Sueldo: " + getSueldo() + "\n" +
-            "Equipo: \n" + getEquipo().toString() + "\n";
+        return nombre + " " + apellido + " " + nacionalidad + " " + fechaNacimiento;
     }
 }
