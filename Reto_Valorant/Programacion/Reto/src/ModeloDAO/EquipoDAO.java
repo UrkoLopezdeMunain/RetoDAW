@@ -18,7 +18,7 @@ public class EquipoDAO {
     }
 
     public boolean crearEquipo(String nombre, String fechaFund) throws SQLException {
-        sql = "INSERT INTO equipo VALUES(?,?)";
+        sql = "INSERT INTO equipos(nombre,fecha_fundacion) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombre);
         ps.setDate(2, validarFecha(fechaFund));
@@ -33,13 +33,13 @@ public class EquipoDAO {
         ps.setString(1, nombreEquipo);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            throw new SQLException("El equipo ya existe");
-        } else {
             return new Equipo(rs.getInt("cod_equipo"),
                     rs.getString("nombre"),
                     rs.getDate("fecha_fundacion").toLocalDate(),
                     rs.getInt("puntuacion")
             );
+        } else {
+            return null;
         }
     }
 

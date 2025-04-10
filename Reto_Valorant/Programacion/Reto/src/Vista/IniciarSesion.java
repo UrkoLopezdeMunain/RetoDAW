@@ -1,8 +1,11 @@
 package Vista;
 
+import ModeloController.JornadaController;
 import ModeloController.VistaController;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
@@ -35,13 +38,16 @@ public class IniciarSesion extends JFrame{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e); //aqui hara el la petiocion a BD para saber si existe el usuario
                 try {
-                    if (vistaController.validarUsuario(tfUsuario.getText())){
+                    //Me gustarria areglar que si el ususario no existe en Bd que directamente salte exception
+                    if (vistaController.validarUsuario(tfUsuario.getText())) {
                         tfPassword.setVisible(true);
-                        if (vistaController.validarPassWord(tfPassword.getText())){
-                            //se puede obtener el tipoUsuario para el contructor de PanelUsuario
-                            PanelUsuario panelUsuario = new PanelUsuario(vistaController);
-                            panelUsuario.setVisible(true);
-                        }
+                        tfPassword.setEditable(true);
+                        tfPassword.requestFocus();
+                        revalidate();
+                        repaint();
+                    }else {
+                        JOptionPane.showMessageDialog(pPricipal,"El usuario no existe en la base de datos");
+                        tfUsuario.setText(""); tfUsuario.requestFocus();
                     }
                 } catch (SQLException ex) { //falta configurar o lanzar a una clase EX propia
                     throw new RuntimeException(ex);
@@ -49,6 +55,23 @@ public class IniciarSesion extends JFrame{
             }
         });
 
+        aceptarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    if (vistaController.validarPassWord(String.valueOf(tfPassword.getPassword()))){
+                        //se puede obtener el tipoUsuario para el contructor de PanelUsuario
+                        dispose();
+                        PanelUsuario panelUsuario = new PanelUsuario(vistaController);
+                        panelUsuario.setVisible(true);
+                    }else {
+                        JOptionPane.showMessageDialog(pPricipal,"El usuario o contraseña no es correcto");
+                    }
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
     }
 
 
