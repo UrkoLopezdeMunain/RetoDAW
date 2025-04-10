@@ -15,7 +15,4 @@ public class CompeticionDAO {
     public boolean anadirCompeticion(Competicion c) {
         return false;
     }
-    public ArrayList<Competicion> obtenerTodasCompeticiones() {
-        return null;
-    }
 }

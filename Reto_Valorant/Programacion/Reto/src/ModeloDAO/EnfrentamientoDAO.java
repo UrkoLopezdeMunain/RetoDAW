@@ -29,10 +29,6 @@ public class EnfrentamientoDAO {
         return null;
     }
 
-    /*
-        No hace falta nada mas por que segun ejercicio:
-            Una vez se cierra periodo de inscripcion de equipos no se puede alterar los enfrentamientos.
-    */
 
 
 }
