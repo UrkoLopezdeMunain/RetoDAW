@@ -19,7 +19,6 @@ public class IniciarSesion extends JFrame{
     public IniciarSesion(VistaController vistaController) {
         setTitle("Iniciar Sesión");
         setContentPane(pPricipal);
-        tfPassword.setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 220);
         setLocationRelativeTo(null);
@@ -40,8 +39,6 @@ public class IniciarSesion extends JFrame{
                 try {
                     //Me gustarria areglar que si el ususario no existe en Bd que directamente salte exception
                     if (vistaController.validarUsuario(tfUsuario.getText())) {
-                        tfPassword.setVisible(true);
-                        tfPassword.setEditable(true);
                         tfPassword.requestFocus();
                         revalidate();
                         repaint();

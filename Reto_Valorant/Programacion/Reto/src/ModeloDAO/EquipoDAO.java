@@ -2,6 +2,7 @@ package ModeloDAO;
 
 import Modelo.Equipo;
 import Modelo.Jugador;
+import Modelo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,13 +18,17 @@ public class EquipoDAO {
         this.con = c;
     }
 
-    public boolean crearEquipo(String nombre, String fechaFund) throws SQLException {
+    public boolean crearEquipo(String nombre,String fechaFund) throws SQLException {
         sql = "INSERT INTO equipos(nombre,fecha_fundacion) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombre);
         ps.setDate(2, validarFecha(fechaFund));
         //antes de llegar a ps.executeUpdate si salta un error entonces devolerá false, en otro caso True
         return ps.executeUpdate() != 0;
+    }
+
+    public java.sql.Date validarFecha(String fechaFund) {
+        return java.sql.Date.valueOf(fechaFund);
     }
 
 
@@ -33,17 +38,9 @@ public class EquipoDAO {
         ps.setString(1, nombreEquipo);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            return new Equipo(rs.getInt("cod_equipo"),
-                    rs.getString("nombre"),
-                    rs.getDate("fecha_fundacion").toLocalDate(),
-                    rs.getInt("puntuacion")
-            );
+            throw new SQLException("El Equipo ya existe");
         } else {
-            return null;
+            return null; //lo que interesa por que es boolean, para que se pase a false
         }
-    }
-
-    public java.sql.Date validarFecha(String fechaFund) {
-        return java.sql.Date.valueOf(fechaFund);
     }
 }

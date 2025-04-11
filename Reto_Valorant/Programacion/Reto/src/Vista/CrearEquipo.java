@@ -6,6 +6,7 @@ import ModeloDAO.JugadorDAO;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.time.LocalDate;
 
 public class CrearEquipo extends JDialog {
     private JPanel pPrincipal;
@@ -24,7 +25,7 @@ public class CrearEquipo extends JDialog {
         this.vistaController = vistaController;
 
         //listeners
-        tfNombreEquipo.addFocusListener(new FocusAdapter() {
+        tfNombreEquipo.addFocusListener(new FocusAdapter(){
             @Override
             public void focusGained(FocusEvent e) {
                 super.focusGained(e);
@@ -35,7 +36,6 @@ public class CrearEquipo extends JDialog {
                 super.focusLost(e);
                 try {
                     if (vistaController.validarEquipo(tfNombreEquipo.getText())){
-                        bAceptar.setEnabled(false);
                         tfNombreEquipo.setText("");
                         throw new Exception("El equipo ya existe");
                     }
@@ -49,7 +49,7 @@ public class CrearEquipo extends JDialog {
                 try {
                     onOK();
                 } catch (Exception ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(pPrincipal,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -77,13 +77,9 @@ public class CrearEquipo extends JDialog {
     }
 
     private void onOK() throws Exception {
-            try {
-                if (vistaController.crearEquipo(tfNombreEquipo.getText(),tfFechaFund.getText())){
-                    JOptionPane.showMessageDialog(pPrincipal, "Equipo creada con exito");
-                }
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
+        if (vistaController.crearEquipo(tfNombreEquipo.getText(),tfFechaFund.getText())){
+            JOptionPane.showMessageDialog(pPrincipal, "Equipo creado con exito");
+        }
         dispose();
     }
 
