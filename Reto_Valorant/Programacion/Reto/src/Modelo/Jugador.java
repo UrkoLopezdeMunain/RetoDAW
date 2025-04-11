@@ -9,7 +9,7 @@ public class Jugador {
     private String apellido;
     private String nacionalidad;
     private LocalDate fechaNacimiento;
-    private int sueldo;
+    private double sueldo;
     private String rol;
     private String nickname;
     private Equipo equipo;
@@ -26,7 +26,7 @@ public class Jugador {
         this.equipo = equipo;
     }
 
-    public Jugador(int codJugador, String nombre, String apellido, String nacionalidad, LocalDate fechaNacimiento, int sueldo, String rol, String nickname) {
+    public Jugador(int codJugador, String nombre, String apellido, String nacionalidad, LocalDate fechaNacimiento, double sueldo, String rol, String nickname) {
         this.codJugador = codJugador;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -94,12 +94,12 @@ public class Jugador {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getSueldo() {
+    public double getSueldo() {
         return sueldo;
     }
 
     public void setSueldo(double sueldo) {
-        sueldo = sueldo;
+        this.sueldo = sueldo;
     }
 
     public String getRol() {
@@ -120,6 +120,6 @@ public class Jugador {
 
     @Override
     public String toString(){
-        return nombre + " " + apellido + " " + nacionalidad + " " + fechaNacimiento;
+        return nombre + " " + apellido + " " + rol + " " + sueldo;
     }
 }

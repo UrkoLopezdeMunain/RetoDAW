@@ -2,9 +2,7 @@ package ModeloController;
 
 import Modelo.Equipo;
 import Modelo.Jugador;
-import Vista.ConsultarEquipo;
-import Vista.CrearEquipo;
-import Vista.IniciarSesion;
+import Vista.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
@@ -12,7 +10,8 @@ import java.sql.SQLException;
 public class VistaController {
     protected ModeloController modeloController;
     private ConsultarEquipo consultarEquipo;
-
+    private ActualizarEquipo actualizarEquipo;
+    private BorrarEquipo borrarEquipo;
     public VistaController(ModeloController modeloController) {
         this.modeloController = modeloController;
         setIniciarSesion();
@@ -25,8 +24,16 @@ public class VistaController {
         consultarEquipo = new ConsultarEquipo(this);
         consultarEquipo.setVisible(true);
     }
+    public void setBorrarEquipo(VistaController vistaController){
+        this.borrarEquipo = new BorrarEquipo(this);
+        borrarEquipo.setVisible(true);
+    }
     public ConsultarEquipo getIniciarSesion() {
         return consultarEquipo;
+    }
+    public void setActualizarEquipo(VistaController vistaController){
+        actualizarEquipo = new ActualizarEquipo(this);
+        actualizarEquipo.setVisible(true);
     }
     public Equipo getEquipo() {
         return modeloController.getEquipo();
@@ -49,6 +56,9 @@ public class VistaController {
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
         return modeloController.crearEquipo(nombre,fechaFund);
     }
+    public boolean borrarEquipo(String nombreEquipo) throws Exception {
+        return modeloController.borrarEquipo(nombreEquipo);
+    }
 
     public void rellenarCamposEquipo(JPanel pPrincipal) {
         //entre otros
@@ -61,11 +71,7 @@ public class VistaController {
         } else {
             StringBuilder jugadores = new StringBuilder();
             for (Jugador j : modeloController.equipo.getListaJugadores()) {
-                jugadores.append(j.getNombre())
-                        .append(" ").append(j.getApellido())
-                        .append(" ").append(j.getNacionalidad())
-                        .append(" ").append(j.getFechaNacimiento().toString())
-                        .append("\n");
+                jugadores.append(j.toString()).append("\n");
                 //pone en columnas los jugadores del objeto equipo devuelto
             }
             consultarEquipo.getTaJugadores().setText(jugadores.toString());
@@ -74,5 +80,13 @@ public class VistaController {
             pPrincipal.revalidate();
             pPrincipal.repaint();
         }
+    }
+    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
+        return modeloController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    }
+    public void rellenarCamposEquipoUpdate(JPanel pPrincipal) {
+        actualizarEquipo.getTfNombreNuevo().setText(modeloController.equipo.getNombre());
+        actualizarEquipo.getTfFechaFundNueva().setText(modeloController.equipo.getFechaFundacion().toString());
+        pPrincipal.revalidate(); pPrincipal.repaint();
     }
 }

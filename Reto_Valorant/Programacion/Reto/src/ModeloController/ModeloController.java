@@ -78,4 +78,10 @@ public class ModeloController {
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
         return equipoController.crearEquipo(nombre, fechaFund);
     }
+    public boolean borrarEquipo(String nombreEquipo) throws Exception {
+        return equipoController.borrarEquipo(nombreEquipo);
+    }
+    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
+        return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    }
 }
