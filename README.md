@@ -5,13 +5,13 @@ Aquí añadiremos todo lo que hay que hacer para el reto
 
 ¿Que hace cada uno?
 
-Urko: Jugador Controller, DAO y diagrama de clases.
+Urko: Diagrama de casos de uso y Test JUnit.
 
-Dani: Validaciones completas y MER.
+Dani: Programacion de las vistas y funcionamiento general del programa Java.
 
-Eathan: Equipo Controller, DAO, Rol controller y dao.
+Eathan: Terminar fase 2, diseño de las vistas y funcionamiento general del programa Java.
 
-Aaron: Enfrentamiento, Jornada, Controller, DAO, resolver errores.
+Aaron: Creacion de tablas, triggers, procedimientos y comrpobaciones de los mismos, así como objetos: indíces y vistas.
 
 TRELLO:
 
