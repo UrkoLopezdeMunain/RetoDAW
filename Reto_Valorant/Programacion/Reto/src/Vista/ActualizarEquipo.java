@@ -11,7 +11,6 @@ public class ActualizarEquipo extends JDialog {
     private JTextField tfPuntuacionNueva;
     private JButton bAceptar;
     private JButton bCancelar;
-    private JLabel lTitulo;
     private JLabel lNombreActual;
     private JLabel lNombreNuevo;
     private JLabel lPuncuacionNueva;

@@ -14,7 +14,6 @@ public class ConsultarJugador extends JDialog {
     private JTextField tfSueldo;
     private JTextField tfRol;
     private JTextField tfEquipo;
-    private JLabel lTitulo;
     private JLabel lNombre;
     private JLabel lApellido;
     private JLabel lNacionalidad;

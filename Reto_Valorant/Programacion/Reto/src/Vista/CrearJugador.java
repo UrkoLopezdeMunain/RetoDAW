@@ -22,7 +22,6 @@ public class CrearJugador extends  JDialog{
     private JLabel lRol;
     private JLabel lEquipo;
     private JPanel pPrincipal;
-    private JLabel lTitulo;
     private VistaController vistaController;
 
     public CrearJugador(VistaController vistaController) {
