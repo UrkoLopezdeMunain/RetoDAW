@@ -1,14 +1,12 @@
 package ModeloDAO;
 
 import Modelo.Equipo;
-import Modelo.Jugador;
-import Modelo.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 public class EquipoDAO {
 
@@ -33,14 +31,34 @@ public class EquipoDAO {
 
 
     public Equipo validarEquipo(String nombreEquipo) throws SQLException {
-        sql = "SELECT * FROM equipos WHERE nombre = ?";
+        sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE lower(nombre) = ?";
+        Equipo equipo = new Equipo();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombreEquipo);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            throw new SQLException("El Equipo ya existe");
+            equipo.setCodEquipo(rs.getInt("cod_equipo"));
+            equipo.setNombre(rs.getString("nombre"));
+            equipo.setFechaFundacion(rs.getDate("fecha_fundacion").toLocalDate());
+            equipo.setPuntuacion(rs.getInt("puntuacion"));
+            return equipo;
         } else {
             return null; //lo que interesa por que es boolean, para que se pase a false
         }
+    }
+    public boolean borrarEquipo(String nombreEquipo) throws SQLException {
+        sql = "DELETE FROM equipos WHERE lower(nombre) = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nombreEquipo);
+        return ps.executeUpdate() != 0;
+        //posiblemente lanzara algun trigger si tiene jugadores
+    }
+
+    public boolean actualizarFechaEquipo(String nombre,String fechaFund) throws SQLException {
+        sql="UPDATE equipos SET fecha_fundacion=? WHERE lower(nombre)=?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nombre);
+        ps.setDate(2, validarFecha(fechaFund));
+        return ps.executeUpdate() != 0;
     }
 }

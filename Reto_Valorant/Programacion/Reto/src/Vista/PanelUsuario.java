@@ -42,10 +42,10 @@ public class PanelUsuario extends JFrame{
             vistaController.setConsultarEquipo(vistaController);
         });
         iActualizarEquipo.addActionListener(e -> {
-            //vistaController.setActualizarEquipo(this);
+            vistaController.setActualizarEquipo(vistaController);
         });
         iBorrarEquipo.addActionListener(e -> {
-            //vistaController.setBorrarEquipo(this);
+            vistaController.setBorrarEquipo(vistaController);
         });
         iCrearJugador.addActionListener(e -> {
             //vistaController.setCrearJugador(this);

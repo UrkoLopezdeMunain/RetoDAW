@@ -15,7 +15,7 @@ public class JugadorController {
         this.jugadorDAO = jugadorDAO;
     }
 
-    public ArrayList<Jugador> obtenerJugadores(String codEquipo) throws SQLException {
+    public ArrayList<Jugador> obtenerJugadores(int codEquipo) throws SQLException {
         return jugadorDAO.obtenerPorEquipo(codEquipo);
     }
 
