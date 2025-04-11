@@ -1,3 +1,5 @@
+drop view vis_equ_info;
+drop view vis_equ_jug;
 drop table jugadores;
 drop table enfrentamientos;
 drop table jornadas;
@@ -5,6 +7,7 @@ drop table competiciones;
 drop table equipos;
 drop table usuarios;
 drop table juegos;
+
 
 create table juegos(
     cod_juego number(2) generated always as identity,
@@ -30,7 +33,7 @@ values(default,'admin','Jm12345','a');
 
 create table equipos(
     cod_equipo number(2) generated always as identity,
-    nombre varchar2(15) not null,
+    nombre varchar2(15) not null unique,
     fecha_fundacion date,
     puntuacion number(2) default 0,
     constraint equ_cod_pk primary key(cod_equipo)
@@ -98,7 +101,15 @@ create or replace view vis_equ_jug as
         left join jugadores j
         on e.cod_equipo = j.cod_equipo
         group by e.cod_equipo;
-        
+   
+create or replace view vis_equ_info as
+    select e.nombre, e.fecha_fundacion, count(j.cod_jugador) as cantidad_jugadores,
+        max(j.sueldo) as salario_maximo, min(j.sueldo) as salario_minimo,
+        avg(j.sueldo) as salario_medio
+        from equipos e
+        left join jugadores j
+        on e.cod_equipo = j.cod_equipo
+        group by e.nombre, e.fecha_fundacion,e.cod_equipo;
 
 --Trigger para comprobar si tiene edad correcta
 
@@ -199,7 +210,34 @@ for each row
             raise_application_error(-20003,e_mensaje);
 end tr_equi_fecha_fund;
 
-create or replace trigger tr_empezar_competicion
+/*
+Trigger para comprobar que máximo son 6 jugadores en el equipo al que se
+quiere añadir la persona
+*/
+
+create or replace trigger tr_max_6_jugadores
+before insert or update of cod_equipo on jugadores
+for each row
+declare
+    v_cantidad_jugadores number;
+    
+    e_demasiados_jugadores exception;
+begin
+    select count(*) into v_cantidad_jugadores
+    from jugadores
+    where cod_equipo = :new.cod_equipo;
+    
+    if v_cantidad_jugadores = 6 then
+        raise e_demasiados_jugadores;
+    end if;
+exception
+    when e_demasiados_jugadores then
+        raise_application_error(-20004,'Ya hay 6 jugadores en el equipo '
+        || 'no puede añadir mas jugadores.');
+end tr_max_6_jugadores;
+
+--Trigger para comprobar si la competicion puede comenzar
+create or replace trigger tr_empezar_competicion2
 before update of estado on competiciones
 declare
     cantidad_equipos number;
@@ -209,6 +247,7 @@ declare
     cursor c_cantidad_jugadores is
         select *
         from vis_equ_jug;
+        
     p_cantidad_jugadores vis_equ_jug%rowtype;
             
     e_no_hay_equipos exception;
@@ -258,4 +297,4 @@ exception
         raise_application_error(-20098,'Los equipos no pueden ser impares');
     when e_no_hay_equipos then
         raise_application_error(-20098,'No se ha encontrado ningun equipo');
-end tr_empezar_competicion;
+end tr_empezar_competicion2;

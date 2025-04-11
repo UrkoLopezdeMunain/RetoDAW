@@ -35,3 +35,20 @@ begin
         dbms_output.put_line('La competicion no se ha podido cerrar');
     end if;
 end;
+
+declare
+    c_cursor sys_refcursor;
+    c_leer vis_equ_info%rowtype;
+begin
+    pr_conseguir_info_equipos(c_cursor);
+    
+    fetch c_cursor into c_leer;
+    
+    while c_cursor%found loop
+        dbms_output.put_line(c_leer.nombre || c_leer.fecha_fundacion ||
+        ',' || c_leer.cantidad_jugadores || ',' ||  c_leer.salario_maximo || 
+        ',' || c_leer.salario_minimo || ',' || c_leer.salario_medio);
+        
+        fetch c_cursor into c_leer;
+    end loop;
+end;

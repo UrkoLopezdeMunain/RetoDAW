@@ -24,7 +24,7 @@ public class PanelUsuario extends JFrame{
         setContentPane(pPrincipal);
         bEmpezarComp.setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 220);
+        setSize(600, 550);
         setLocationRelativeTo(null);
         setResizable(false); //para que sea de posicion y tamaño fijo
 

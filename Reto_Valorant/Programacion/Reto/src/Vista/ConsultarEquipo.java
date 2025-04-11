@@ -17,7 +17,7 @@ public class ConsultarEquipo extends JDialog {
     public ConsultarEquipo(VistaController vistaController) {
         setContentPane(pPrincipal);
         setModal(true);
-        setSize(450,550);
+        setSize(400,450);
         getRootPane().setDefaultButton(bAtras);
         setLocationRelativeTo(pPrincipal.getRootPane());
         setResizable(false); //para que sea de posicion y tamaño fijo
