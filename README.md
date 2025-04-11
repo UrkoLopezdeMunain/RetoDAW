@@ -3,7 +3,7 @@ Este es el github para hacer el reto de competiciones
 
 Aquí añadiremos todo lo que hay que hacer para el reto
 
-¿Que hace cada uno?
+¿Qué hace cada uno?
 
 Urko: Diagrama de casos de uso y Test JUnit.
 
