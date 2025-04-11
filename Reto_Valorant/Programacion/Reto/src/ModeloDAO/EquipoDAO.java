@@ -33,12 +33,17 @@ public class EquipoDAO {
 
 
     public Equipo validarEquipo(String nombreEquipo) throws SQLException {
-        sql = "SELECT * FROM equipos WHERE nombre = ?";
+        sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE nombre = ?";
+        Equipo equipo = new Equipo();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombreEquipo);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            throw new SQLException("El Equipo ya existe");
+            equipo.setCodEquipo(rs.getInt("cod_equipo"));
+            equipo.setNombre(rs.getString("nombre"));
+            equipo.setFechaFundacion(rs.getDate("fecha_fundacion").toLocalDate());
+            equipo.setPuntuacion(rs.getInt("puntuacion"));
+            return equipo;
         } else {
             return null; //lo que interesa por que es boolean, para que se pase a false
         }

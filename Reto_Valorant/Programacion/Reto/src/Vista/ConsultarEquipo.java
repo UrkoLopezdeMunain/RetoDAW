@@ -62,7 +62,7 @@ public class ConsultarEquipo extends JDialog {
                         //rellenar los demas campo
                         vistaController.rellenarCamposEquipo(pPrincipal);
                     }else {
-                        JOptionPane.showMessageDialog(null, "El nombre del equipo no existe");
+                        JOptionPane.showMessageDialog(pPrincipal, "El nombre del equipo no existe");
                     }
                 } catch (Exception ex) {
                     throw new RuntimeException(ex);

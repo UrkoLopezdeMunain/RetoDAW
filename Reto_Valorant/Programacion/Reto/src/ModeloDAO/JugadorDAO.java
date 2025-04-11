@@ -44,7 +44,7 @@ public class JugadorDAO {
 
 
         public ArrayList<Jugador> obtenerPorEquipo(String codEquipo) throws SQLException {
-            sql = "SELECT cod_jugador,nombre,apellido,nacionalidad FROM jugadores WHERE codEquipo = ?";
+            sql = "SELECT cod_jugador,nombre,apellido,nacionalidad FROM jugadores WHERE cod_equipo = ?";
             ArrayList<Jugador> jugadores = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, codEquipo);
