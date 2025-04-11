@@ -26,7 +26,7 @@ public class EnfrentamientoController {
     private ArrayList<Equipo> equipos;
 
     public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO) {
-    }
+    }/*
 
     public void crearEnfrentamientos() {
         try {
@@ -36,6 +36,7 @@ public class EnfrentamientoController {
             System.out.println("No se han encontrado equipos. " + e.getMessage());
         }
     }
+
     private void primeraMitad(){
         for (int p = 0; p < jornadas.size()/2; p++) {
             equipos = equipoDAO.obtenerTodosLosEquipos();
@@ -265,4 +266,5 @@ public class EnfrentamientoController {
         else
             enfrentamiento.getEquipo2().setPuntuacion(enfrentamiento.getEquipo2().getPuntuacion()+1);
     }
+    */
 }

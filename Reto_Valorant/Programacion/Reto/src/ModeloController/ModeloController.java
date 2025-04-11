@@ -68,6 +68,7 @@ public class ModeloController {
     public boolean validarEquipo(String nombreEquipo) throws Exception {
         //falta meter Patron aqui para el nombre del equipo
         equipo = equipoController.validarEquipo(nombreEquipo);
+
         if (equipo != null){
             equipo.setListaJugadores(jugadorController.obtenerJugadores(String.valueOf(equipo.getCodEquipo())));
             //para poder aprovechar directamente todos sus atributos lo relleno ya
