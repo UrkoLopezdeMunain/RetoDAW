@@ -70,7 +70,7 @@ public class ModeloController {
         equipo = equipoController.validarEquipo(nombreEquipo);
 
         if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(String.valueOf(equipo.getCodEquipo())));
+            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo.getCodEquipo()));
             //para poder aprovechar directamente todos sus atributos lo relleno ya
         }
         return equipo != null;

@@ -18,7 +18,7 @@ public class UsuarioDAO {
 
     //crud
     public Usuario validarUsuario(String nombreUsuario) throws SQLException {
-        sql="SELECT * FROM usuarios WHERE nombre = ?";
+        sql="SELECT * FROM usuarios WHERE lower(nombre) = ?";
         Usuario usuario = new Usuario();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombreUsuario);

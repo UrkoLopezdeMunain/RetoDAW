@@ -33,7 +33,7 @@ public class EquipoDAO {
 
 
     public Equipo validarEquipo(String nombreEquipo) throws SQLException {
-        sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE nombre = ?";
+        sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE lower(nombre) = ?";
         Equipo equipo = new Equipo();
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombreEquipo);

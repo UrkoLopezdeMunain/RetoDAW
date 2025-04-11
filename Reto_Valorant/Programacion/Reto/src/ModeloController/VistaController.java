@@ -43,34 +43,36 @@ public class VistaController {
         crearEquipo.setVisible(true);
     }
     public boolean validarEquipo(String nombreEquipo) throws Exception {
-        //falta meter Patron aqui para el nombre y fecha
-        return modeloController.validarEquipo(nombreEquipo);
+        //Hecho con toLowerCase para consultas y transacciones con BD
+        return modeloController.validarEquipo(nombreEquipo.toLowerCase());
     }
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
         return modeloController.crearEquipo(nombre,fechaFund);
     }
 
-    public void rellenarCamposEquipo(JPanel pPrincipal){
-        pPrincipal.removeAll();
-         //entre otros
-        consultarEquipo.getTfNombreEquipo().setText(modeloController.equipo.getNombre()+"-"+String.valueOf(modeloController.equipo.getCodEquipo()));
+    public void rellenarCamposEquipo(JPanel pPrincipal) {
+        //entre otros
+        consultarEquipo.getTfNombreEquipo().setText(modeloController.equipo.getNombre());
+        consultarEquipo.getTfCodEquipo().setText(String.valueOf(modeloController.equipo.getCodEquipo()));
         consultarEquipo.getTfFechaFundacion().setText(modeloController.equipo.getFechaFundacion().toString());
         consultarEquipo.getTfPuntuacionTotal().setText(String.valueOf(modeloController.equipo.getPuntuacion()));
+        if (modeloController.equipo.getListaJugadores().isEmpty()) {
+            consultarEquipo.getTaJugadores().setText("No tiene ningun jugador");
+        } else {
+            StringBuilder jugadores = new StringBuilder();
+            for (Jugador j : modeloController.equipo.getListaJugadores()) {
+                jugadores.append(j.getNombre())
+                        .append(" ").append(j.getApellido())
+                        .append(" ").append(j.getNacionalidad())
+                        .append(" ").append(j.getFechaNacimiento().toString())
+                        .append("\n");
+                //pone en columnas los jugadores del objeto equipo devuelto
+            }
+            consultarEquipo.getTaJugadores().setText(jugadores.toString());
+            //los visualiza en el textArea
 
-        StringBuilder jugadores = new StringBuilder();
-        for (Jugador j: modeloController.equipo.getListaJugadores()){
-            jugadores.append(j.getNombre())
-                    .append(" ").append(j.getApellido())
-                    .append(" ").append(j.getNacionalidad())
-                    .append(" ").append(j.getFechaNacimiento().toString())
-                    .append("\n");
-            //pone en columnas los jugadores del objeto equipo devuelto
+            pPrincipal.revalidate();
+            pPrincipal.repaint();
         }
-        consultarEquipo.getTaJugadores().setText(jugadores.toString());
-        //los visualiza en el textArea
-
-        pPrincipal.revalidate();
-        pPrincipal.repaint();
     }
-
 }
