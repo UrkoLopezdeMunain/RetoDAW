@@ -37,8 +37,7 @@ public class IniciarSesion extends JFrame{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e); //aqui hara el la petiocion a BD para saber si existe el usuario
                 try {
-                    //Me gustarria areglar que si el ususario no existe en Bd que directamente salte exception
-                    if (vistaController.validarUsuario(tfUsuario.getText())) {
+                    if (vistaController.validarUsuario(tfUsuario.getText().toLowerCase())) {
                         tfPassword.requestFocus();
                         revalidate();
                         repaint();

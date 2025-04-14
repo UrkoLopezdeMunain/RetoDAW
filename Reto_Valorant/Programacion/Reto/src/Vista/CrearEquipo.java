@@ -40,7 +40,7 @@ public class CrearEquipo extends JDialog {
                         throw new Exception("El equipo ya existe");
                     }
                 } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(pPrincipal,ex);
+                    JOptionPane.showMessageDialog(pPrincipal,ex.getMessage());
                 }
             }
         });

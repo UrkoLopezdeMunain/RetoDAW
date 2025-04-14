@@ -64,12 +64,18 @@ public class ModeloController {
         equipo = equipoController.validarEquipo(nombreEquipo);
 
         if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(String.valueOf(equipo.getCodEquipo())));
+            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo.getCodEquipo()));
             //para poder aprovechar directamente todos sus atributos lo relleno ya
         }
         return equipo != null;
     }
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
         return equipoController.crearEquipo(nombre, fechaFund);
+    }
+    public boolean borrarEquipo(String nombreEquipo) throws Exception {
+        return equipoController.borrarEquipo(nombreEquipo);
+    }
+    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
+        return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
     }
 }

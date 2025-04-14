@@ -43,11 +43,11 @@ public class JugadorDAO {
         }
 
 
-        public ArrayList<Jugador> obtenerPorEquipo(String codEquipo) throws SQLException {
-            sql = "SELECT cod_jugador,nombre,apellido,nacionalidad FROM jugadores WHERE codEquipo = ?";
+        public ArrayList<Jugador> obtenerPorEquipo(int codEquipo) throws SQLException {
+            sql = "SELECT cod_jugador,nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol FROM jugadores WHERE cod_equipo = ?";
             ArrayList<Jugador> jugadores = new ArrayList<>();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, codEquipo);
+            ps.setString(1, String.valueOf(codEquipo));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Jugador j = new Jugador();
@@ -55,6 +55,10 @@ public class JugadorDAO {
                 j.setNombre(rs.getString("nombre"));
                 j.setApellido(rs.getString("apellido"));
                 j.setNacionalidad(rs.getString("nacionalidad"));
+                j.setFechaNacimiento(rs.getDate("fecha_nac").toLocalDate());
+                j.setSueldo(rs.getDouble("sueldo"));
+                j.setNickname(rs.getString("nickname"));
+                j.setRol(rs.getString("rol"));
                 jugadores.add(j);
             }
             return jugadores;

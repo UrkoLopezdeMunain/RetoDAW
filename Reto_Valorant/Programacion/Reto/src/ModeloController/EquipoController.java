@@ -13,8 +13,7 @@ import java.util.regex.Pattern;
 
 public class EquipoController {
 
-    private EquipoDAO eDAO;
-    private LocalDate FECHAFUNDACION;
+    private final EquipoDAO eDAO;
     //fecha fundacion hay que meterla en Juego
 
     public EquipoController(EquipoDAO eDAO) {
@@ -22,13 +21,15 @@ public class EquipoController {
     }
 
     public void definirFechaFundacion(Juego j) {
-        FECHAFUNDACION = j.getFechaSalida();
+        LocalDate FECHAFUNDACION = j.getFechaSalida();
     }
 
     /**Pasa por este metodo validando el nombre y devolviendo el String a validarEquipo()*/
     public Equipo validarEquipo(String nombre) throws Exception {
         return eDAO.validarEquipo(nombre);
-
+    }
+    public boolean borrarEquipo(String nombreEquipo) throws Exception {
+        return eDAO.borrarEquipo(nombreEquipo);
     }
 
     /**
@@ -37,7 +38,9 @@ public class EquipoController {
      * */
     public boolean crearEquipo(String nombre, String fechaFundacion) throws Exception {
         return eDAO.crearEquipo(validarNombre(nombre),validarFecha(fechaFundacion));
-
+    }
+    public boolean actualizarEquipoFecha(String nombre, String fechaFundacion) throws Exception {
+        return eDAO.actualizarFechaEquipo(validarFecha(nombre),validarFecha(fechaFundacion));
     }
     public String validarNombre(String nombre) throws Exception {
         Pattern p = Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9 _-]{3,15}$"); //15 como mucho como en MER/MR
