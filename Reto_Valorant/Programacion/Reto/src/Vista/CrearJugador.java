@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class CrearJugador extends  JDialog{
     private JTextField tfNombreJugador;
@@ -150,17 +151,16 @@ public class CrearJugador extends  JDialog{
     }
 
     private void nacionalidades(){
-        for (Country c : Country.values()) {
-            cbPaises.addItem(c.getName());
-        }
+        //cbPaises.addItem(Country.values()); ¿? porbar
+        for (Country c : Country.values()) cbPaises.addItem(c.getName());
     }
     private void equiposDisp() throws SQLException {
-        for (Equipo eq : vistaController.getEquipos()){
-            cbEquiposDisp.addItem(eq.getNombre());
-        }
+        for (Equipo eq : vistaController.getEquipos()) cbEquiposDisp.addItem(eq.getNombre());
     }
+
     private String obtenerCod3() throws SQLException {
-        return String.valueOf(Country.valueOf(cbPaises.getSelectedItem().toString()));
+        Country seleccion = (Country) cbEquiposDisp.getSelectedItem();
+        return Objects.requireNonNull(seleccion).getThreeDigitsCode();
     }
 }
 
