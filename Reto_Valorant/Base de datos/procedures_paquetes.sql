@@ -19,3 +19,24 @@ exception
     when no_datos then
         raise_application_error(-20098,'No se ha encontrado ningun equipo');
 end pr_conseguir_info_equipos;
+
+create or replace procedure pr_conseguir_info_jugadores 
+(v_nom_equipo in equipos.nombre%type, c_cursor out sys_refcursor)
+as
+    v_existe varchar(1) := 'n';
+begin
+    select 's' into v_existe
+    from equipos
+    where lower(nombre) = lower(v_nom_equipo);
+
+    open c_cursor for
+        select j.nombre, j.apellido, j.rol, j.sueldo
+        from jugadores j
+        right join equipos e
+        on e.cod_equipo = j.cod_equipo
+        where lower(e.nombre) = lower('gma');
+exception
+    when no_data_found then
+        raise_application_error(-20098,'No se ha encontrado el equipo '
+        || v_nom_equipo);
+end pr_conseguir_info_jugadores;
