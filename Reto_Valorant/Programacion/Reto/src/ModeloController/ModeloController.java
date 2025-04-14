@@ -7,6 +7,7 @@ import ModeloDAO.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ModeloController {
     protected VistaController vistaController;
@@ -17,7 +18,6 @@ public class ModeloController {
     protected JornadaController jornadaController;
     protected JuegoController juegoController;
     protected JugadorController jugadorController;
-    protected RolController rolController;
     private UsuarioController usuarioController;
 
     protected Usuario usuario;
@@ -34,7 +34,6 @@ public class ModeloController {
             JornadaDAO jornadaDAO = new JornadaDAO(c);
             JuegoDAO juegoDAO = new JuegoDAO(c);
             JugadorDAO jugadorDAO = new JugadorDAO(c);
-            RolDAO rolDAO = new RolDAO(c);
             UsuarioDAO usuarioDAO = new UsuarioDAO(c);
 
             //Controllers
@@ -44,7 +43,6 @@ public class ModeloController {
             jornadaController = new JornadaController(jornadaDAO);
             juegoController = new JuegoController(juegoDAO);
             jugadorController= new JugadorController(jugadorDAO);
-            rolController = new RolController(rolDAO);
             usuarioController = new UsuarioController(usuarioDAO);
         }catch (Exception e) {
             System.out.println("ERROR EN MODELO CONTROLLER "+e.getMessage());
@@ -83,5 +81,12 @@ public class ModeloController {
     }
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
         return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    }
+    public List<Equipo> getEquipos() throws SQLException {
+        return equipoController.getEquipos();
+    }
+
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String nickName, Object nombreEquipo) throws SQLException {
+        return jugadorController.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,nickName,nombreEquipo);
     }
 }

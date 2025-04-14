@@ -6,11 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EquipoDAO {
 
     protected Connection con;
     protected String sql;
+
     public EquipoDAO(Connection c) {
         this.con = c;
     }
@@ -23,11 +26,6 @@ public class EquipoDAO {
         //antes de llegar a ps.executeUpdate si salta un error entonces devolerá false, en otro caso True
         return ps.executeUpdate() != 0;
     }
-
-    public java.sql.Date validarFecha(String fechaFund) {
-        return java.sql.Date.valueOf(fechaFund);
-    }
-
 
     public Equipo validarEquipo(String nombreEquipo) throws SQLException {
         sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE lower(nombre) = ?";
@@ -59,5 +57,25 @@ public class EquipoDAO {
         ps.setString(1, nombre);
         ps.setDate(2, validarFecha(fechaFund));
         return ps.executeUpdate() != 0;
+    }
+
+    public List<Equipo> getEquipos() throws SQLException {
+        sql="SELECT * FROM equipos";
+        List<Equipo> equipos = new ArrayList<Equipo>();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Equipo equipo = new Equipo();
+            equipo.setCodEquipo(rs.getInt("cod_equipo"));
+            equipo.setNombre(rs.getString("nombre"));
+            equipo.setFechaFundacion(rs.getDate("fecha_fundacion").toLocalDate());
+            equipo.setPuntuacion(rs.getInt("puntuacion"));
+            equipos.add(equipo);
+        }
+        return equipos;
+    }
+
+    public java.sql.Date validarFecha(String fechaFund) {
+        return java.sql.Date.valueOf(fechaFund);
     }
 }

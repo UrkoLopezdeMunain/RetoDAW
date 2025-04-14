@@ -7,6 +7,7 @@ import Modelo.Juego;
 import Modelo.Jugador;
 import ModeloDAO.EquipoDAO;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,7 +19,9 @@ import javax.swing.JOptionPane;
 
 public class EquipoController {
 
-    private final EquipoDAO eDAO;
+    private EquipoDAO eDAO;
+    private LocalDate FECHAFUNDACION;
+    private List<Equipo> equipos;
     //fecha fundacion hay que meterla en Juego
 
     public EquipoController(EquipoDAO eDAO) {
@@ -26,7 +29,11 @@ public class EquipoController {
     }
 
     public void definirFechaFundacion(Juego j) {
-        LocalDate FECHAFUNDACION = j.getFechaSalida();
+        FECHAFUNDACION = j.getFechaSalida();
+    }
+    public List<Equipo> getEquipos() throws SQLException {
+        equipos = eDAO.getEquipos();
+        return equipos;
     }
 
     /**Pasa por este metodo validando el nombre y devolviendo el String a validarEquipo()*/
