@@ -7,9 +7,11 @@ import ModeloDAO.EquipoDAO;
 import ModeloDAO.JornadaDAO;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Random;
 
@@ -21,63 +23,16 @@ public class JornadaController {
     public JornadaController(JornadaDAO jornadaDAO) {
         this.jornadaDAO = jornadaDAO;
     }
-/*
-    public boolean validarCreacionJornada(){
-        boolean resultado = true;
-        try {
-            if (equipos.size() % 2 == 0 && equiposMas2Jugadores()) {
-                crearJornada();
-                competicionController.actualizarCompeticion(jornadas.getLast().getCompeticion());
-                resultado = false;
-            } else {
-                JOptionPane.showMessageDialog(null, "La cantidad de equipos no es par");
-            }
-        }catch (NoSuchElementException e){
-            JOptionPane.showMessageDialog(null, "¡No puedes continuar porque no hay ningun equipo!",
-                    "No hay juegos", JOptionPane.WARNING_MESSAGE);
-        }catch (NullPointerException e){
-            System.out.println("No existe ningun equipo.");
-        }
-        return resultado;
-    }
 
- */
-/*
-    private boolean equiposMas2Jugadores(){
-        boolean resultado = true;
-        for (Equipo equipo : equipos) {
-            if (equipo.getListaJugadores().size() < 2){
-                JOptionPane.showMessageDialog(null, "El equipo " + equipo.getNombre() + " tiene que tener al menos 2 jugadores para continuar");
-                resultado = false;
-                break;
-            }
-        }
-        return resultado;
-    }
-
- */
-    /*private void crearJornada(){
+    private void crearJornada(ArrayList<Equipo> equipos) throws SQLException{
         for (int i = 0; i < equipos.size(); i++){
             Jornada jornada = new Jornada();
-                jornada.setNumJornada(elegirNumJornada());
                 jornada.setFechaInicio(elegirFecha());
-                jornada.setCompeticion(competicionDAO.obtenerTodasCompeticiones().getLast());
+                //jornada.setCompeticion(competicionDAO.obtenerTodasCompeticiones().getLast());
             jornadaDAO.anadirJornada(jornada);
         }
     }
-
-     */
-    /*
-    private int elegirNumJornada(){
-        int numJornada;
-        try {
-            numJornada = jornadas.getLast().getNumJornada()+1;
-        }catch (NullPointerException | NoSuchElementException e){
-            numJornada = 1;
-        }
-        return numJornada;
-    }
-    private LocalDate elegirFecha(){
+    private LocalDate elegirFecha() throws SQLException{
         int mes;
         int dia;
         int year;
@@ -112,18 +67,16 @@ public class JornadaController {
         }
         return randomDia;
     }
-    private LocalDate elegirDia(){
+    private LocalDate elegirDia() throws SQLException {
         Random random = new Random();
         int randomDia;
         randomDia = random.nextInt(7);
-        DayOfWeek diaJornada = jornadas.getLast().getFechaInicio().getDayOfWeek();
+        DayOfWeek diaJornada = jornadaDAO.getJornadas().getLast().getFechaInicio().getDayOfWeek();
         int diasHastaDomingo = DayOfWeek.SUNDAY.getValue() - diaJornada.getValue();
         // Si el día actual no es domingo, suma los días necesarios
         if (diasHastaDomingo < 0) {
             diasHastaDomingo += 7;
         }
-        return jornadas.getLast().getFechaInicio().plusDays(diasHastaDomingo).plusDays(randomDia);
+        return jornadaDAO.getJornadas().getLast().getFechaInicio().plusDays(diasHastaDomingo).plusDays(randomDia);
     }
-
-     */
 }

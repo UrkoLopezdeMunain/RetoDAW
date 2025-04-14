@@ -2,8 +2,8 @@ set serveroutput on;
 
 select * from equipos;
 
-insert into equipos values(default, 'GMA', to_date('18-02-2022','DD-MM-YYYY'),default);
-insert into equipos values(default, 'PaT', to_date('18-02-2022','DD-MM-YYYY'),default);
+insert into equipos values(default, 'gma', to_date('18-02-2022','DD-MM-YYYY'),default);
+insert into equipos values(default, 'pat', to_date('18-02-2022','DD-MM-YYYY'),default);
 insert into equipos values(default, 'JUU', to_date('18-02-2022','DD-MM-YYYY'),default);
 insert into equipos values(default, 'LIK', to_date('18-02-2022','DD-MM-YYYY'),default);
 
@@ -11,10 +11,10 @@ insert into jugadores values(default,'Pepe','Perez','ESP',
 to_date('18-02-2002','DD-MM-YYYY'),2000,'habsf','Centinela',3);
 insert into jugadores values(default,'Pepe','Perez','ESP',
 to_date('18-02-2002','DD-MM-YYYY'),2000,'wdsadf','Duelista',3);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'afw4','Centinela',1);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'ff32','Duelista',1);
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'afw4','centinela',1);
+insert into jugadores values(default,'popo','poroz','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'ff32','duelista',1);
 insert into jugadores values(default,'Pepe','Perez','ESP',
 to_date('18-02-2002','DD-MM-YYYY'),2000,'g53','Centinela',2);
 insert into jugadores values(default,'Pepe','Perez','ESP',
@@ -49,6 +49,28 @@ begin
         ',' || c_leer.cantidad_jugadores || ',' ||  c_leer.salario_maximo || 
         ',' || c_leer.salario_minimo || ',' || c_leer.salario_medio);
         
+        fetch c_cursor into c_leer;
+    end loop;
+end;
+
+declare
+    c_cursor sys_refcursor;
+    TYPE jugadores_datos IS RECORD
+        (
+        nombre jugadores.nombre%TYPE,
+        apellido jugadores.apellido%TYPE,
+        rol jugadores.rol%TYPE,
+        sueldo jugadores.sueldo%TYPE
+        );
+    c_leer jugadores_datos;
+begin
+    pr_conseguir_info_jugadores('puta',c_cursor);
+    
+    fetch c_cursor into c_leer;
+    
+    while c_cursor%found loop
+        dbms_output.put_line(c_leer.nombre || c_leer.apellido ||
+        ',' || c_leer.rol || ',' ||  c_leer.sueldo);
         fetch c_cursor into c_leer;
     end loop;
 end;
