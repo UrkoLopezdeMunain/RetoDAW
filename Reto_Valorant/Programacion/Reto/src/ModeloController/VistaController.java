@@ -94,7 +94,7 @@ public class VistaController {
     }
 
     public boolean validarNomYAp(String nombreJugador) {
-        final Pattern pattern = Pattern.compile("^[a-z ]{20}+$");
+        final Pattern pattern = Pattern.compile("^[a-z ]{2,20}+$");
         final Matcher matcher = pattern.matcher(nombreJugador);
         return matcher.matches();
     }
@@ -114,7 +114,7 @@ public class VistaController {
         pPrincipal.revalidate(); pPrincipal.repaint();
     }
 
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String suedlo, String nickName, Object nombreEquipo) throws SQLException {
-        return modeloController.crearJugador(nombre,apellido,nacionalidad,fechaNac,suedlo,nickName,nombreEquipo);
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, int codEquipo) throws SQLException {
+        return modeloController.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,codEquipo);
     }
 }

@@ -1,6 +1,7 @@
 package Vista;
 
 import Modelo.Equipo;
+import ModeloController.JornadaController;
 import ModeloController.VistaController;
 import Nacionalidades.Country;
 
@@ -8,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class CrearJugador extends  JDialog{
@@ -39,6 +41,7 @@ public class CrearJugador extends  JDialog{
         this.vistaController = vistaController;
         nacionalidades();
         equiposDisp();
+
         setContentPane(pPrincipal);
         setModal(true);
         setSize(450,550);
@@ -55,8 +58,9 @@ public class CrearJugador extends  JDialog{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
                 try {
-                    if (vistaController.validarNomYAp(tfNombreJugador.getText())) {
+                    if (!vistaController.validarNomYAp(tfNombreJugador.getText())) {
                         tfNombreJugador.requestFocus();
+                        JOptionPane.showMessageDialog(pPrincipal,"El campo debe seguir un formato correcto(2 letras como minimo 20max.");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -74,8 +78,9 @@ public class CrearJugador extends  JDialog{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
                 try {
-                    if (vistaController.validarNomYAp(tfApellidoJugador.getText())) {
+                    if (!vistaController.validarNomYAp(tfApellidoJugador.getText())) {
                         tfApellidoJugador.requestFocus();
+                        JOptionPane.showMessageDialog(pPrincipal,"El campo debe seguir un formato correcto(2 letras como minimo 20max.");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -95,6 +100,7 @@ public class CrearJugador extends  JDialog{
                 try {
                     if (vistaController.validarFechaNac(tfFechaNaci.getText())) {
                         tfFechaNaci.requestFocus();
+                        JOptionPane.showMessageDialog(pPrincipal,"La el jugador debe tener entre 16 y 65 años");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -113,6 +119,7 @@ public class CrearJugador extends  JDialog{
                 try {
                     if (!vistaController.validarSueldo(tfSueldo.getText())) {
                         tfSueldo.requestFocus();
+                        JOptionPane.showMessageDialog(pPrincipal,"El sueldo del jugador debe ser como minimo 1184€.");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -131,6 +138,7 @@ public class CrearJugador extends  JDialog{
                 try {
                     if (!vistaController.validarNik(tfSueldo.getText())) {
                         tfNickName.requestFocus();
+                        JOptionPane.showMessageDialog(pPrincipal,"NickName no soportado");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -140,10 +148,15 @@ public class CrearJugador extends  JDialog{
 
         bAceptar.addActionListener(e -> {
             try {
-                vistaController.crearJugador(tfNombreJugador.getText(),tfApellidoJugador.getText(),
-                        obtenerCod3(),tfFechaNaci.getText(),
-                        tfSueldo.getText(),tfNickName.getText(),
-                        cbEquiposDisp.getSelectedItem());
+                vistaController.crearJugador(
+                        tfNombreJugador.getText(),
+                        tfApellidoJugador.getText(),
+                        obtenerCod3(),
+                        tfFechaNaci.getText(),
+                        tfSueldo.getText(),
+                        tfRol.getText(),
+                        tfNickName.getText(),
+                        obtenerCodEqipo());
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
@@ -159,8 +172,24 @@ public class CrearJugador extends  JDialog{
     }
 
     private String obtenerCod3() throws SQLException {
-        Country seleccion = (Country) cbEquiposDisp.getSelectedItem();
-        return Objects.requireNonNull(seleccion).getThreeDigitsCode();
+        Country pais = Arrays.stream(Country.values())
+                .filter(e -> e.getThreeDigitsCode().equals(cbPaises.getSelectedItem().toString()))
+                .findFirst()
+                .orElse(null);
+
+        return pais != null ? pais.getName() : "No encontrado";
+
+    }
+    /**
+     * No hace falta el Object.requireNonNull ya que el stream si no devuelve null, a lo que el sql lanza excepcion si algo va mal
+     * */
+    private int obtenerCodEqipo() throws SQLException {
+        Equipo eq = vistaController.getEquipos().stream()
+                .filter(e -> e.getNombre().equals(cbEquiposDisp.getSelectedItem()))
+                .findFirst()
+                .orElse(null);
+
+        return eq.getCodEquipo();
     }
 }
 
