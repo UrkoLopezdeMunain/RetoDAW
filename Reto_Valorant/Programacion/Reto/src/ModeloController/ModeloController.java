@@ -2,6 +2,7 @@ package ModeloController;
 
 import BaseDatos.BaseDatos;
 import Modelo.Equipo;
+import Modelo.Jugador;
 import Modelo.Usuario;
 import ModeloDAO.*;
 
@@ -21,6 +22,7 @@ public class ModeloController {
 
     protected Usuario usuario;
     protected Equipo equipo;
+    protected Jugador jugador;
     public ModeloController() {
         try {
             //BD
@@ -57,12 +59,14 @@ public class ModeloController {
         usuario = usuarioController.validarUsuario(nombreUsuario);
         return usuario != null;
     }
+    public boolean borrarJugador(String nickName) throws SQLException {
+        return jugadorController.borrarJugador(nickName);
+    }
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
 
     public boolean validarEquipo(String nombreEquipo) throws Exception {
-        //falta meter Patron aqui para el nombre del equipo
         equipo = equipoController.validarEquipo(nombreEquipo);
 
         if (equipo != null){
@@ -70,6 +74,10 @@ public class ModeloController {
             //para poder aprovechar directamente todos sus atributos lo relleno ya
         }
         return equipo != null;
+    }
+    public boolean validarJugador(String nickName) throws SQLException {
+        jugador = jugadorController.obtnerJugador(nickName);
+        return jugador != null;
     }
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
         return equipoController.crearEquipo(nombre, fechaFund);

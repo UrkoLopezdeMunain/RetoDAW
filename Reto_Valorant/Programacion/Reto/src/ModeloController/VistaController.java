@@ -15,8 +15,7 @@ public class VistaController {
     protected ModeloController modeloController;
     private ConsultarEquipo consultarEquipo;
     private ActualizarEquipo actualizarEquipo;
-    private BorrarEquipo borrarEquipo;
-    private CrearJugador crearJugador;
+    private ConsultarJugador consultarJugador;
     public VistaController(ModeloController modeloController) {
         this.modeloController = modeloController;
         setIniciarSesion();
@@ -30,15 +29,13 @@ public class VistaController {
         consultarEquipo.setVisible(true);
     }
     public void setBorrarEquipo(VistaController vistaController){
-        this.borrarEquipo = new BorrarEquipo(this);
+        BorrarEquipo borrarEquipo = new BorrarEquipo(this);
         borrarEquipo.setVisible(true);
     }
-
     public void setCrearJugador(VistaController vistaController) throws SQLException {
-        this.crearJugador = new CrearJugador(vistaController);
+        CrearJugador crearJugador = new CrearJugador(vistaController);
         crearJugador.setVisible(true);
     }
-
     public ConsultarEquipo getIniciarSesion() {
         return consultarEquipo;
     }
@@ -67,6 +64,15 @@ public class VistaController {
         //Hecho con toLowerCase para consultas y transacciones con BD
         return modeloController.validarEquipo(nombreEquipo.toLowerCase());
     }
+    public boolean validarJugador(String nickName) throws SQLException {
+        if(validarNik(nickName)){
+            return modeloController.validarJugador(nickName);
+        }
+        return false;
+    }
+    public boolean borrarJugador(String nickName) throws SQLException {
+        return modeloController.borrarJugador(nickName);
+    }
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
         return modeloController.crearEquipo(nombre,fechaFund);
     }
@@ -89,6 +95,18 @@ public class VistaController {
         consultarEquipo.getTfFechaFundacion().setText(modeloController.equipo.getFechaFundacion().toString());
         consultarEquipo.getTfPuntuacionTotal().setText(String.valueOf(modeloController.equipo.getPuntuacion()));
         //Comentadfo por que se pide en otro metodo(de BD)
+        pPrincipal.revalidate();
+        pPrincipal.repaint();
+    }
+    public void rellenarCamposJugador(JPanel pPrincipal){
+        consultarJugador.getTfNombre().setText(modeloController.jugador.getNombre());
+        consultarJugador.getTfApellido().setText(modeloController.jugador.getApellido());
+        consultarJugador.getTfRol().setText(modeloController.jugador.getRol());
+        consultarJugador.getTfFechaNaci().setText(modeloController.jugador.getFechaNacimiento().toString());
+        consultarJugador.getTfNacionalidad().setText(modeloController.jugador.getNacionalidad());
+        consultarJugador.getTfSueldo().setText(String.valueOf(modeloController.jugador.getSueldo()));
+        consultarJugador.getTfEquipo().setText(modeloController.jugador.getEquipo().getNombre());
+        //se omite el nickname por que si ha llegado aqui es por que es correcto
         pPrincipal.revalidate();
         pPrincipal.repaint();
     }

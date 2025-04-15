@@ -32,7 +32,7 @@ public class CrearJugador extends  JDialog{
     private JComboBox cbPaises;
     private JComboBox cbEquiposDisp;
     private JTextField tfNickName;
-    private VistaController vistaController;
+    private final VistaController vistaController;
 
     /**
      en el bAcepat, obtengo el codigo OSI del pais seleccionaldo de la ComboBox, para que se siga un Standar(GER,ESP,etc...)
@@ -171,15 +171,18 @@ public class CrearJugador extends  JDialog{
         for (Equipo eq : vistaController.getEquipos()) cbEquiposDisp.addItem(eq.getNombre());
     }
 
-    private String obtenerCod3() throws SQLException {
-        Country pais = Arrays.stream(Country.values())
-                .filter(e -> e.getThreeDigitsCode().equals(cbPaises.getSelectedItem().toString()))
+    private String obtenerCod3() {
+        Object selectedItem = cbPaises.getSelectedItem();
+        if (selectedItem == null) return "No seleccionado";
+
+        String nombrePais = selectedItem.toString();
+        return Arrays.stream(Country.values())
+                .filter(e -> e.getName().equalsIgnoreCase(nombrePais))
+                .map(Country::getThreeDigitsCode)
                 .findFirst()
-                .orElse(null);
-
-        return pais != null ? pais.getName() : "No encontrado";
-
+                .orElse("No encontrado");
     }
+
     /**
      * No hace falta el Object.requireNonNull ya que el stream si no devuelve null, a lo que el sql lanza excepcion si algo va mal
      * */

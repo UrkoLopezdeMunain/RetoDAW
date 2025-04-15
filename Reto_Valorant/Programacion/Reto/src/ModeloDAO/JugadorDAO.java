@@ -52,5 +52,29 @@ public class JugadorDAO {
         ps.setInt(8, codEquipo);
 
         return ps.executeUpdate() != 0;
+    }
+    public boolean borrarJugador(String nickName) throws SQLException {
+            sql="DELETE FROM jugadores WHERE lower(nickname) = lower(?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nickName);
+            return ps.executeUpdate() != 0;
+    }
+    public Jugador obtenerJugador(String nickName)throws SQLException {
+        sql="SELECT * FROM jugadores WHERE lower(nickname) = lower(?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nickName);
+        ResultSet rs = ps.executeQuery();
+        Jugador j = new Jugador();
+        if (rs.next()) {
+            j.setCodJugador(rs.getInt("cod_jugador"));
+            j.setNombre(rs.getString("nombre"));
+            j.setApellido(rs.getString("apellido"));
+            j.setNacionalidad(rs.getString("nacionalidad"));
+            j.setFechaNacimiento(rs.getDate("fecha_nac").toLocalDate());
+            j.setSueldo(rs.getDouble("sueldo"));
+            j.setNickname(rs.getString("nickname"));
+            j.setRol(rs.getString("rol"));
         }
+        return j;
+    }
 }
