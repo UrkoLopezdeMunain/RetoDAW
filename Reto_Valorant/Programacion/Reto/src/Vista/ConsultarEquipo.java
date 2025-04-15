@@ -11,7 +11,7 @@ public class ConsultarEquipo extends JDialog {
     private JTextField tfFechaFundacion;
     private JTextField tfPuntuacionTotal;
     private JTextField tfCodEquipo;
-    private JTextArea taJugadores;
+
     private JButton bAtras;
 
     public ConsultarEquipo(VistaController vistaController) {
@@ -25,7 +25,6 @@ public class ConsultarEquipo extends JDialog {
         tfCodEquipo.setEditable(false);
         tfFechaFundacion.setEditable(false);
         tfPuntuacionTotal.setEditable(false);
-        taJugadores.setEditable(false);
 
         bAtras.addActionListener(e -> onCancel());
 
@@ -58,7 +57,6 @@ public class ConsultarEquipo extends JDialog {
                         tfNombreEquipo.setText(""); tfNombreEquipo.requestFocus();
                         tfCodEquipo.setText("");
                         tfFechaFundacion.setText(""); tfPuntuacionTotal.setText("");
-                        taJugadores.setText("");
                     }
                 } catch (Exception ex) {
                     JOptionPane.showMessageDialog(pPrincipal,ex.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
@@ -85,7 +83,4 @@ public class ConsultarEquipo extends JDialog {
     }
 
     public JTextField getTfCodEquipo() {return tfCodEquipo;}
-    public JTextArea getTaJugadores() {
-        return taJugadores;
-    }
 }

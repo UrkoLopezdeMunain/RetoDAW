@@ -3,6 +3,7 @@ package Vista;
 import ModeloController.VistaController;
 
 import javax.swing.*;
+import java.sql.SQLException;
 
 public class PanelUsuario extends JFrame{
     private JPanel pPrincipal;
@@ -19,6 +20,9 @@ public class PanelUsuario extends JFrame{
     protected VistaController vistaController;
 
     //constructor ADMIN
+    /**
+     Todos los listeners MENOS el de Infromes seránmodales, ya qeu son mas 'volatiles' y tienen una informacion que se verá en otro sitio
+     */
     public PanelUsuario(VistaController vistaController) {
         setTitle("Iniciar Sesión");
         setContentPane(pPrincipal);
@@ -29,10 +33,6 @@ public class PanelUsuario extends JFrame{
         setResizable(false); //para que sea de posicion y tamaño fijo
 
         this.vistaController = vistaController ;
-
-        /**
-         Todos los listeners MENOS el de Infromes seránmodales, ya qeu son mas 'volatiles' y tienen una informacion que se verá en otro sitio
-         */
 
         //crear Listeners
         iCrearEquipo.addActionListener(e -> {
@@ -48,7 +48,11 @@ public class PanelUsuario extends JFrame{
             vistaController.setBorrarEquipo(vistaController);
         });
         iCrearJugador.addActionListener(e -> {
-            //vistaController.setCrearJugador(this);
+            try {
+                vistaController.setCrearJugador(vistaController);
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
         iConsultarJugador.addActionListener(e -> {
             //vistaController.setConsultarJugador(this);

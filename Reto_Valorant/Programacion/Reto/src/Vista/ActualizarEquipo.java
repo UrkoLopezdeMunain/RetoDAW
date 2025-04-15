@@ -4,6 +4,7 @@ import ModeloController.VistaController;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.beans.Visibility;
 
 public class ActualizarEquipo extends JDialog {
     private JPanel pPrincipal;
@@ -14,7 +15,7 @@ public class ActualizarEquipo extends JDialog {
     private JLabel lNombreNuevo;
     private JLabel lPuncuacionNueva;
 
-    protected VistaController vistaController;
+    private VistaController vistaController;
 
     public ActualizarEquipo(VistaController vistaController) {
         setTitle("Actualizar Equipo");
@@ -73,6 +74,7 @@ public class ActualizarEquipo extends JDialog {
             }
         });
     }
+
 
     private void onCancel() {
         // add your code here if necessary

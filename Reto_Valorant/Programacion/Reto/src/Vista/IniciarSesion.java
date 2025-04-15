@@ -16,6 +16,8 @@ public class IniciarSesion extends JFrame{
     private JPasswordField tfPassword;
     private JButton aceptarButton;
     protected VistaController vistaController;
+
+    //FALTA HACER EL OTRO CONSTRUCTOR DE TIPO DE USUARIO PARA QUE SE VEA SOLO LO DESEADO PAARA EL ADMINO EL INIVITADO
     public IniciarSesion(VistaController vistaController) {
         setTitle("Iniciar Sesión");
         setContentPane(pPricipal);

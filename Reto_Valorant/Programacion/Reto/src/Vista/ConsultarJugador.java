@@ -27,6 +27,9 @@ public class ConsultarJugador extends JDialog {
         setModal(true);
         setSize(450,550);
         setLocationRelativeTo(pPrincipal.getRootPane());
-        setResizable(false); //para que sea de posicion y tamaño fijo
+        setResizable(false);
+        //para que sea de posicion y tamaño fijo
     }
+
+
 }

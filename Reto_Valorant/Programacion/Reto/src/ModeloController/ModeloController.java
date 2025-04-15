@@ -7,6 +7,7 @@ import ModeloDAO.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ModeloController {
     protected VistaController vistaController;
@@ -77,5 +78,12 @@ public class ModeloController {
     }
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
         return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    }
+    public List<Equipo> getEquipos() throws SQLException {
+        return equipoController.getEquipos();
+    }
+
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String nickName, Object nombreEquipo) throws SQLException {
+        return jugadorController.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,nickName,nombreEquipo);
     }
 }

@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class JugadorDAO {
 
@@ -17,31 +16,6 @@ public class JugadorDAO {
         public JugadorDAO(Connection c) {
             this.con = c;
         }
-
-
-        public void agregar(Jugador jugador) {
-            jugadores.add(jugador);
-        }
-
-
-        public ArrayList<Jugador> obtenerTodos(){
-            return new ArrayList<>(jugadores);
-        }
-
-        public void modificar(int codJugador, Jugador nuevoJugador) {
-            jugadores.replaceAll(j -> j.getCodJugador() == nuevoJugador.getCodJugador() ? nuevoJugador : j);
-        }
-
-
-        public boolean eliminar(int codJugador) {
-            return jugadores.removeIf(j -> j.getCodJugador() == codJugador);
-        }
-
-
-        public Jugador obtenerPorCodigo(int codJugador) {
-            return jugadores.stream().filter(j -> j.getCodJugador() == codJugador).findFirst().get();
-        }
-
 
         public ArrayList<Jugador> obtenerPorEquipo(int codEquipo) throws SQLException {
             sql = "SELECT cod_jugador,nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol FROM jugadores WHERE cod_equipo = ?";
@@ -62,5 +36,18 @@ public class JugadorDAO {
                 jugadores.add(j);
             }
             return jugadores;
+        }
+
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String nickName, Object nombreEquipo) throws SQLException {
+        sql="INSERT INTO jugadores(nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol,cod_equipo) VALUES(?,?,?,?,?,?,?)";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, nombre);
+        ps.setString(2, apellido);
+        ps.setString(3, nacionalidad);
+        ps.setString(4, fechaNac);
+        ps.setString(5, sueldo);
+        ps.setString(6, nickName);
+        ps.setString(7, nombreEquipo.toString());
+        return ps.executeUpdate() != 0;
         }
 }

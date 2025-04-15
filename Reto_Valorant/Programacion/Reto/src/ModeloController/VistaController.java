@@ -1,17 +1,22 @@
 package ModeloController;
 
 import Modelo.Equipo;
-import Modelo.Jugador;
 import Vista.*;
 
 import javax.swing.*;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class VistaController {
     protected ModeloController modeloController;
     private ConsultarEquipo consultarEquipo;
     private ActualizarEquipo actualizarEquipo;
     private BorrarEquipo borrarEquipo;
+    private CrearJugador crearJugador;
     public VistaController(ModeloController modeloController) {
         this.modeloController = modeloController;
         setIniciarSesion();
@@ -28,6 +33,12 @@ public class VistaController {
         this.borrarEquipo = new BorrarEquipo(this);
         borrarEquipo.setVisible(true);
     }
+
+    public void setCrearJugador(VistaController vistaController) throws SQLException {
+        this.crearJugador = new CrearJugador(vistaController);
+        crearJugador.setVisible(true);
+    }
+
     public ConsultarEquipo getIniciarSesion() {
         return consultarEquipo;
     }
@@ -37,6 +48,9 @@ public class VistaController {
     }
     public Equipo getEquipo() {
         return modeloController.getEquipo();
+    }
+    public List<Equipo> getEquipos() throws SQLException {
+        return modeloController.getEquipos();
     }
 
     public boolean validarUsuario(String nombreUsuario) throws SQLException {
@@ -59,6 +73,14 @@ public class VistaController {
     public boolean borrarEquipo(String nombreEquipo) throws Exception {
         return modeloController.borrarEquipo(nombreEquipo);
     }
+    public boolean validarSueldo(String sueldo){
+        return Double.parseDouble(sueldo) >= 1184.00;
+    }
+    public boolean validarNik(String nickName){
+        Pattern pattern = Pattern.compile("^[a-zA-Z0-9]{3,20}$");
+        Matcher matcher = pattern.matcher(nickName);
+        return matcher.matches();
+    }
 
     public void rellenarCamposEquipo(JPanel pPrincipal) {
         //entre otros
@@ -66,21 +88,23 @@ public class VistaController {
         consultarEquipo.getTfCodEquipo().setText(String.valueOf(modeloController.equipo.getCodEquipo()));
         consultarEquipo.getTfFechaFundacion().setText(modeloController.equipo.getFechaFundacion().toString());
         consultarEquipo.getTfPuntuacionTotal().setText(String.valueOf(modeloController.equipo.getPuntuacion()));
-        if (modeloController.equipo.getListaJugadores().isEmpty()) {
-            consultarEquipo.getTaJugadores().setText("No tiene ningun jugador");
-        } else {
-            StringBuilder jugadores = new StringBuilder();
-            for (Jugador j : modeloController.equipo.getListaJugadores()) {
-                jugadores.append(j.toString()).append("\n");
-                //pone en columnas los jugadores del objeto equipo devuelto
-            }
-            consultarEquipo.getTaJugadores().setText(jugadores.toString());
-            //los visualiza en el textArea
-
-            pPrincipal.revalidate();
-            pPrincipal.repaint();
-        }
+        //Comentadfo por que se pide en otro metodo(de BD)
+        pPrincipal.revalidate();
+        pPrincipal.repaint();
     }
+
+    public boolean validarNomYAp(String nombreJugador) {
+        final Pattern pattern = Pattern.compile("^[a-z ]{20}+$");
+        final Matcher matcher = pattern.matcher(nombreJugador);
+        return matcher.matches();
+    }
+
+    public  boolean validarFechaNac(String fechaNaci) {
+        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        return LocalDate.parse(fechaNaci, formatter).isAfter(LocalDate.now());
+    }
+
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
         return modeloController.actualizarEquipoFecha(nombreEquipo,fechaFund);
     }
@@ -88,5 +112,9 @@ public class VistaController {
         actualizarEquipo.getTfNombreNuevo().setText(modeloController.equipo.getNombre());
         actualizarEquipo.getTfFechaFundNueva().setText(modeloController.equipo.getFechaFundacion().toString());
         pPrincipal.revalidate(); pPrincipal.repaint();
+    }
+
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String suedlo, String nickName, Object nombreEquipo) throws SQLException {
+        return modeloController.crearJugador(nombre,apellido,nacionalidad,fechaNac,suedlo,nickName,nombreEquipo);
     }
 }
