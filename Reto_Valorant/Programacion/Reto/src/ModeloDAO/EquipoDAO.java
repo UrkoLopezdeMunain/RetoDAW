@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class EquipoDAO {
 
@@ -60,4 +62,33 @@ public class EquipoDAO {
         ps.setDate(2, validarFecha(fechaFund));
         return ps.executeUpdate() != 0;
     }
+
+
+    public ArrayList<Equipo> obtenerTodosLosEquipos() throws Exception {
+        ArrayList<Equipo> todosLosEquipos = new ArrayList<>();
+
+        String sql = "SELECT * FROM equipos";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            LocalDate fechaFundacion = LocalDate.parse(rs.getString("fecha_fundacion"));
+
+            Equipo equipo = new Equipo(
+                    rs.getInt("cod_equipo"),
+                    rs.getString("nombre"),
+                    fechaFundacion,
+                    rs.getInt("puntuacion")
+            );
+
+            todosLosEquipos.add(equipo);
+        }
+
+        rs.close();
+        ps.close();
+
+        return todosLosEquipos;
+    }
+
+
 }

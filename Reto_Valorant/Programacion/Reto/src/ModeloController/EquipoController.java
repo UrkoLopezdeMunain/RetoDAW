@@ -20,9 +20,6 @@ public class EquipoController {
         this.eDAO = eDAO;
     }
 
-    public void definirFechaFundacion(Juego j) {
-        LocalDate FECHAFUNDACION = j.getFechaSalida();
-    }
 
     /**Pasa por este metodo validando el nombre y devolviendo el String a validarEquipo()*/
     public Equipo validarEquipo(String nombre) throws Exception {
