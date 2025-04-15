@@ -1,37 +1,18 @@
 package Modelo;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class Juego {
-
-    private int codjuego;
-    private String nombre;
+    private int codJuego;
     private LocalDate fechaSalida;
+    private String nombre;
 
-    public Juego() {
+    public int getCodJuego() {
+        return codJuego;
     }
 
-    public Juego(int codjuego, String nombre, LocalDate fechaSalida) {
-        this.codjuego = codjuego;
-        this.nombre = nombre;
-        this.fechaSalida = fechaSalida;
-    }
-
-    public int getCodjuego() {
-        return codjuego;
-    }
-
-    public void setCodjuego(int codjuego) {
-        this.codjuego = codjuego;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCodJuego(int codJuego) {
+        this.codJuego = codJuego;
     }
 
     public LocalDate getFechaSalida() {
@@ -42,13 +23,11 @@ public class Juego {
         this.fechaSalida = fechaSalida;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Nombre: " + getNombre()+"\n" +
-                "Codigo de equipo: " + getCodjuego() + "\n" +
-                "Fecha de fundacion: " + getFechaSalida());
+    public String getNombre() {
+        return nombre;
+    }
 
-        return sb.toString();
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

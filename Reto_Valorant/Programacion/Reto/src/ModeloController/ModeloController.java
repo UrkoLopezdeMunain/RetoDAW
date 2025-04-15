@@ -16,7 +16,6 @@ public class ModeloController {
     protected EnfrentamientoController enfrentamientoController;
     protected EquipoController equipoController;
     protected JornadaController jornadaController;
-    protected JuegoController juegoController;
     protected JugadorController jugadorController;
     private UsuarioController usuarioController;
 
@@ -32,7 +31,6 @@ public class ModeloController {
             EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
             EquipoDAO equipoDAO = new EquipoDAO(c);
             JornadaDAO jornadaDAO = new JornadaDAO(c);
-            JuegoDAO juegoDAO = new JuegoDAO(c);
             JugadorDAO jugadorDAO = new JugadorDAO(c);
             UsuarioDAO usuarioDAO = new UsuarioDAO(c);
 
@@ -41,7 +39,6 @@ public class ModeloController {
             enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO);
             equipoController = new EquipoController(equipoDAO);
             jornadaController = new JornadaController(jornadaDAO);
-            juegoController = new JuegoController(juegoDAO);
             jugadorController= new JugadorController(jugadorDAO);
             usuarioController = new UsuarioController(usuarioDAO);
         }catch (Exception e) {
