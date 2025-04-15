@@ -27,10 +27,11 @@ public class ModeloController {
             Connection c = BaseDatos.abrirCon();
 
             //dao + conexion a BD
-            CompeticionDAO competicionDAO = new CompeticionDAO(c);
+            JuegoDAO jDAO = new JuegoDAO(c);
+            CompeticionDAO competicionDAO = new CompeticionDAO(c, jDAO);
             EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
             EquipoDAO equipoDAO = new EquipoDAO(c);
-            JornadaDAO jornadaDAO = new JornadaDAO(c);
+            JornadaDAO jornadaDAO = new JornadaDAO(c, competicionDAO);
             JugadorDAO jugadorDAO = new JugadorDAO(c);
             UsuarioDAO usuarioDAO = new UsuarioDAO(c);
 
