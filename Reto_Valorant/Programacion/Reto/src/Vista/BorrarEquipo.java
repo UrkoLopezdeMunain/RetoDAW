@@ -34,8 +34,8 @@ public class BorrarEquipo extends JDialog{
             }
         });
 
-        bCancelar.addActionListener(e -> onCancel());
-        bAceptar.addActionListener(e -> {
+        bCancelar.addActionListener(_ -> onCancel());
+        bAceptar.addActionListener(_ -> {
             try {
                 onOk();
             } catch (Exception ex) {

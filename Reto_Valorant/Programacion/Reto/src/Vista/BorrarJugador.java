@@ -22,9 +22,9 @@ public class BorrarJugador extends JDialog {
         bAceptar.setEnabled(false);
         this.vistaController = vistaController;
 
-        bAceptar.addActionListener(e -> onOK());
+        bAceptar.addActionListener(_ -> onOK());
 
-        bAtras.addActionListener(e -> onCancel());
+        bAtras.addActionListener(_ -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -35,7 +35,7 @@ public class BorrarJugador extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        pPrincipal.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        pPrincipal.registerKeyboardAction(_ -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         tfNickName.addFocusListener(new FocusAdapter() {
            @Override
            public void focusGained(FocusEvent e) {

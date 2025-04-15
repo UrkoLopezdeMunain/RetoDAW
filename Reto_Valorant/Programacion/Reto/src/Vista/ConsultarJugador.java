@@ -26,7 +26,7 @@ public class ConsultarJugador extends JDialog {
         setResizable(false);
         //para que sea de posicion y tamaño fijo
 
-        bAceptar.addActionListener(e -> dispose());
+        bAceptar.addActionListener(_ -> dispose());
 
         tfNickName.addFocusListener(new FocusAdapter() {
             @Override

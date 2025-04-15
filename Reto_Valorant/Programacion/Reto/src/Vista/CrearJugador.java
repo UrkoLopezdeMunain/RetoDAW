@@ -1,7 +1,6 @@
 package Vista;
 
 import Modelo.Equipo;
-import ModeloController.JornadaController;
 import ModeloController.VistaController;
 import Nacionalidades.Country;
 
@@ -10,24 +9,15 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.sql.SQLException;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class CrearJugador extends  JDialog{
     private JTextField tfNombreJugador;
     private JTextField tfApellidoJugador;
     private JButton bAceptar;
     private JButton bCancelar;
-    private JTextField tfNacionalidad;
     private JTextField tfFechaNaci;
     private JTextField tfSueldo;
     private JTextField tfRol;
-    private JLabel lNombreJugador;
-    private JLabel lApellidoJugador;
-    private JLabel lNacionalidad;
-    private JLabel lFechaNaci;
-    private JLabel lSueldo;
-    private JLabel lRol;
-    private JLabel lEquipo;
     private JPanel pPrincipal;
     private JComboBox cbPaises;
     private JComboBox cbEquiposDisp;
@@ -58,7 +48,7 @@ public class CrearJugador extends  JDialog{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
                 try {
-                    if (!vistaController.validarNomYAp(tfNombreJugador.getText())) {
+                    if (vistaController.validarNomYAp(tfNombreJugador.getText())) {
                         tfNombreJugador.requestFocus();
                         JOptionPane.showMessageDialog(pPrincipal,"El campo debe seguir un formato correcto(2 letras como minimo 20max.");
                     }
@@ -78,7 +68,7 @@ public class CrearJugador extends  JDialog{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
                 try {
-                    if (!vistaController.validarNomYAp(tfApellidoJugador.getText())) {
+                    if (vistaController.validarNomYAp(tfApellidoJugador.getText())) {
                         tfApellidoJugador.requestFocus();
                         JOptionPane.showMessageDialog(pPrincipal,"El campo debe seguir un formato correcto(2 letras como minimo 20max.");
                     }
@@ -146,9 +136,9 @@ public class CrearJugador extends  JDialog{
             }
         });
 
-        bAceptar.addActionListener(e -> {
+        bAceptar.addActionListener(_ -> {
             try {
-                vistaController.crearJugador(
+                if (vistaController.crearJugador(
                         tfNombreJugador.getText(),
                         tfApellidoJugador.getText(),
                         obtenerCod3(),
@@ -156,11 +146,15 @@ public class CrearJugador extends  JDialog{
                         tfSueldo.getText(),
                         tfRol.getText(),
                         tfNickName.getText(),
-                        obtenerCodEqipo());
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                        obtenerCodEqipo())){
+                    JOptionPane.showMessageDialog(pPrincipal,"El jugador ha creado con exito");
+                }else
+                    throw new Exception();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(pPrincipal,"ERROR: "+ex.getMessage());
             }
         });
+        bCancelar.addActionListener(_-> dispose());
     }
 
     private void nacionalidades(){

@@ -1,6 +1,5 @@
 package ModeloDAO;
 
-import Modelo.Equipo;
 import Modelo.Jugador;
 
 import java.sql.Connection;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 
 public class JugadorDAO {
 
-        private static ArrayList<Jugador> jugadores = new ArrayList<>();
+        private static final ArrayList<Jugador> jugadores = new ArrayList<>();
         protected Connection con;
         private String sql;
         public JugadorDAO(Connection c) {
@@ -19,8 +18,7 @@ public class JugadorDAO {
         }
 
         public ArrayList<Jugador> obtenerPorEquipo(int codEquipo) throws SQLException {
-            sql = "SELECT cod_jugador,nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol FROM jugadores WHERE cod_equipo = ?";
-            ArrayList<Jugador> jugadores = new ArrayList<>();
+            sql = "SELECT * FROM jugadores WHERE cod_equipo = ?";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, String.valueOf(codEquipo));
             ResultSet rs = ps.executeQuery();
