@@ -19,7 +19,7 @@ public class JugadorController {
         return jugadorDAO.obtenerPorEquipo(codEquipo);
     }
 
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String nickName, Object nombreEquipo) throws SQLException {
-        return jugadorDAO.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,nickName,nombreEquipo);
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, int codEquipo) throws SQLException {
+        return jugadorDAO.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,codEquipo);
     }
 }

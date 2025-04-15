@@ -1,5 +1,6 @@
 package ModeloDAO;
 
+import Modelo.Equipo;
 import Modelo.Jugador;
 
 import java.sql.Connection;
@@ -38,8 +39,8 @@ public class JugadorDAO {
             return jugadores;
         }
 
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String nickName, Object nombreEquipo) throws SQLException {
-        sql="INSERT INTO jugadores(nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol,cod_equipo) VALUES(?,?,?,?,?,?,?)";
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo,String rol, String nickName, int codEquipo) throws SQLException {
+        sql="INSERT INTO jugadores(nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol,cod_equipo) VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, nombre);
         ps.setString(2, apellido);
@@ -47,7 +48,9 @@ public class JugadorDAO {
         ps.setString(4, fechaNac);
         ps.setString(5, sueldo);
         ps.setString(6, nickName);
-        ps.setString(7, nombreEquipo.toString());
+        ps.setString(7, rol);
+        ps.setInt(8, codEquipo);
+
         return ps.executeUpdate() != 0;
         }
 }
