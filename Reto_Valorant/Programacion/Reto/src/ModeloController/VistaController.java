@@ -1,6 +1,8 @@
 package ModeloController;
 
 import Modelo.Equipo;
+import Modelo.Jugador;
+import Modelo.Usuario;
 import Vista.*;
 
 import javax.swing.*;
@@ -68,18 +70,21 @@ public class VistaController {
         return modeloController.getEquipos();
     }
     public boolean validarUsuario(String nombreUsuario) throws SQLException {
-        return modeloController.validarUsuario(nombreUsuario);
+        Usuario usuario = new Usuario(nombreUsuario);
+        return modeloController.validarUsuario(usuario);
     }
     public boolean validarPassWord(String passWord) throws SQLException {
         return modeloController.validarPassWord(passWord);
     }
     public boolean validarEquipo(String nombreEquipo) throws Exception {
         //Hecho con toLowerCase para consultas y transacciones con BD
-        return modeloController.validarEquipo(nombreEquipo.toLowerCase());
+        Equipo equipo = new Equipo(nombreEquipo.toLowerCase());
+        return modeloController.validarEquipo(equipo);
     }
     public boolean validarJugador(String nickName) throws SQLException {
         if(validarNik(nickName)){
-            return modeloController.validarJugador(nickName);
+            Jugador jugador = new Jugador(nickName);
+            return modeloController.validarJugador(jugador);
         }
         return false;
     }
@@ -104,17 +109,22 @@ public class VistaController {
 
     /**Metodos de creacion*/
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
-        return modeloController.crearEquipo(nombre,fechaFund);
+        Equipo equipo = new Equipo(nombre,fechaFund);
+        return modeloController.crearEquipo(equipo);
     }
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, int codEquipo) throws SQLException {
-        return modeloController.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,codEquipo);
+    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, Equipo equipo) throws Exception {
+        Jugador jugador = new Jugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,equipo);
+
+        return modeloController.crearJugador(jugador);
     }
     /**Metodos de borrado*/
     public boolean borrarJugador(String nickName) throws SQLException {
-        return modeloController.borrarJugador(nickName);
+        Jugador jugador = new Jugador(nickName);
+        return modeloController.borrarJugador(jugador);
     }
     public boolean borrarEquipo(String nombreEquipo) throws Exception {
-        return modeloController.borrarEquipo(nombreEquipo);
+        Equipo equipo = new Equipo(nombreEquipo.toLowerCase());
+        return modeloController.borrarEquipo(equipo);
     }
 
     /**Metodos de consulta*/
@@ -148,7 +158,8 @@ public class VistaController {
 
     /**Metodos de Actualizacion de datos*/
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        return modeloController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+        Equipo equipo = new Equipo(nombreEquipo, fechaFund);
+        return modeloController.actualizarEquipoFecha(equipo);
     }
 
 

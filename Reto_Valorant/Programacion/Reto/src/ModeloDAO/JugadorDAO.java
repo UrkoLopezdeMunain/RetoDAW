@@ -1,5 +1,6 @@
 package ModeloDAO;
 
+import Modelo.Equipo;
 import Modelo.Jugador;
 
 import java.sql.Connection;
@@ -17,10 +18,10 @@ public class JugadorDAO {
             this.con = c;
         }
 
-        public ArrayList<Jugador> obtenerPorEquipo(int codEquipo) throws SQLException {
+        public ArrayList<Jugador> obtenerPorEquipo(Equipo equipo) throws SQLException {
             sql = "SELECT * FROM jugadores WHERE cod_equipo = ?";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, String.valueOf(codEquipo));
+            ps.setString(1, String.valueOf(equipo));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Jugador j = new Jugador();
@@ -37,30 +38,30 @@ public class JugadorDAO {
             return jugadores;
         }
 
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo,String rol, String nickName, int codEquipo) throws SQLException {
+    public boolean crearJugador(Jugador jugador) throws SQLException {
         sql="INSERT INTO jugadores(nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol,cod_equipo) VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, nombre);
-        ps.setString(2, apellido);
-        ps.setString(3, nacionalidad);
-        ps.setString(4, fechaNac);
-        ps.setString(5, sueldo);
-        ps.setString(6, nickName);
-        ps.setString(7, rol);
-        ps.setInt(8, codEquipo);
+        ps.setString(1, jugador.getNombre());
+        ps.setString(2, jugador.getApellido());
+        ps.setString(3, jugador.getNacionalidad());
+        ps.setString(4, jugador.getFechaNacimiento().toString());
+        ps.setString(5, String.valueOf(jugador.getSueldo()));
+        ps.setString(6, jugador.getNickname());
+        ps.setString(7, jugador.getRol());
+        ps.setInt(8, jugador.getEquipo().getCodEquipo());
 
         return ps.executeUpdate() != 0;
     }
-    public boolean borrarJugador(String nickName) throws SQLException {
+    public boolean borrarJugador(Jugador jugador) throws SQLException {
             sql="DELETE FROM jugadores WHERE lower(nickname) = lower(?)";
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, nickName);
+            ps.setString(1, jugador.getNickname());
             return ps.executeUpdate() != 0;
     }
-    public Jugador obtenerJugador(String nickName)throws SQLException {
+    public Jugador obtenerJugador(Jugador jugador)throws SQLException {
         sql="SELECT * FROM jugadores WHERE lower(nickname) = lower(?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, nickName);
+        ps.setString(1, jugador.getNickname());
         ResultSet rs = ps.executeQuery();
         Jugador j = new Jugador();
         if (rs.next()) {

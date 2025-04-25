@@ -146,7 +146,7 @@ public class CrearJugador extends  JDialog{
                         tfSueldo.getText(),
                         tfRol.getText(),
                         tfNickName.getText(),
-                        obtenerCodEqipo())){
+                        obtenerEquipo())){
                     JOptionPane.showMessageDialog(pPrincipal,"El jugador ha creado con exito");
                 }else
                     throw new Exception();
@@ -180,13 +180,12 @@ public class CrearJugador extends  JDialog{
     /**
      * No hace falta el Object.requireNonNull ya que el stream si no devuelve null, a lo que el sql lanza excepcion si algo va mal
      * */
-    private int obtenerCodEqipo() throws SQLException {
-        Equipo eq = vistaController.getEquipos().stream()
+    private Equipo obtenerEquipo() throws SQLException {
+
+        return vistaController.getEquipos().stream()
                 .filter(e -> e.getNombre().equals(cbEquiposDisp.getSelectedItem()))
                 .findFirst()
                 .orElse(null);
-
-        return eq.getCodEquipo();
     }
 }
 

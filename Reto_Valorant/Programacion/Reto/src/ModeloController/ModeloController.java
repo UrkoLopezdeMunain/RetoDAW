@@ -60,46 +60,46 @@ public class ModeloController {
     public Equipo getEquipo(){
         return equipo;
     }
-    /**Meotos de validacion*/
-    public boolean validarUsuario(String nombreUsuario) throws SQLException {
-        usuario = usuarioController.validarUsuario(nombreUsuario);
+    /**Metodos de validacion*/
+    public boolean validarUsuario(Usuario u) throws SQLException {
+        usuario = usuarioController.validarUsuario(u);
         return usuario != null;
     }
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
-    public boolean validarEquipo(String nombreEquipo) throws Exception {
-        equipo = equipoController.validarEquipo(nombreEquipo);
+    public boolean validarEquipo(Equipo eq) throws Exception {
+        equipo = equipoController.validarEquipo(eq);
 
         if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo.getCodEquipo()));
+            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo));
             //para poder aprovechar directamente todos sus atributos lo relleno ya
         }
         return equipo != null;
     }
-    public boolean validarJugador(String nickName) throws SQLException {
-        jugador = jugadorController.obtnerJugador(nickName);
+    public boolean validarJugador(Jugador jugador) throws SQLException {
+        jugador = jugadorController.obtnerJugador(jugador);
         return jugador != null;
     }
 
     /**Metodos de creacion*/
-    public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
-        return equipoController.crearEquipo(nombre, fechaFund);
+    public boolean crearEquipo(Equipo equipo) throws Exception {
+        return equipoController.crearEquipo(equipo);
     }
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, int codEquipo) throws SQLException {
-        return jugadorController.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,codEquipo);
+    public boolean crearJugador(Jugador jugador) throws SQLException {
+        return jugadorController.crearJugador(jugador);
     }
 
     /**Metodos de borrado*/
-    public boolean borrarJugador(String nickName) throws SQLException {
-        return jugadorController.borrarJugador(nickName);
+    public boolean borrarJugador(Jugador ju) throws SQLException {
+        return jugadorController.borrarJugador(ju);
     }
-    public boolean borrarEquipo(String nombreEquipo) throws Exception {
-        return equipoController.borrarEquipo(nombreEquipo);
+    public boolean borrarEquipo(Equipo equipo) throws Exception {
+        return equipoController.borrarEquipo(equipo);
     }
 
     /**Metodos de actualizacion*/
-    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    public boolean actualizarEquipoFecha(Equipo eq) throws Exception {
+        return equipoController.actualizarEquipoFecha(eq);
     }
 }
