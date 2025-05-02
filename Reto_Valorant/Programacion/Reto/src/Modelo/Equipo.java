@@ -34,6 +34,15 @@ public class Equipo {
         this.listaJugadores = listaJugadores;
     }
 
+    public Equipo(String nombre, String fechaFund) {
+        this.nombre = nombre;
+        this.fechaFundacion = LocalDate.parse(fechaFund);
+    }
+
+    public Equipo(String nombreEquipo) {
+        this.nombre = nombreEquipo;
+    }
+
     // Getters y setters
 
     public int getCodEquipo() {

@@ -1,5 +1,6 @@
 package ModeloController;
 
+import Modelo.Equipo;
 import Modelo.Jugador;
 import ModeloDAO.JugadorDAO;
 
@@ -15,11 +16,22 @@ public class JugadorController {
         this.jugadorDAO = jugadorDAO;
     }
 
-    public ArrayList<Jugador> obtenerJugadores(int codEquipo) throws SQLException {
-        return jugadorDAO.obtenerPorEquipo(codEquipo);
+    /** Metodos para optimizar accesos a BD*/
+    public ArrayList<Jugador> obtenerJugadores(Equipo equipo) throws SQLException {
+        return jugadorDAO.obtenerPorEquipo(equipo);
     }
 
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, int codEquipo) throws SQLException {
-        return jugadorDAO.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,codEquipo);
+
+    /**CRUD de JUGADOR(JugadorController)*/
+    public boolean crearJugador(Jugador jugador) throws SQLException {
+        return jugadorDAO.crearJugador(jugador);
+    }
+
+    public Jugador obtnerJugador(Jugador jugador) throws SQLException {
+        return jugadorDAO.obtenerJugador(jugador);
+    }
+
+    public boolean borrarJugador(Jugador jugador) throws SQLException {
+        return jugadorDAO.borrarJugador(jugador);
     }
 }

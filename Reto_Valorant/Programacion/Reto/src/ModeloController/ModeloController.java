@@ -2,6 +2,7 @@ package ModeloController;
 
 import BaseDatos.BaseDatos;
 import Modelo.Equipo;
+import Modelo.Jugador;
 import Modelo.Usuario;
 import ModeloDAO.*;
 
@@ -17,10 +18,12 @@ public class ModeloController {
     protected EquipoController equipoController;
     protected JornadaController jornadaController;
     protected JugadorController jugadorController;
-    private UsuarioController usuarioController;
+    protected UsuarioController usuarioController;
 
     protected Usuario usuario;
     protected Equipo equipo;
+    protected Jugador jugador;
+
     public ModeloController() {
         try {
             //BD
@@ -46,45 +49,57 @@ public class ModeloController {
             System.out.println("ERROR EN MODELO CONTROLLER "+e.getMessage());
         }
     }
-
+    /**Metodo auxiliar de Main*/
     public void setVistaController(VistaController vistaController) {
         this.vistaController = vistaController;
+    }
+    /**Metodos para optimizar accesos a BD*/
+    public List<Equipo> getEquipos() throws SQLException {
+        return equipoController.getEquipos();
     }
     public Equipo getEquipo(){
         return equipo;
     }
-    public boolean validarUsuario(String nombreUsuario) throws SQLException {
-        usuario = usuarioController.validarUsuario(nombreUsuario);
+    /**Metodos de validacion*/
+    public boolean validarUsuario(Usuario u) throws SQLException {
+        usuario = usuarioController.validarUsuario(u);
         return usuario != null;
     }
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
-
-    public boolean validarEquipo(String nombreEquipo) throws Exception {
-        //falta meter Patron aqui para el nombre del equipo
-        equipo = equipoController.validarEquipo(nombreEquipo);
+    public boolean validarEquipo(Equipo eq) throws Exception {
+        equipo = equipoController.validarEquipo(eq);
 
         if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo.getCodEquipo()));
+            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo));
             //para poder aprovechar directamente todos sus atributos lo relleno ya
         }
         return equipo != null;
     }
-    public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
-        return equipoController.crearEquipo(nombre, fechaFund);
-    }
-    public boolean borrarEquipo(String nombreEquipo) throws Exception {
-        return equipoController.borrarEquipo(nombreEquipo);
-    }
-    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
-    }
-    public List<Equipo> getEquipos() throws SQLException {
-        return equipoController.getEquipos();
+    public boolean validarJugador(Jugador jugador) throws SQLException {
+        jugador = jugadorController.obtnerJugador(jugador);
+        return jugador != null;
     }
 
-    public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, int codEquipo) throws SQLException {
-        return jugadorController.crearJugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,codEquipo);
+    /**Metodos de creacion*/
+    public boolean crearEquipo(Equipo equipo) throws Exception {
+        return equipoController.crearEquipo(equipo);
+    }
+    public boolean crearJugador(Jugador jugador) throws SQLException {
+        return jugadorController.crearJugador(jugador);
+    }
+
+    /**Metodos de borrado*/
+    public boolean borrarJugador(Jugador ju) throws SQLException {
+        return jugadorController.borrarJugador(ju);
+    }
+    public boolean borrarEquipo(Equipo equipo) throws Exception {
+        return equipoController.borrarEquipo(equipo);
+    }
+
+    /**Metodos de actualizacion*/
+    public boolean actualizarEquipoFecha(Equipo eq) throws Exception {
+        return equipoController.actualizarEquipoFecha(eq);
     }
 }
