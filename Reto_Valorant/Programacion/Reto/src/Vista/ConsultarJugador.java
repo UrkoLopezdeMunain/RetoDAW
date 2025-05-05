@@ -17,6 +17,13 @@ public class ConsultarJugador extends JDialog {
     private JTextField tfRol;
     private JTextField tfEquipo;
     private JTextField tfNickName;
+    private JLabel lNombre;
+    private JLabel lApellido;
+    private JLabel lNacionalidad;
+    private JLabel lFechaNaci;
+    private JLabel lSueldo;
+    private JLabel lRol;
+    private JLabel lEquipo;
 
     public ConsultarJugador(VistaController vistaController) {
         setContentPane(pPrincipal);
@@ -26,7 +33,7 @@ public class ConsultarJugador extends JDialog {
         setResizable(false);
         //para que sea de posicion y tamaño fijo
 
-        bAceptar.addActionListener(_ -> dispose());
+        bAceptar.addActionListener(i -> dispose());
 
         tfNickName.addFocusListener(new FocusAdapter() {
             @Override

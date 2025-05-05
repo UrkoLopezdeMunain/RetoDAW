@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,6 +19,8 @@ public class VistaController {
     private ConsultarEquipo consultarEquipo;
     private ActualizarEquipo actualizarEquipo;
     private ConsultarJugador consultarJugador;
+    private final LocalDate muyPeque = LocalDate.now().minusYears(16);
+    private final LocalDate muyMayor = LocalDate.now().plusYears(65);
 
     public VistaController(ModeloController modeloController) {
         this.modeloController = modeloController;
@@ -101,22 +104,28 @@ public class VistaController {
         final Matcher matcher = pattern.matcher(nombreJugador);
         return !matcher.matches();
     }
-    public  boolean validarFechaNac(String fechaNaci) {
-        final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    public  boolean validarFechaNac(String fechaNaci) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        LocalDate fecha = LocalDate.parse(fechaNaci, formatter);
 
-        return LocalDate.parse(fechaNaci, formatter).isAfter(LocalDate.now());
+        if (fecha.isBefore(muyPeque) || fecha.isAfter(muyMayor)) {
+            return fecha.isBefore(LocalDate.now());
+        }
+        throw new Exception("La edad debe estar comprendida entre los 16 y 65 años");
     }
 
     /**Metodos de creacion*/
     public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
-        Equipo equipo = new Equipo(nombre,fechaFund);
+        Equipo equipo = new Equipo(nombre,validarFecha(fechaFund));
         return modeloController.crearEquipo(equipo);
     }
+
     public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, Equipo equipo) throws Exception {
         Jugador jugador = new Jugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,equipo);
 
         return modeloController.crearJugador(jugador);
     }
+
     /**Metodos de borrado*/
     public boolean borrarJugador(String nickName) throws SQLException {
         Jugador jugador = new Jugador(nickName);
@@ -127,6 +136,19 @@ public class VistaController {
         return modeloController.borrarEquipo(equipo);
     }
 
+    public LocalDate validarFecha(String fecha) throws Exception {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        try {
+            LocalDate fechaLocalDate = LocalDate.parse(fecha.trim(), formatter);
+            if (fechaLocalDate.isAfter(LocalDate.now())) {
+                throw new Exception("La fecha de fundacion no puede ser de anterior a la del juego");
+            }
+            return fechaLocalDate;
+        }catch (DateTimeParseException e){
+            throw new DateTimeParseException("La fecha no sigue un formato valido (dd-mm-aaaa)", fecha,0);
+        }
+    }
+
     /**Metodos de consulta*/
     public void rellenarCamposEquipo(JPanel pPrincipal) {
         //entre otros
@@ -134,10 +156,11 @@ public class VistaController {
         consultarEquipo.getTfCodEquipo().setText(String.valueOf(modeloController.equipo.getCodEquipo()));
         consultarEquipo.getTfFechaFundacion().setText(modeloController.equipo.getFechaFundacion().toString());
         consultarEquipo.getTfPuntuacionTotal().setText(String.valueOf(modeloController.equipo.getPuntuacion()));
-        //Comentadfo por que se pide en otro metodo(de BD)
         pPrincipal.revalidate();
         pPrincipal.repaint();
+
     }
+
     public void rellenarCamposJugador(JPanel pPrincipal){
         consultarJugador.getTfNombre().setText(modeloController.jugador.getNombre());
         consultarJugador.getTfApellido().setText(modeloController.jugador.getApellido());
@@ -158,7 +181,7 @@ public class VistaController {
 
     /**Metodos de Actualizacion de datos*/
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        Equipo equipo = new Equipo(nombreEquipo, fechaFund);
+        Equipo equipo = new Equipo(nombreEquipo, validarFecha(fechaFund));
         return modeloController.actualizarEquipoFecha(equipo);
     }
 

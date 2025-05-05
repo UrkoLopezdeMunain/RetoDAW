@@ -48,14 +48,14 @@ public class EquipoController {
         return nombre;
     }
     /**Se pasa a java.sql.Date en DAO*/
-    public String validarFecha(String fecha) throws Exception {
+    public LocalDate validarFecha(String fecha) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         try {
             LocalDate fechaLocalDate = LocalDate.parse(fecha.trim(), formatter);
             if (fechaLocalDate.isAfter(LocalDate.now())) {
                 throw new Exception("La fecha de fundacion no puede ser de anterior a la del juego");
             }
-            return String.valueOf(fechaLocalDate);
+            return fechaLocalDate;
         }catch (DateTimeParseException e){
             throw new DateTimeParseException("La fecha no sigue un formato valido (dd-mm-aaaa)", fecha,0);
         }
@@ -67,11 +67,11 @@ public class EquipoController {
     }
     /**Al lanzar excepcion no hace falta colocarlos dentro de un 'if' , ya que si algo sale mal directamente relanzarán a la funcion padre*/
     public boolean crearEquipo(Equipo equipo) throws Exception {
-        validarNombre(equipo.getNombre()); validarFecha(String.valueOf(equipo.getFechaFundacion()));
+        validarNombre(equipo.getNombre());
         return eDAO.crearEquipo(equipo);
     }
     public boolean actualizarEquipoFecha(Equipo equipo) throws Exception {
-        validarFecha(equipo.getNombre()); validarFecha(String.valueOf(equipo.getFechaFundacion()));
+        validarNombre(equipo.getNombre());
         return eDAO.actualizarFechaEquipo(equipo);
     }
 

@@ -26,7 +26,7 @@ public class ConsultarEquipo extends JDialog {
         tfFechaFundacion.setEditable(false);
         tfPuntuacionTotal.setEditable(false);
 
-        bAtras.addActionListener(_ -> onCancel());
+        bAtras.addActionListener(i -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -37,7 +37,7 @@ public class ConsultarEquipo extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        pPrincipal.registerKeyboardAction(_ -> onCancel(),
+        pPrincipal.registerKeyboardAction(i -> onCancel(),
                 KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
         );
 

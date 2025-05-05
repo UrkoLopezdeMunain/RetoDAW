@@ -22,6 +22,15 @@ public class CrearJugador extends  JDialog{
     private JComboBox cbPaises;
     private JComboBox cbEquiposDisp;
     private JTextField tfNickName;
+
+    private JLabel lNombreJugador;
+    private JLabel lApellidoJugador;
+    private JLabel lFechaNaci;
+    private JLabel lSueldo;
+    private JLabel lRol;
+    private JLabel lEquipo;
+    private JLabel lNacionalidad;
+
     private final VistaController vistaController;
 
     /**
@@ -90,7 +99,6 @@ public class CrearJugador extends  JDialog{
                 try {
                     if (vistaController.validarFechaNac(tfFechaNaci.getText())) {
                         tfFechaNaci.requestFocus();
-                        JOptionPane.showMessageDialog(pPrincipal,"La el jugador debe tener entre 16 y 65 años");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -136,7 +144,7 @@ public class CrearJugador extends  JDialog{
             }
         });
 
-        bAceptar.addActionListener(_ -> {
+        bAceptar.addActionListener(i -> {
             try {
                 if (vistaController.crearJugador(
                         tfNombreJugador.getText(),
@@ -154,7 +162,7 @@ public class CrearJugador extends  JDialog{
                 JOptionPane.showMessageDialog(pPrincipal,"ERROR: "+ex.getMessage());
             }
         });
-        bCancelar.addActionListener(_-> dispose());
+        bCancelar.addActionListener(i-> dispose());
     }
 
     private void nacionalidades(){

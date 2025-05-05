@@ -9,6 +9,8 @@ public class ActualizarEquipo extends JDialog {
     private JPanel pPrincipal;
     private JTextField tfNombreNuevo;
     private JTextField tfFechaFundNueva;
+    private JLabel lNombreNuevo;
+    private JLabel lPuncuacionNueva;
     private JButton bAceptar;
     private JButton bCancelar;
 
@@ -20,7 +22,7 @@ public class ActualizarEquipo extends JDialog {
         setLocationRelativeTo(pPrincipal.getRootPane());
         setResizable(false); //para que sea de posicion y tamaño fijo
 
-        bCancelar.addActionListener(_ -> onCancel());
+        bCancelar.addActionListener(i -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -53,7 +55,7 @@ public class ActualizarEquipo extends JDialog {
                 }
             }
         });
-        bAceptar.addActionListener(_ -> {
+        bAceptar.addActionListener(i -> {
             try {
                 onOk();
             } catch (Exception ex) {
