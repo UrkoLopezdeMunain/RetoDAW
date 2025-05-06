@@ -59,7 +59,6 @@ public class CrearJugador extends  JDialog{
                 try {
                     if (vistaController.validarNomYAp(tfNombreJugador.getText())) {
                         tfNombreJugador.requestFocus();
-                        JOptionPane.showMessageDialog(pPrincipal,"El campo debe seguir un formato correcto(2 letras como minimo 20max.");
                     }
                 }catch (Exception ex){
                     JOptionPane.showMessageDialog(null,ex.getMessage());
@@ -79,13 +78,13 @@ public class CrearJugador extends  JDialog{
                 try {
                     if (vistaController.validarNomYAp(tfApellidoJugador.getText())) {
                         tfApellidoJugador.requestFocus();
-                        JOptionPane.showMessageDialog(pPrincipal,"El campo debe seguir un formato correcto(2 letras como minimo 20max.");
                     }
                 }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                    JOptionPane.showMessageDialog(pPrincipal,ex.getMessage());
                 }
             }
         });
+
 
         tfFechaNaci.addFocusListener(new FocusAdapter() {
             @Override
@@ -97,7 +96,7 @@ public class CrearJugador extends  JDialog{
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
                 try {
-                    if (vistaController.validarFechaNac(tfFechaNaci.getText())) {
+                    if (!vistaController.validarFechaNac(tfFechaNaci.getText())) {
                         tfFechaNaci.requestFocus();
                     }
                 }catch (Exception ex){
@@ -114,13 +113,9 @@ public class CrearJugador extends  JDialog{
             @Override
             public void focusLost(FocusEvent e) {
                 super.focusLost(e);
-                try {
-                    if (!vistaController.validarSueldo(tfSueldo.getText())) {
-                        tfSueldo.requestFocus();
-                        JOptionPane.showMessageDialog(pPrincipal,"El sueldo del jugador debe ser como minimo 1184€.");
-                    }
-                }catch (Exception ex){
-                    JOptionPane.showMessageDialog(null,ex.getMessage());
+                if (!vistaController.validarSueldo(tfSueldo.getText())) {
+                    tfSueldo.requestFocus();
+                    JOptionPane.showMessageDialog(pPrincipal,"EL sueldo debe de ser como minimo de 1184");
                 }
             }
         });
@@ -146,20 +141,18 @@ public class CrearJugador extends  JDialog{
 
         bAceptar.addActionListener(i -> {
             try {
-                if (vistaController.crearJugador(
-                        tfNombreJugador.getText(),
-                        tfApellidoJugador.getText(),
+                vistaController.crearJugador(
+                        tfNombreJugador.getText().toLowerCase(),
+                        tfApellidoJugador.getText().toLowerCase(),
                         obtenerCod3(),
                         tfFechaNaci.getText(),
                         tfSueldo.getText(),
-                        tfRol.getText(),
-                        tfNickName.getText(),
-                        obtenerEquipo())){
-                    JOptionPane.showMessageDialog(pPrincipal,"El jugador ha creado con exito");
-                }else
-                    throw new Exception();
+                        tfRol.getText().toLowerCase(),
+                        tfNickName.getText().toLowerCase(),
+                        obtenerEquipo());
+                JOptionPane.showMessageDialog(pPrincipal,"El jugador ha creado con exito");
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(pPrincipal,"ERROR: "+ex.getMessage());
+                JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + ex.getMessage());
             }
         });
         bCancelar.addActionListener(i-> dispose());

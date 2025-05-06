@@ -99,16 +99,19 @@ public class VistaController {
         Matcher matcher = pattern.matcher(nickName);
         return matcher.matches();
     }
-    public boolean validarNomYAp(String nombreJugador) {
-        final Pattern pattern = Pattern.compile("^[a-z ]{2,20}+$");
+    public boolean validarNomYAp(String nombreJugador)throws Exception {
+        final Pattern pattern = Pattern.compile("^[A-Za-zñÑáéíóúÁÉÍÓÚüÜ ]{2,20}$");
         final Matcher matcher = pattern.matcher(nombreJugador);
-        return !matcher.matches();
+        if (!matcher.matches()) {
+            throw new Exception("El campo rellenado debe ser minimo de 2 a 20 caracteres");
+        }
+        return false;
     }
     public  boolean validarFechaNac(String fechaNaci) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate fecha = LocalDate.parse(fechaNaci, formatter);
 
-        if (fecha.isBefore(muyPeque) || fecha.isAfter(muyMayor)) {
+        if (fecha.isAfter(muyPeque) || fecha.isBefore(muyMayor)) {
             return fecha.isBefore(LocalDate.now());
         }
         throw new Exception("La edad debe estar comprendida entre los 16 y 65 años");
