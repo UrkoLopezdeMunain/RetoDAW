@@ -3,8 +3,6 @@ package Vista;
 import ModeloController.VistaController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -15,6 +13,7 @@ public class BorrarEquipo extends JDialog{
     private JTextField tfNombreEquipo;
     private JLabel lNombre;
     protected VistaController vistaController;
+
     public BorrarEquipo(VistaController vistaController) {
         setContentPane(pPrincipal);
         setModal(true);
@@ -37,18 +36,12 @@ public class BorrarEquipo extends JDialog{
             }
         });
 
-        bCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
-        bAceptar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    onOk();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(pPrincipal, ex.getMessage());
-                }
+        bCancelar.addActionListener(i -> onCancel());
+        bAceptar.addActionListener(i -> {
+            try {
+                onOk();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(pPrincipal, ex.getMessage());
             }
         });
     }
