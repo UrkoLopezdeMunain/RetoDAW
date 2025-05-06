@@ -29,7 +29,7 @@ public class ModeloController {
             CompeticionDAO competicionDAO = new CompeticionDAO(c);
             EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
             EquipoDAO equipoDAO = new EquipoDAO(c);
-            JornadaDAO jornadaDAO = new JornadaDAO(c);
+            JornadaDAO jornadaDAO = new JornadaDAO(c, competicionDAO);
             JugadorDAO jugadorDAO = new JugadorDAO(c);
             UsuarioDAO usuarioDAO = new UsuarioDAO(c);
 
@@ -77,5 +77,8 @@ public class ModeloController {
     }
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
         return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    }
+    public boolean iniciarCompeticion() throws SQLException {
+        return competicionController.iniciarCompeticion();
     }
 }

@@ -3,6 +3,9 @@ package Vista;
 import ModeloController.VistaController;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class PanelUsuario extends JFrame{
     private JPanel pPrincipal;
@@ -64,10 +67,19 @@ public class PanelUsuario extends JFrame{
               //vistaController.setInformes(this);
         });
 
-
         bEmpezarComp.addActionListener(e -> {
             // Empezar competición
+            try {
+                if (vistaController.iniciarCompeticion()) {
+                    JOptionPane.showMessageDialog(this, "Competición iniciada correctamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al iniciar la competición.");
+                }
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
         });
+
     }
     /*
     public PanelUsuario(VistaController vistaController) {

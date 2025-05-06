@@ -89,4 +89,8 @@ public class VistaController {
         actualizarEquipo.getTfFechaFundNueva().setText(modeloController.equipo.getFechaFundacion().toString());
         pPrincipal.revalidate(); pPrincipal.repaint();
     }
+
+    public boolean iniciarCompeticion() throws SQLException {
+        return modeloController.iniciarCompeticion();
+    }
 }
