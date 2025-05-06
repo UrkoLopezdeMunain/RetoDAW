@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class Jugador {
     private int codJugador;
@@ -44,22 +45,6 @@ public class Jugador {
 
     public Jugador() {
     }
-
-    public Jugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, Equipo codEquipo) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nacionalidad = nacionalidad;
-        this.fechaNacimiento = LocalDate.parse(fechaNac);
-        this.sueldo = Double.parseDouble(sueldo);
-        this.rol = rol;
-        this.nickname = nickName;
-        this.equipo = codEquipo;
-    }
-
-    public Jugador(String nickName) {
-        this.nickname = nickName;
-    }
-
 
     public Equipo getEquipo() {
         return equipo;

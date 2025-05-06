@@ -13,8 +13,8 @@ public class UsuarioController {
         this.usuarioDAO = usuarioDAO;
     }
 
-    public Usuario validarUsuario(Usuario u) throws SQLException {
-        return usuario = usuarioDAO.validarUsuario(u);
+    public Usuario validarUsuario(String nombreUsuario) throws SQLException {
+        return usuario = usuarioDAO.validarUsuario(nombreUsuario);
     }
 
 }

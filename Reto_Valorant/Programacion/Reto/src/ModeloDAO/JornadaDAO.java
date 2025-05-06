@@ -1,6 +1,7 @@
 package ModeloDAO;
 
 
+import Modelo.Equipo;
 import Modelo.Jornada;
 
 import java.sql.Connection;
@@ -29,7 +30,6 @@ public class JornadaDAO {
     public java.sql.Date validarFecha(String fechaIni) {
         return java.sql.Date.valueOf(fechaIni);
     }
-
     public ArrayList<Jornada> getJornadas() throws SQLException {
         String sql = "SELECT * FROM jornadas";
         ArrayList<Jornada> jornadas = new ArrayList<>();
