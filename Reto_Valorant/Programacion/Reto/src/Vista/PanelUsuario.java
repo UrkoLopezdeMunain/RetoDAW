@@ -35,19 +35,19 @@ public class PanelUsuario extends JFrame{
         this.vistaController = vistaController ;
 
         //crear Listeners
-        iCrearEquipo.addActionListener(_ -> vistaController.setCrearEquipo(vistaController));
-        iConsultarEquipo.addActionListener(_ -> vistaController.setConsultarEquipo(vistaController));
-        iActualizarEquipo.addActionListener(_ -> vistaController.setActualizarEquipo(vistaController));
-        iBorrarEquipo.addActionListener(_ -> vistaController.setBorrarEquipo(vistaController));
-        iCrearJugador.addActionListener(_ -> {
+        iCrearEquipo.addActionListener(i -> vistaController.setCrearEquipo(vistaController));
+        iConsultarEquipo.addActionListener(i -> vistaController.setConsultarEquipo(vistaController));
+        iActualizarEquipo.addActionListener(i -> vistaController.setActualizarEquipo(vistaController));
+        iBorrarEquipo.addActionListener(i -> vistaController.setBorrarEquipo(vistaController));
+        iCrearJugador.addActionListener(i -> {
             try {
                 vistaController.setCrearJugador(vistaController);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
-        iConsultarJugador.addActionListener(_ -> vistaController.setConsultarJugador(vistaController));
-        iActualizarJugador.addActionListener(_ -> vistaController.setActualizarJugador(vistaController));
+        iConsultarJugador.addActionListener(i -> vistaController.setConsultarJugador(vistaController));
+        iActualizarJugador.addActionListener(i -> vistaController.setActualizarJugador(vistaController));
 
         /*
         iBorrarJugador.addActionListener(_ -> //vistaController.setBorrarJugador(vistaController));

@@ -50,7 +50,7 @@ public class IniciarSesion extends JFrame{
             }
         });
 
-        aceptarButton.addActionListener(_ -> {
+        aceptarButton.addActionListener(i -> {
             try {
                 if (vistaController.validarPassWord(String.valueOf(tfPassword.getPassword()))){
                     //se puede obtener el tipoUsuario para el contructor de PanelUsuario

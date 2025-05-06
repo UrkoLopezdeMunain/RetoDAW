@@ -12,6 +12,7 @@ public class CrearEquipo extends JDialog {
     private JButton bAceptar;
     private JButton bCancelar;
     protected VistaController vistaController;
+
     public CrearEquipo(VistaController vistaController) {
         setContentPane(pPrincipal);
         setModal(true);
@@ -41,7 +42,7 @@ public class CrearEquipo extends JDialog {
                 }
             }
         });
-        bAceptar.addActionListener(_ -> {
+        bAceptar.addActionListener(i -> {
             try {
                 onOK();
             } catch (Exception ex) {
@@ -49,7 +50,7 @@ public class CrearEquipo extends JDialog {
             }
         });
 
-        bCancelar.addActionListener(_ -> onCancel());
+        bCancelar.addActionListener(i -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -60,11 +61,11 @@ public class CrearEquipo extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        pPrincipal.registerKeyboardAction(_ -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        pPrincipal.registerKeyboardAction(i -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() throws Exception {
-        if (vistaController.crearEquipo(tfNombreEquipo.getText(),tfFechaFund.getText())){
+        if (vistaController.crearEquipo(tfNombreEquipo.getText(), tfFechaFund.getText())){
             JOptionPane.showMessageDialog(pPrincipal, "Equipo creado con exito");
         }
         dispose();

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Equipo {
 
-    private int codEquipo; // Código único del equipo (ej: EQ001)
+    private int codEquipo; // Código único del equipo (ej: 00001)
     private int puntuacion; // Puntuación actual del equipo
     private String nombre; // Nombre del equipo
     private LocalDate fechaFundacion; // Fecha de fundación del equipo
@@ -34,9 +34,9 @@ public class Equipo {
         this.listaJugadores = listaJugadores;
     }
 
-    public Equipo(String nombre, String fechaFund) {
+    public Equipo(String nombre, LocalDate fechaFund) {
         this.nombre = nombre;
-        this.fechaFundacion = LocalDate.parse(fechaFund);
+        this.fechaFundacion = fechaFund;
     }
 
     public Equipo(String nombreEquipo) {
@@ -106,9 +106,11 @@ public class Equipo {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(getNombre())
                 .append("\n").append("Codigo de equipo: ").append(getCodEquipo())
-                .append("\n").append("Fecha de fundacion: ").append(getFechaFundacion())
-                .append("\n").append("Puntuacion: ").append(getPuntuacion())
-                .append(getListaJugadores().toString());
+                .append("\n").append("Fecha de fundacion: ").append(getFechaFundacion().toString())
+                .append("\n").append("Puntuacion: ").append(getPuntuacion());
+        if (!listaJugadores.isEmpty()) sb.append(getListaJugadores().toString());
     return sb.toString();
+
     }
+
 }

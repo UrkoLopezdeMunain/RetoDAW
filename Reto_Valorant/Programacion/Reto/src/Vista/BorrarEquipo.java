@@ -11,7 +11,9 @@ public class BorrarEquipo extends JDialog{
     private JButton bCancelar;
     private JButton bAceptar;
     private JTextField tfNombreEquipo;
+    private JLabel lNombre;
     protected VistaController vistaController;
+
     public BorrarEquipo(VistaController vistaController) {
         setContentPane(pPrincipal);
         setModal(true);
@@ -34,8 +36,8 @@ public class BorrarEquipo extends JDialog{
             }
         });
 
-        bCancelar.addActionListener(_ -> onCancel());
-        bAceptar.addActionListener(_ -> {
+        bCancelar.addActionListener(i -> onCancel());
+        bAceptar.addActionListener(i -> {
             try {
                 onOk();
             } catch (Exception ex) {

@@ -70,11 +70,6 @@ public class ModeloController {
     }
     public boolean validarEquipo(Equipo eq) throws Exception {
         equipo = equipoController.validarEquipo(eq);
-
-        if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo));
-            //para poder aprovechar directamente todos sus atributos lo relleno ya
-        }
         return equipo != null;
     }
     public boolean validarJugador(Jugador jugador) throws SQLException {
