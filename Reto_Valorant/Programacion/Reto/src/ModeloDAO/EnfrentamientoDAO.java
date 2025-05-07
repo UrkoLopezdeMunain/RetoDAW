@@ -2,6 +2,7 @@ package ModeloDAO;
 
 import Modelo.Enfrentamiento;
 import Modelo.Equipo;
+import ModeloController.EnfrentamientoController;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,8 +11,12 @@ public class EnfrentamientoDAO {
     private static ArrayList<Enfrentamiento> enfrentamientos;
     protected Connection con;
     protected String sql;
+    protected EnfrentamientoController enfrentamientoController;
     public EnfrentamientoDAO(Connection c) {
         this.con = c;
+    }
+    public void setEnfrentamientoController(EnfrentamientoController enfrentamientoController){
+        this.enfrentamientoController = enfrentamientoController;
     }
 
     public boolean anadirEnfrentamientos(Enfrentamiento en) throws SQLException {
@@ -49,7 +54,7 @@ public class EnfrentamientoDAO {
                 e.setEquipo1(eq1);
                 e.setEquipo2(eq2);
                 e.setHora(rs.getTime("hora").toLocalTime());
-                e.setJornada(JornadaDAO.getJornadaPorId(rs.getInt("jornada_id"), con));
+                e.setJornada(enfrentamientoController.getJornadaPorId(rs.getInt("jornada_id")));
                 e.setResultadosEq1(rs.getInt("resultado_eq1"));
                 e.setResultadosEq2(rs.getInt("resultado_eq2"));
                 return e;
