@@ -270,4 +270,7 @@ public class EnfrentamientoController {
     public List<Enfrentamiento> getEnfrentamientos() throws Exception{
         return enfrentamientos;
     }
+    public Jornada getJornadaPorId(int id) throws SQLException{
+        return modeloController.getJornadaPorId(id);
+    }
 }

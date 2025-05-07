@@ -81,4 +81,7 @@ public class JornadaController {
     public List<Jornada> getJornadas() throws SQLException{
         return jornadaDAO.getJornadas();
     }
+    public Jornada getJornadaPorId(int id) throws SQLException{
+        return jornadaDAO.getJornadaPorId(id);
+    }
 }
