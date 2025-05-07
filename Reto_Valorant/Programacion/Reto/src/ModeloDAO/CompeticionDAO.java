@@ -26,14 +26,12 @@ public class CompeticionDAO {
     }
 
     // Versión alternativa si usas consulta SQL directa
-    public Competicion conseguirCompeticion(int codCompeticion) throws SQLException {
+    public Competicion conseguirCompeticion() throws SQLException {
         String sql = "SELECT cod_competicion, estado " +
-                "FROM competiciones WHERE cod_competicion = ?";
+                "FROM competiciones WHERE cod_competicion = 1";
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, codCompeticion);
-
-            try (ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Competicion(
                             rs.getInt("cod_competicion"),
@@ -43,6 +41,6 @@ public class CompeticionDAO {
                 }
             }
         }
-        throw new SQLException("Competición no encontrada con código: " + codCompeticion);
+        throw new SQLException("Competición no encontrada con código: " + 1);
     }
 }

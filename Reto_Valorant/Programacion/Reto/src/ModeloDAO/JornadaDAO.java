@@ -21,11 +21,11 @@ public class JornadaDAO {
     }
 
     public void anadirJornada(Jornada j) throws SQLException {
-        String sql = "INSERT INTO jornadas(num_jornada,fecha_inicio,cod_comp) VALUES(?,?,?)";
+        String sql = "INSERT INTO jornadas(num_jornada,fecha_inicio,cod_comp) VALUES(default,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1, j.getNumJornada());
-        ps.setDate(2, validarFecha(j.getFechaInicio().toString()));
-        ps.setInt(3, j.getCompeticion().getCodCompeticion());
+        ps.setDate(1, validarFecha(j.getFechaInicio().toString()));
+        ps.setInt(2, j.getCompeticion().getCodCompeticion());
+        ps.executeUpdate();
     }
     public java.sql.Date validarFecha(String fechaIni) {
         return java.sql.Date.valueOf(fechaIni);
@@ -40,7 +40,7 @@ public class JornadaDAO {
             Jornada j = new Jornada();
             j.setNumJornada(rs.getInt("num_jornada"));
             j.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
-            j.setCompeticion(cDAO.conseguirCompeticion(rs.getInt("cod_comp")));
+            j.setCompeticion(cDAO.conseguirCompeticion());
             jornadas.add(j);
         }
         return jornadas.stream().toList();

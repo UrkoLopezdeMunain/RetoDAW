@@ -14,18 +14,20 @@ import java.util.*;
 
 public class JornadaController {
     private final JornadaDAO jornadaDAO;
+    private final ModeloController modeloController;
 
     private static final int[] meses31 = {1,3,5,7,8,10,12};
 
-    public JornadaController(JornadaDAO jornadaDAO) {
+    public JornadaController(JornadaDAO jornadaDAO, ModeloController modeloController) {
         this.jornadaDAO = jornadaDAO;
+        this.modeloController = modeloController;
     }
 
     private void crearJornada(ArrayList<Equipo> equipos) throws SQLException{
         for (int i = 0; i < equipos.size(); i++){
             Jornada jornada = new Jornada();
                 jornada.setFechaInicio(elegirFecha());
-                //jornada.setCompeticion(competicionDAO.obtenerTodasCompeticiones().getLast());
+                jornada.setCompeticion(modeloController.getCompeticion());
             jornadaDAO.anadirJornada(jornada);
         }
     }
@@ -76,7 +78,7 @@ public class JornadaController {
         }
         return jornadaDAO.getJornadas().getLast().getFechaInicio().plusDays(diasHastaDomingo).plusDays(randomDia);
     }
-    public List<Jornada> getJornadas() throws Exception {
+    public List<Jornada> getJornadas() throws SQLException{
         return jornadaDAO.getJornadas();
     }
 }
