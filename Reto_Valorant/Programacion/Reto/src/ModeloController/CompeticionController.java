@@ -1,6 +1,9 @@
 package ModeloController;
 
+import Modelo.Competicion;
 import ModeloDAO.CompeticionDAO;
+
+import java.sql.SQLException;
 
 public class CompeticionController {
     private final CompeticionDAO competicionDAO;
@@ -9,4 +12,7 @@ public class CompeticionController {
         this.competicionDAO = competicionDAO;
     }
 
+    public Competicion getCompeticion() throws SQLException {
+        return competicionDAO.conseguirCompeticion();
+    }
 }

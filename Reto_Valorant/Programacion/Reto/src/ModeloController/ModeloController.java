@@ -7,7 +7,6 @@ import ModeloDAO.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Objects;
 
 public class ModeloController {
     protected VistaController vistaController;
@@ -41,7 +40,7 @@ public class ModeloController {
             competicionController = new CompeticionController(competicionDAO);
             enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO,this);
             equipoController = new EquipoController(equipoDAO);
-            jornadaController = new JornadaController(jornadaDAO);
+            jornadaController = new JornadaController(jornadaDAO,this);
             jugadorController= new JugadorController(jugadorDAO);
             usuarioController = new UsuarioController(usuarioDAO);
         }catch (Exception e) {
@@ -60,11 +59,8 @@ public class ModeloController {
         return equipo;
     }
 
-    public List<Enfrentamiento> getEnfrentamientos() throws Exception {
-        return Objects.requireNonNull(
-                enfrentamientoController.getEnfrentamientos(),
-                "No se puede obtener una lista de enfrentamientos por que la competicion no se ha iniciado"
-        );
+    public List<Enfrentamiento> getEnfrentamientos() throws Exception{
+        return enfrentamientoController.getEnfrentamientos();
     }
 
     /**Metodos de validacion*/
@@ -105,7 +101,11 @@ public class ModeloController {
         return equipoController.actualizarEquipoFecha(eq);
     }
 
-    public List<Jornada> getJornadas() throws Exception {
+    public List<Jornada> getJornadas() throws SQLException{
         return jornadaController.getJornadas();
+    }
+
+    public Competicion getCompeticion() throws SQLException{
+        return competicionController.getCompeticion();
     }
 }
