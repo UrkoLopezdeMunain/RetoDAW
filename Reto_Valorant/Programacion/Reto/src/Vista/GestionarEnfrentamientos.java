@@ -9,6 +9,7 @@ public class GestionarEnfrentamientos extends JDialog {
     private JPanel pPrincipal;
     private JButton bAceptar;
     private JTextArea taEnfrentamientos;
+    private JComboBox cbJornada;
     private VistaController vistaController;
 
     public GestionarEnfrentamientos(VistaController vistaController) {
@@ -37,6 +38,7 @@ public class GestionarEnfrentamientos extends JDialog {
     }
 
     private void onOK() {
+        vistaController.puntuarEnfrentamientos();
         dispose();
     }
 
