@@ -19,12 +19,11 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class EnfrentamientoController {
-    private EquipoDAO equipoDAO;
     private EnfrentamientoDAO enfrentamientoDAO;
     private ModeloController modeloController;
     private ArrayList<Enfrentamiento> enfrentamientos;
     private ArrayList<Enfrentamiento> enfrentamientosMitad1;
-    private ArrayList<Jornada> jornadas;
+    private List<Jornada> jornadas;
     private List<Equipo> equipos;
 
     public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO, ModeloController modeloController) {
@@ -34,6 +33,7 @@ public class EnfrentamientoController {
 
     public void crearEnfrentamientos() throws SQLException{
         try {
+            jornadas = modeloController.getJornadas();
             primeraMitad();
             segundaMitad();
         } catch (IllegalArgumentException e) {
@@ -43,7 +43,7 @@ public class EnfrentamientoController {
 
     private void primeraMitad() throws SQLException {
         for (int p = 0; p < jornadas.size()/2; p++) {
-            equipos = equipoDAO.getEquipos();
+            equipos = modeloController.getEquipos();
             hacerEnfrentamiento(p);
             for(Enfrentamiento enfrentamiento : enfrentamientosMitad1){
                 equipos.add(enfrentamiento.getEquipo1());

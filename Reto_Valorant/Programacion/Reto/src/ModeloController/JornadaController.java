@@ -10,10 +10,7 @@ import javax.swing.*;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
-import java.util.Random;
+import java.util.*;
 
 public class JornadaController {
     private final JornadaDAO jornadaDAO;
@@ -78,5 +75,8 @@ public class JornadaController {
             diasHastaDomingo += 7;
         }
         return jornadaDAO.getJornadas().getLast().getFechaInicio().plusDays(diasHastaDomingo).plusDays(randomDia);
+    }
+    public List<Jornada> getJornadas(){
+        return jornadaDAO.getJornadas();
     }
 }
