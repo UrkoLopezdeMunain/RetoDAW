@@ -74,8 +74,6 @@ values(default,'eider','Jm12345','a');
 insert into usuarios (cod_usuario,nombre,contraseña,tipo_usuario)
 values(default,'invitado','Jm12345','n');
 
-select * from usuarios;
-
 create sequence sequencia_equipos
   start with 1
   increment by 1;
@@ -227,8 +225,9 @@ create or replace view vis_equ_info as
         group by e.nombre, e.fecha_fundacion,e.cod_equipo
 with read only;
 
-drop view vis_jug_info;
+
 /*
+create or replace view vis_jug_info as
     select j.nombre, j.apellido, j.rol, j.sueldo, e.nombre as nombre_equipo
     from jugadores j
     right join equipos e

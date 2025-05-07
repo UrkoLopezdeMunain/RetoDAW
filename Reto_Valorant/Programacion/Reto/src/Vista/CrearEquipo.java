@@ -1,12 +1,9 @@
 package Vista;
 
-import ModeloController.JornadaController;
 import ModeloController.VistaController;
-import ModeloDAO.JugadorDAO;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.time.LocalDate;
 
 public class CrearEquipo extends JDialog {
     private JPanel pPrincipal;
@@ -15,6 +12,7 @@ public class CrearEquipo extends JDialog {
     private JButton bAceptar;
     private JButton bCancelar;
     protected VistaController vistaController;
+
     public CrearEquipo(VistaController vistaController) {
         setContentPane(pPrincipal);
         setModal(true);
@@ -44,21 +42,15 @@ public class CrearEquipo extends JDialog {
                 }
             }
         });
-        bAceptar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    onOK();
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(pPrincipal,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
-                }
+        bAceptar.addActionListener(i -> {
+            try {
+                onOK();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(pPrincipal,ex.getMessage(),"ERROR",JOptionPane.ERROR_MESSAGE);
             }
         });
 
-        bCancelar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        bCancelar.addActionListener(i -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -69,15 +61,11 @@ public class CrearEquipo extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        pPrincipal.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        pPrincipal.registerKeyboardAction(i -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() throws Exception {
-        if (vistaController.crearEquipo(tfNombreEquipo.getText(),tfFechaFund.getText())){
+        if (vistaController.crearEquipo(tfNombreEquipo.getText(), tfFechaFund.getText())){
             JOptionPane.showMessageDialog(pPrincipal, "Equipo creado con exito");
         }
         dispose();
