@@ -13,19 +13,15 @@ public class EnfrentamientoDAO {
         this.con = c;
     }
 
-    public boolean anadirEnfrentamientos(Enfrentamiento en) {
-        //para la comunicacion con Vista
-        return false;
+    public void anadirEnfrentamientos(Enfrentamiento en) {
+
     }
 
     public ArrayList<Enfrentamiento> getEnfrentamientos() {
         return null;
     }
 
-    public Enfrentamiento getEnfrentamientoPorId(int id) {
-        return null;
-    }
-    public Enfrentamiento getEnfrentamientoPorEquipos(Equipo eq1,Equipo eq2){
+    public Enfrentamiento getEnfrentamientoPorJornada(int numJornada){
         return null;
     }
 

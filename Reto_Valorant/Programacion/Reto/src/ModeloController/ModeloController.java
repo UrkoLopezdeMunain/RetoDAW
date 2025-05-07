@@ -1,10 +1,7 @@
 package ModeloController;
 
 import BaseDatos.BaseDatos;
-import Modelo.Enfrentamiento;
-import Modelo.Equipo;
-import Modelo.Jugador;
-import Modelo.Usuario;
+import Modelo.*;
 import ModeloDAO.*;
 
 import java.sql.Connection;
@@ -102,5 +99,9 @@ public class ModeloController {
     /**Metodos de actualizacion*/
     public boolean actualizarEquipoFecha(Equipo eq) throws Exception {
         return equipoController.actualizarEquipoFecha(eq);
+    }
+
+    public List<Jornada> getJornadas(){
+        return jornadaController.getJornadas();
     }
 }
