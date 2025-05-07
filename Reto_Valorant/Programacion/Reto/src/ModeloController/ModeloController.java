@@ -1,6 +1,7 @@
 package ModeloController;
 
 import BaseDatos.BaseDatos;
+import Modelo.Enfrentamiento;
 import Modelo.Equipo;
 import Modelo.Jugador;
 import Modelo.Usuario;
@@ -60,6 +61,12 @@ public class ModeloController {
     public Equipo getEquipo(){
         return equipo;
     }
+    /*
+    public List<Enfrentamiento> getEnfrentamientos(){
+        return enfrentamientoController.getEnfrentamientos();
+    }
+     */
+
     /**Metodos de validacion*/
     public boolean validarUsuario(Usuario u) throws SQLException {
         usuario = usuarioController.validarUsuario(u);

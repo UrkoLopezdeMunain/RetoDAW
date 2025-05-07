@@ -21,7 +21,7 @@ public class BaseDatos {
             String password = "eqdaw03";
             String url ="jdbc:oracle:thin:"+ user +"/"+password+"@172.20.225.114:1521:orcl";
 
-            c = DriverManager.getConnection(url, user, password);º
+            c = DriverManager.getConnection(url, user, password);
             }catch (Exception e) {
                 System.out.println("Error al conectar a la base de datos: " + e.getMessage());
             }
