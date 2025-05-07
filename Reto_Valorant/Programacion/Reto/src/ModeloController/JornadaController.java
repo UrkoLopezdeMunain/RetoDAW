@@ -76,7 +76,7 @@ public class JornadaController {
         }
         return jornadaDAO.getJornadas().getLast().getFechaInicio().plusDays(diasHastaDomingo).plusDays(randomDia);
     }
-    public List<Jornada> getJornadas(){
+    public List<Jornada> getJornadas() throws Exception {
         return jornadaDAO.getJornadas();
     }
 }

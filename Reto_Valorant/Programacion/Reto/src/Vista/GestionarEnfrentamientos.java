@@ -12,13 +12,12 @@ public class GestionarEnfrentamientos extends JDialog {
     private VistaController vistaController;
 
     public GestionarEnfrentamientos(VistaController vistaController) {
-        rellenarConEquipos();
+        this.vistaController = vistaController;
         setTitle("Gestionar Enfrentamientos");
         setModal(true);
         getRootPane().setDefaultButton(bAceptar);
-        this.vistaController = vistaController;
-        setContentPane(pPrincipal);
         setSize(450,550);
+        setContentPane(pPrincipal);
         setLocationRelativeTo(pPrincipal.getRootPane());
         setResizable(false); //para que sea de posicion y tamaño fijo
 
@@ -46,8 +45,11 @@ public class GestionarEnfrentamientos extends JDialog {
         dispose();
     }
     public void rellenarConEquipos(){
-        vistaController.rellenarCamposGestionarEnfrentamientos(pPrincipal);
-        repaint(); revalidate();
+        try {
+            vistaController.rellenarCamposGestionarEnfrentamientos(pPrincipal);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
+        }
     }
 
     public JTextArea getTaEnfrentamientos() {
