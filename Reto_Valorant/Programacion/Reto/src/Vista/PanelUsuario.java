@@ -17,6 +17,7 @@ public class PanelUsuario extends JFrame{
     private JMenuItem iActualizarJugador;
     private JMenuItem iBorrarJugador;
     private JMenu mInformes;
+    private JMenuItem iGestionarEnfrentamientos;
     protected VistaController vistaController;
 
     //constructor ADMIN
@@ -49,11 +50,10 @@ public class PanelUsuario extends JFrame{
         iConsultarJugador.addActionListener(i -> vistaController.setConsultarJugador(vistaController));
         iActualizarJugador.addActionListener(i -> vistaController.setActualizarJugador(vistaController));
 
-        /*
-        iBorrarJugador.addActionListener(_ -> //vistaController.setBorrarJugador(vistaController));
 
-        mInformes.addActionListener(_ -> //vistaController.setInformes(vistaController));
-
+        iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
+        iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
+/*
         bEmpezarComp.addActionListener(_ -> {}// Empezar competición);
         */
 

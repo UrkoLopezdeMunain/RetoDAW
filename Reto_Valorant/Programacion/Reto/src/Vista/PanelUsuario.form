@@ -87,7 +87,14 @@
               <text value="Informes"/>
             </properties>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="d6b87" class="javax.swing.JMenuItem" binding="iGestionarEnfrentamientos">
+                <constraints/>
+                <properties>
+                  <text value="Gestionar Enfrentamientos"/>
+                </properties>
+              </component>
+            </children>
           </grid>
         </children>
       </grid>

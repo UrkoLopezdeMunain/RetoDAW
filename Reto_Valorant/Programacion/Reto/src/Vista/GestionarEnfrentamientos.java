@@ -1,0 +1,68 @@
+package Vista;
+
+import ModeloController.VistaController;
+
+import javax.swing.*;
+import java.awt.event.*;
+
+public class GestionarEnfrentamientos extends JDialog {
+    private JPanel pPrincipal;
+    private JButton bAceptar;
+    private JTextArea taEnfrentamientos;
+    private VistaController vistaController;
+
+    public GestionarEnfrentamientos(VistaController vistaController) {
+        rellenarConEquipos();
+        setTitle("Gestionar Enfrentamientos");
+        setModal(true);
+        getRootPane().setDefaultButton(bAceptar);
+        this.vistaController = vistaController;
+        setContentPane(pPrincipal);
+        setSize(450,550);
+        setLocationRelativeTo(pPrincipal.getRootPane());
+        setResizable(false); //para que sea de posicion y tamaño fijo
+
+        bAceptar.addActionListener(e -> onOK());
+
+        // call onCancel() when cross is clicked
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                onCancel();
+            }
+        });
+
+        // call onCancel() on ESCAPE
+        pPrincipal.registerKeyboardAction(e -> onCancel(),
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    }
+
+    private void onOK() {
+        dispose();
+    }
+
+    private void onCancel() {
+        // add your code here if necessary
+        dispose();
+    }
+    public void rellenarConEquipos(){
+        vistaController.rellenarCamposGestionarEnfrentamientos(pPrincipal);
+        repaint(); revalidate();
+    }
+
+    public JTextArea getTaEnfrentamientos() {
+        return taEnfrentamientos;
+    }
+
+    public void setTaEnfrentamientos(JTextArea taEnfrentamientos) {
+        this.taEnfrentamientos = taEnfrentamientos;
+    }
+
+    public JButton getbAceptar() {
+        return bAceptar;
+    }
+
+    public void setbAceptar(JButton bAceptar) {
+        this.bAceptar = bAceptar;
+    }
+}

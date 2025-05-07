@@ -8,6 +8,7 @@ import ModeloDAO.EquipoDAO;
 import ModeloDAO.JornadaDAO;
 
 import javax.swing.*;
+import java.sql.SQLException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,18 +19,21 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class EnfrentamientoController {
-    private EquipoDAO equipoDAO;
     private EnfrentamientoDAO enfrentamientoDAO;
+    private ModeloController modeloController;
     private ArrayList<Enfrentamiento> enfrentamientos;
     private ArrayList<Enfrentamiento> enfrentamientosMitad1;
-    private ArrayList<Jornada> jornadas;
-    private ArrayList<Equipo> equipos;
+    private List<Jornada> jornadas;
+    private List<Equipo> equipos;
 
-    public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO) {
-    }/*
+    public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO, ModeloController modeloController) {
+        this.enfrentamientoDAO = enfrentamientoDAO;
+        this.modeloController = modeloController;
+    }
 
-    public void crearEnfrentamientos() {
+    public void crearEnfrentamientos() throws SQLException{
         try {
+            jornadas = modeloController.getJornadas();
             primeraMitad();
             segundaMitad();
         } catch (IllegalArgumentException e) {
@@ -37,9 +41,9 @@ public class EnfrentamientoController {
         }
     }
 
-    private void primeraMitad(){
+    private void primeraMitad() throws SQLException {
         for (int p = 0; p < jornadas.size()/2; p++) {
-            equipos = equipoDAO.obtenerTodosLosEquipos();
+            equipos = modeloController.getEquipos();
             hacerEnfrentamiento(p);
             for(Enfrentamiento enfrentamiento : enfrentamientosMitad1){
                 equipos.add(enfrentamiento.getEquipo1());
@@ -110,6 +114,7 @@ public class EnfrentamientoController {
             }
         }while (yes);
     }
+
     private LocalTime elegirHora() {
         Random rand = new Random();
         int hora = rand.nextInt(15);
@@ -266,5 +271,7 @@ public class EnfrentamientoController {
         else
             enfrentamiento.getEquipo2().setPuntuacion(enfrentamiento.getEquipo2().getPuntuacion()+1);
     }
-    */
+    public List<Enfrentamiento> getEnfrentamientos() throws Exception{
+        return enfrentamientos;
+    }
 }

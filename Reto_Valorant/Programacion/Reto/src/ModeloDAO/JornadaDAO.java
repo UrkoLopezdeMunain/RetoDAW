@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class JornadaDAO {
 
@@ -30,7 +31,7 @@ public class JornadaDAO {
         return java.sql.Date.valueOf(fechaIni);
     }
 
-    public ArrayList<Jornada> getJornadas() throws SQLException {
+    public List<Jornada> getJornadas() throws SQLException {
         String sql = "SELECT * FROM jornadas";
         ArrayList<Jornada> jornadas = new ArrayList<>();
         PreparedStatement ps = con.prepareStatement(sql);
@@ -42,6 +43,6 @@ public class JornadaDAO {
             j.setCompeticion(cDAO.conseguirCompeticion(rs.getInt("cod_comp")));
             jornadas.add(j);
         }
-        return jornadas;
+        return jornadas.stream().toList();
     }
 }

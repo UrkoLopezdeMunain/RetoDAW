@@ -1,9 +1,7 @@
 package ModeloController;
 
 import BaseDatos.BaseDatos;
-import Modelo.Equipo;
-import Modelo.Jugador;
-import Modelo.Usuario;
+import Modelo.*;
 import ModeloDAO.*;
 
 import java.sql.Connection;
@@ -31,7 +29,7 @@ public class ModeloController {
 
             //dao + conexion a BD
             JuegoDAO jDAO = new JuegoDAO(c);
-            CompeticionDAO competicionDAO = new CompeticionDAO(c, jDAO);
+            CompeticionDAO competicionDAO = new CompeticionDAO(c);
             EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
             EquipoDAO equipoDAO = new EquipoDAO(c);
             JornadaDAO jornadaDAO = new JornadaDAO(c, competicionDAO);
@@ -40,7 +38,7 @@ public class ModeloController {
 
             //Controllers
             competicionController = new CompeticionController(competicionDAO);
-            enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO);
+            enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO,this);
             equipoController = new EquipoController(equipoDAO);
             jornadaController = new JornadaController(jornadaDAO);
             jugadorController= new JugadorController(jugadorDAO);
@@ -60,6 +58,11 @@ public class ModeloController {
     public Equipo getEquipo(){
         return equipo;
     }
+
+    public List<Enfrentamiento> getEnfrentamientos(){
+        return enfrentamientoController.getEnfrentamientos();
+    }
+
     /**Metodos de validacion*/
     public boolean validarUsuario(Usuario u) throws SQLException {
         usuario = usuarioController.validarUsuario(u);
@@ -96,5 +99,9 @@ public class ModeloController {
     /**Metodos de actualizacion*/
     public boolean actualizarEquipoFecha(Equipo eq) throws Exception {
         return equipoController.actualizarEquipoFecha(eq);
+    }
+
+    public List<Jornada> getJornadas(){
+        return jornadaController.getJornadas();
     }
 }
