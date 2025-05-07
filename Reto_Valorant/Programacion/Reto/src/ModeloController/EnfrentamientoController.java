@@ -51,7 +51,7 @@ public class EnfrentamientoController {
             }
         }
     }
-    private void segundaMitad(){
+    private void segundaMitad() throws SQLException {
         Random rand = new Random();
         for (int p = jornadas.size()/2; p < jornadas.size(); p++) {
             Enfrentamiento enfrentamiento = new Enfrentamiento();
@@ -64,7 +64,7 @@ public class EnfrentamientoController {
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
         }
     }
-    private void hacerEnfrentamiento(int p){
+    private void hacerEnfrentamiento(int p) throws SQLException{
         for (int i = 0; i <= equipos.size()/2; i++) {
             Enfrentamiento enfrentamiento = new Enfrentamiento();
             enfrentamiento.setHora(elegirHora());
