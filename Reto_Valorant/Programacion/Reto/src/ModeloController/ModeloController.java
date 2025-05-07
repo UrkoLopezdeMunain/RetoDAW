@@ -39,6 +39,7 @@ public class ModeloController {
             //Controllers
             competicionController = new CompeticionController(competicionDAO);
             enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO,this);
+            enfrentamientoDAO.setEnfrentamientoController(enfrentamientoController);
             equipoController = new EquipoController(equipoDAO);
             jornadaController = new JornadaController(jornadaDAO,this);
             jugadorController= new JugadorController(jugadorDAO);
@@ -107,5 +108,8 @@ public class ModeloController {
 
     public Competicion getCompeticion() throws SQLException{
         return competicionController.getCompeticion();
+    }
+    public Jornada getJornadaPorId(int id) throws SQLException{
+        return jornadaController.getJornadaPorId(id);
     }
 }
