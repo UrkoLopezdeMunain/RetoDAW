@@ -1,17 +1,14 @@
 package ModeloController;
 
-import Modelo.Enfrentamiento;
-import Modelo.Equipo;
-import Modelo.Jugador;
-import Modelo.Usuario;
+import Modelo.*;
 import Vista.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,6 +67,7 @@ public class VistaController {
     }
     public void setGestionarEnfrentamientos(VistaController vistaController){
         gestionarEnfrentamientos = new GestionarEnfrentamientos(vistaController);
+        gestionarEnfrentamientos.obtenerJornadas();
         gestionarEnfrentamientos.rellenarConEquipos();
         gestionarEnfrentamientos.setVisible(true);
     }
@@ -175,25 +173,43 @@ public class VistaController {
         pPrincipal.revalidate();
         pPrincipal.repaint();
     }
+
+    /**El objetivo es que con cada Jornada el TA cambie tambien*/
     public void rellenarCamposGestionarEnfrentamientos(JPanel pPrincipal) throws Exception {
         List<Enfrentamiento> enfrentamientos = modeloController.getEnfrentamientos();
-        gestionarEnfrentamientos.getTaEnfrentamientos().setText(enfrentamientos.toString());
 
-        pPrincipal.removeAll(); // Limpia el panel antes de agregar nuevos componentes
+        pPrincipal.removeAll();
+        pPrincipal.setLayout(new BoxLayout(pPrincipal, BoxLayout.Y_AXIS)); // Example layout
 
+        // Para el TextArea
+        JTextArea taEnfrentamientos = gestionarEnfrentamientos.getTaEnfrentamientos();
+        taEnfrentamientos.setText("");
+        for (Enfrentamiento e : enfrentamientos) {
+            taEnfrentamientos.append(e.toString() + "\n");
+        }
+        pPrincipal.add(new JScrollPane(taEnfrentamientos));
+
+        // Add matchup selection components
         for (Enfrentamiento enfrentamiento : enfrentamientos) {
-            JLabel label1 = new JLabel(enfrentamiento.getEquipo1().getNombre() + " puntuación:");
-            JTextField tf1 = new JTextField("0");
-            tf1.setEditable(true);
+            // Create a panel for each matchup
+            JPanel matchupPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            matchupPanel.setBorder(BorderFactory.createTitledBorder("Enfrentamiento: " + enfrentamiento.getIdEnfrentamiento()));
 
-            JLabel label2 = new JLabel(enfrentamiento.getEquipo2().getNombre() + " puntuación:");
-            JTextField tf2 = new JTextField("0");
-            tf2.setEditable(true);
+            ButtonGroup bg = new ButtonGroup();
+            JRadioButton rb1 = new JRadioButton(enfrentamiento.getEquipo1().getNombre());
+            JRadioButton rb2 = new JRadioButton(enfrentamiento.getEquipo2().getNombre());
 
-            pPrincipal.add(label1);
-            pPrincipal.add(tf1);
-            pPrincipal.add(label2);
-            pPrincipal.add(tf2);
+            bg.add(rb1);
+            bg.add(rb2);
+
+            //guarda la seleccion del boton en caso de necesitarlo luego
+            rb1.setActionCommand(enfrentamiento.getIdEnfrentamiento() + "_team1");
+            rb2.setActionCommand(enfrentamiento.getIdEnfrentamiento() + "_team2");
+
+            matchupPanel.add(rb1);
+            matchupPanel.add(rb2);
+
+            pPrincipal.add(matchupPanel);
         }
 
         pPrincipal.revalidate();
@@ -222,6 +238,9 @@ public class VistaController {
     public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
         Equipo equipo = new Equipo(nombreEquipo, validarFecha(fechaFund));
         return modeloController.actualizarEquipoFecha(equipo);
+    }
+    public List<Jornada> obtenerJornadas() throws Exception {
+        return modeloController.jornadaController.getJornadas();
     }
 
 

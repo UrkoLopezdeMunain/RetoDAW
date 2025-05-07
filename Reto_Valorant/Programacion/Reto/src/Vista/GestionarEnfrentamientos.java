@@ -38,7 +38,6 @@ public class GestionarEnfrentamientos extends JDialog {
     }
 
     private void onOK() {
-        vistaController.puntuarEnfrentamientos();
         dispose();
     }
 
@@ -49,6 +48,15 @@ public class GestionarEnfrentamientos extends JDialog {
     public void rellenarConEquipos(){
         try {
             vistaController.rellenarCamposGestionarEnfrentamientos(pPrincipal);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
+        }
+    }
+    public void obtenerJornadas(){
+        try {
+            for (int i=0; i< vistaController.obtenerJornadas().size(); i++){
+                cbJornada.addItem(vistaController.obtenerJornadas().get(i));
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
         }
