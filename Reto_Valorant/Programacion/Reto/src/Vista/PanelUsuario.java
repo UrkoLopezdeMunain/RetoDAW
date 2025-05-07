@@ -3,8 +3,6 @@ package Vista;
 import ModeloController.VistaController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 public class PanelUsuario extends JFrame{
@@ -22,6 +20,9 @@ public class PanelUsuario extends JFrame{
     protected VistaController vistaController;
 
     //constructor ADMIN
+    /**
+     Todos los listeners MENOS el de Infromes seránmodales, ya qeu son mas 'volatiles' y tienen una informacion que se verá en otro sitio
+     */
     public PanelUsuario(VistaController vistaController) {
         setTitle("Iniciar Sesión");
         setContentPane(pPrincipal);
@@ -33,72 +34,29 @@ public class PanelUsuario extends JFrame{
 
         this.vistaController = vistaController ;
 
-        /**
-         Todos los listeners MENOS el de Infromes seránmodales, ya qeu son mas 'volatiles' y tienen una informacion que se verá en otro sitio
-         */
-
         //crear Listeners
-        iCrearEquipo.addActionListener(e -> {
-            vistaController.setCrearEquipo(vistaController);
-        });
-        iConsultarEquipo.addActionListener(e -> {
-            vistaController.setConsultarEquipo(vistaController);
-        });
-        iActualizarEquipo.addActionListener(e -> {
-            vistaController.setActualizarEquipo(vistaController);
-        });
-        iBorrarEquipo.addActionListener(e -> {
-            vistaController.setBorrarEquipo(vistaController);
-        });
-        iCrearJugador.addActionListener(e -> {
-            //vistaController.setCrearJugador(this);
-        });
-        iConsultarJugador.addActionListener(e -> {
-            //vistaController.setConsultarJugador(this);
-        });
-        iActualizarJugador.addActionListener(e -> {
-            //vistaController.setActualizarJugador(this);
-        });
-        iBorrarJugador.addActionListener(e -> {
-            //vistaController.setBorrarJugador(this);
-        });
-
-        mInformes.addActionListener(e -> {
-              //vistaController.setInformes(this);
-        });
-
-        bEmpezarComp.addActionListener(e -> {
-            // Empezar competición
+        iCrearEquipo.addActionListener(i -> vistaController.setCrearEquipo(vistaController));
+        iConsultarEquipo.addActionListener(i -> vistaController.setConsultarEquipo(vistaController));
+        iActualizarEquipo.addActionListener(i -> vistaController.setActualizarEquipo(vistaController));
+        iBorrarEquipo.addActionListener(i -> vistaController.setBorrarEquipo(vistaController));
+        iCrearJugador.addActionListener(i -> {
             try {
-                if (vistaController.iniciarCompeticion()) {
-                    JOptionPane.showMessageDialog(this, "Competición iniciada correctamente.");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al iniciar la competición.");
-                }
+                vistaController.setCrearJugador(vistaController);
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
+        iConsultarJugador.addActionListener(i -> vistaController.setConsultarJugador(vistaController));
+        iActualizarJugador.addActionListener(i -> vistaController.setActualizarJugador(vistaController));
 
-    }
-    /*
-    public PanelUsuario(VistaController vistaController) {
-        setTitle("Iniciar Sesión");
-        setContentPane(pPrincipal);
-        bEmpezarComp.setVisible(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 220);
-        setLocationRelativeTo(null);
-        setResizable(false); //para que sea de posicion y tamaño fijo
+        /*
+        iBorrarJugador.addActionListener(_ -> //vistaController.setBorrarJugador(vistaController));
 
-        this.vistaController = vistaController ;
-        //listeners pertinentes a la vista
-        mInformes.addActionListener(e -> {
-            // Generar informes);
-        });
-        getJMenuBar().setVisible(false);
-    }
+        mInformes.addActionListener(_ -> //vistaController.setInformes(vistaController));
 
-     */
+        bEmpezarComp.addActionListener(_ -> {}// Empezar competición);
+        */
+
+        }
 
 }

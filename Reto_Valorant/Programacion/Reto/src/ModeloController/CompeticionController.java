@@ -2,17 +2,11 @@ package ModeloController;
 
 import ModeloDAO.CompeticionDAO;
 
-import java.sql.SQLException;
-
 public class CompeticionController {
-    private final CompeticionDAO cDAO;
+    private final CompeticionDAO competicionDAO;
 
-    public CompeticionController(CompeticionDAO cDAO) {
-        this.cDAO = cDAO;
-    }
-
-    public boolean iniciarCompeticion() throws SQLException {
-        return cDAO.empezarCompeticio();
+    public CompeticionController(CompeticionDAO competicionDAO) {
+        this.competicionDAO = competicionDAO;
     }
 
 }
