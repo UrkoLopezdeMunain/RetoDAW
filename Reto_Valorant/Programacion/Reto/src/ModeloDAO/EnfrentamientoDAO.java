@@ -64,6 +64,20 @@ public class EnfrentamientoDAO {
         }
         return null;
     }
+    public void actualizarEnfrentamiento(Enfrentamiento enfrentamiento) throws SQLException {
+        sql="UPDATE enfrentamientos SET (?)...";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, enfrentamiento.getIdEnfrentamiento());
+        ps.setInt(2, enfrentamiento.getResultadosEq1());
+        ps.setInt(3, enfrentamiento.getResultadosEq2());
+        ps.setTime(4, Time.valueOf(enfrentamiento.getHora()));
+        ps.setInt(5, enfrentamiento.getEquipo1().getCodEquipo());
+        ps.setInt(6, enfrentamiento.getEquipo2().getCodEquipo());
+        ps.setInt(7, enfrentamiento.getJornada().getNumJornada());
+        ps.executeUpdate();
+    }
+
+
 
 
 

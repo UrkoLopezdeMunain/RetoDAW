@@ -7,6 +7,7 @@ import ModeloDAO.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class ModeloController {
     protected VistaController vistaController;
@@ -111,5 +112,20 @@ public class ModeloController {
     }
     public Jornada getJornadaPorId(int id) throws SQLException{
         return jornadaController.getJornadaPorId(id);
+    }
+
+    public void guardarResultados(Map<Integer, String> resultados) throws Exception {
+        for (Map.Entry<Integer, String> entry : resultados.entrySet()) {
+            int idEnfrentamiento = entry.getKey();
+            String resultado = entry.getValue();
+
+            // Validar resultado (opcional)
+            if (!resultado.equals("EQUIPO1") && !resultado.equals("EQUIPO2")) {
+                throw new Exception("Resultado no válido para el enfrentamiento " + idEnfrentamiento);
+            }
+
+            // Delegar al DAO
+            enfrentamientoController.actualizarResultado(idEnfrentamiento, resultados);
+        }
     }
 }

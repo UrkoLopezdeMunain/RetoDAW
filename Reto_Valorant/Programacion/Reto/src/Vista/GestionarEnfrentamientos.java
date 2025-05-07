@@ -38,6 +38,11 @@ public class GestionarEnfrentamientos extends JDialog {
     }
 
     private void onOK() {
+        try {
+            vistaController.guardarResultados(pPrincipal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
+        }
         dispose();
     }
 

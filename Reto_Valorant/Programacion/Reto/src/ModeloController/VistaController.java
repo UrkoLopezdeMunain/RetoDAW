@@ -9,7 +9,9 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -241,6 +243,48 @@ public class VistaController {
     }
     public List<Jornada> obtenerJornadas() throws Exception {
         return modeloController.jornadaController.getJornadas();
+    }
+
+    public void guardarResultados(JPanel pPrincipal) throws Exception {
+        Map<Integer, String> resultados = new HashMap<>();
+
+        // 1. Recorrer todos los componentes del panel principal
+        for (Component comp : pPrincipal.getComponents()) {
+            if (comp instanceof JPanel panelEnfrentamiento) {
+
+                // 2. Obtener el ID del enfrentamiento desde el panel (usando el nombre o un campo oculto)
+                int idEnfrentamiento = Integer.parseInt(panelEnfrentamiento.getName()); // Ejemplo: panel.setName("123")
+
+                // 3. Buscar el ButtonGroup y el radio button seleccionado en este panel
+                ButtonGroup grupo = null;
+                JRadioButton seleccionado = null;
+
+                for (Component panelComp : panelEnfrentamiento.getComponents()) {
+                    if (panelComp instanceof JRadioButton radio) {
+                        if (grupo == null) {
+                            // Obtener el ButtonGroup asociado al primer radio button (todos comparten grupo)
+                            grupo = (ButtonGroup) radio.getClientProperty("buttonGroup");
+                        }
+                        if (radio.isSelected()) {
+                            seleccionado = radio;
+                        }
+                    }
+                }
+
+                // 4. Si hay una selección, guardar el resultado
+                if (seleccionado != null) {
+                    String resultado = seleccionado.getActionCommand(); // "EQUIPO1", "EQUIPO2", "EMPATE"
+                    resultados.put(idEnfrentamiento, resultado);
+                }
+            }
+        }
+
+        // 5. Llamar al controlador para guardar en la BD
+        if (!resultados.isEmpty()) {
+            modeloController.guardarResultados(resultados);
+        } else {
+            throw new Exception("No se seleccionaron resultados para guardar.");
+        }
     }
 
 
