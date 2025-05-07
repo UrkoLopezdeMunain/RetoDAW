@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Equipo {
 
-    private int codEquipo; // Código único del equipo (ej: EQ001)
+    private int codEquipo; // Código único del equipo (ej: 00001)
     private int puntuacion; // Puntuación actual del equipo
     private String nombre; // Nombre del equipo
     private LocalDate fechaFundacion; // Fecha de fundación del equipo
@@ -14,7 +14,7 @@ public class Equipo {
     /*
       Constructor sin argumentos. Inicializa la lista de jugadores.
      */
-    public Equipo(String nombre, LocalDate localDate) {
+    public Equipo() {
         this.listaJugadores = new ArrayList<>();
     }
 
@@ -34,12 +34,13 @@ public class Equipo {
         this.listaJugadores = listaJugadores;
     }
 
-    public Equipo(String nombre, LocalDate fechaFundacion, int puntuacion) {
+    public Equipo(String nombre, LocalDate fechaFund) {
         this.nombre = nombre;
-        this.fechaFundacion = fechaFundacion;
+        this.fechaFundacion = fechaFund;
     }
-    public Equipo(String nombre) {
-        this.nombre = nombre;
+
+    public Equipo(String nombreEquipo) {
+        this.nombre = nombreEquipo;
     }
 
     // Getters y setters
@@ -109,5 +110,7 @@ public class Equipo {
                 .append("\n").append("Puntuacion: ").append(getPuntuacion());
         if (!listaJugadores.isEmpty()) sb.append(getListaJugadores().toString());
     return sb.toString();
+
     }
+
 }

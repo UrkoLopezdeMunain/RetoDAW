@@ -1,6 +1,5 @@
 package ModeloDAO;
 
-import BaseDatos.BaseDatos;
 import Modelo.Usuario;
 
 import java.sql.Connection;

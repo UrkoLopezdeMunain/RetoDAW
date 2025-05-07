@@ -4,31 +4,27 @@ import ModeloController.VistaController;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class BorrarJugador extends JDialog {
-    private JPanel contentPane;
-    private JButton buttonOK;
-    private JButton buttonCancel;
-    private VistaController vistaController;
+    private JPanel pPrincipal;
+    private JTextField tfNickName;
+    private JButton bAceptar;
+    private JButton bAtras;
+    private final VistaController vistaController;
 
     public BorrarJugador(VistaController vistaController) {
-        setTitle("Borrar Jugador");
-        setContentPane(contentPane);
+        setContentPane(pPrincipal);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
+        setSize(450,550);
+        setLocationRelativeTo(pPrincipal.getRootPane());
+        setResizable(false); //para que sea de posicion y tamaño fijo
+        bAceptar.setEnabled(false);
         this.vistaController = vistaController;
 
-        buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onOK();
-            }
-        });
+        bAceptar.addActionListener(i -> onOK());
 
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        });
+        bAtras.addActionListener(i -> onCancel());
 
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -39,21 +35,41 @@ public class BorrarJugador extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        pPrincipal.registerKeyboardAction(i -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        tfNickName.addFocusListener(new FocusAdapter() {
+           @Override
+           public void focusGained(FocusEvent e) {
+               super.focusGained(e);
+               try {
+                   if (vistaController.validarJugador(tfNickName.getText())) {
+                       bAceptar.setEnabled(true);
+                   }else{
+                       JOptionPane.showMessageDialog(pPrincipal,"No hay jugadores con ese NickName");
+                   }
+               } catch (SQLException ex) {
+                   throw new RuntimeException(ex);
+               }
+           }
+           public void focusLost(FocusEvent e) {
+               super.focusLost(e);
+
+           }
+        });
     }
 
     private void onOK() {
-        // add your code here
+        try {
+            if (vistaController.borrarJugador(tfNickName.getText().trim())){
+                JOptionPane.showMessageDialog(pPrincipal,"Jugador Borrado");
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(pPrincipal,e.getMessage());
+        }
+
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
-
 }

@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +13,7 @@ public class EquipoDAO {
 
     protected Connection con;
     protected String sql;
+
     public EquipoDAO(Connection c) {
         this.con = c;
     }
@@ -22,15 +22,10 @@ public class EquipoDAO {
         sql = "INSERT INTO equipos(nombre,fecha_fundacion) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, equipo.getNombre());
-        ps.setDate(2, validarFecha(equipo.getFechaFundacion()));
+        ps.setDate(2, validarFecha(String.valueOf(equipo.getFechaFundacion())));
         //antes de llegar a ps.executeUpdate si salta un error entonces devolerá false, en otro caso True
         return ps.executeUpdate() != 0;
     }
-
-    public java.sql.Date validarFecha(LocalDate fechaFund) {
-        return java.sql.Date.valueOf(fechaFund);
-    }
-
 
     public Equipo validarEquipo(Equipo equipo) throws SQLException {
         sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE lower(nombre) = ?";
@@ -59,36 +54,28 @@ public class EquipoDAO {
         sql="UPDATE equipos SET fecha_fundacion=? WHERE lower(nombre)=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, equipo.getNombre());
-        ps.setDate(2, validarFecha(equipo.getFechaFundacion()));
+        ps.setDate(2, validarFecha(String.valueOf(equipo.getFechaFundacion())));
         return ps.executeUpdate() != 0;
     }
 
-
-    public ArrayList<Equipo> obtenerTodosLosEquipos() throws Exception {
-        ArrayList<Equipo> todosLosEquipos = new ArrayList<>();
-
-        String sql = "SELECT * FROM equipos";
+    public List<Equipo> getEquipos() throws SQLException {
+        sql="SELECT * FROM equipos";
+        List<Equipo> equipos = new ArrayList<Equipo>();
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-
         while (rs.next()) {
-            LocalDate fechaFundacion = LocalDate.parse(rs.getString("fecha_fundacion"));
-
-            Equipo equipo = new Equipo(
-                    rs.getInt("cod_equipo"),
-                    rs.getString("nombre"),
-                    rs.getDate("fecha_fundacion").toLocalDate(),
-                    rs.getInt("puntuacion")
-            );
-
-            todosLosEquipos.add(equipo);
+            Equipo equipo = new Equipo();
+            equipo.setCodEquipo(rs.getInt("cod_equipo"));
+            equipo.setNombre(rs.getString("nombre"));
+            equipo.setFechaFundacion(rs.getDate("fecha_fundacion").toLocalDate());
+            equipo.setPuntuacion(rs.getInt("puntuacion"));
+            equipos.add(equipo);
         }
-
-        rs.close();
-        ps.close();
-
-        return todosLosEquipos;
+        return equipos;
     }
 
+    public java.sql.Date validarFecha(String fechaFund) {
+        return java.sql.Date.valueOf(fechaFund);
+    }
 
 }

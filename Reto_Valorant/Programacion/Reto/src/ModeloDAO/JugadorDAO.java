@@ -63,16 +63,17 @@ public class JugadorDAO {
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, jugador.getNickname());
         ResultSet rs = ps.executeQuery();
+        Jugador j = new Jugador();
         if (rs.next()) {
-            jugador.setCodJugador(rs.getInt("cod_jugador"));
-            jugador.setNombre(rs.getString("nombre"));
-            jugador.setApellido(rs.getString("apellido"));
-            jugador.setNacionalidad(rs.getString("nacionalidad"));
-            jugador.setFechaNacimiento(rs.getDate("fecha_nac").toLocalDate());
-            jugador.setSueldo(rs.getDouble("sueldo"));
-            jugador.setNickname(rs.getString("nickname"));
-            jugador.setRol(rs.getString("rol"));
+            j.setCodJugador(rs.getInt("cod_jugador"));
+            j.setNombre(rs.getString("nombre"));
+            j.setApellido(rs.getString("apellido"));
+            j.setNacionalidad(rs.getString("nacionalidad"));
+            j.setFechaNacimiento(rs.getDate("fecha_nac").toLocalDate());
+            j.setSueldo(rs.getDouble("sueldo"));
+            j.setNickname(rs.getString("nickname"));
+            j.setRol(rs.getString("rol"));
         }
-        return jugador;
+        return j;
     }
 }

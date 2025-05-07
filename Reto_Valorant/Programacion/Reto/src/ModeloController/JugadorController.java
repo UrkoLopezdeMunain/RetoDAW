@@ -16,17 +16,22 @@ public class JugadorController {
         this.jugadorDAO = jugadorDAO;
     }
 
+    /** Metodos para optimizar accesos a BD*/
     public ArrayList<Jugador> obtenerJugadores(Equipo equipo) throws SQLException {
         return jugadorDAO.obtenerPorEquipo(equipo);
     }
-    public Jugador validarJugador(Jugador jugador) throws Exception {
-        return jugadorDAO.obtenerJugador(jugador);
-    }
-    public boolean crearJugador(Jugador jugador) throws Exception {
+
+
+    /**CRUD de JUGADOR(JugadorController)*/
+    public boolean crearJugador(Jugador jugador) throws SQLException {
         return jugadorDAO.crearJugador(jugador);
     }
-    public boolean borrarJugador(Jugador jugador) throws Exception {
-        return jugadorDAO.borrarJugador(jugador);
+
+    public Jugador obtnerJugador(Jugador jugador) throws SQLException {
+        return jugadorDAO.obtenerJugador(jugador);
     }
 
+    public boolean borrarJugador(Jugador jugador) throws SQLException {
+        return jugadorDAO.borrarJugador(jugador);
+    }
 }

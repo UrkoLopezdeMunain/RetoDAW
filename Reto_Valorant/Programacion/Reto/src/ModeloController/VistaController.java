@@ -40,10 +40,6 @@ public class VistaController {
         BorrarEquipo borrarEquipo = new BorrarEquipo(this);
         borrarEquipo.setVisible(true);
     }
-    public void setBorrarJugador(VistaController vistaController){
-        BorrarJugador borrarJugador = new BorrarJugador(this);
-        borrarJugador.setVisible(true);
-    }
     public void setConsultarJugador(VistaController vistaController){
         consultarJugador = new ConsultarJugador(this);
         consultarJugador.setVisible(true);
@@ -71,11 +67,11 @@ public class VistaController {
     public Equipo getEquipo() {
         return modeloController.getEquipo();
     }
-    public List<Equipo> getEquipos() throws Exception {
-        return modeloController.getEquipos();
-    }
 
     /**Metodos de validacion*/
+    public List<Equipo> getEquipos() throws SQLException {
+        return modeloController.getEquipos();
+    }
     public boolean validarUsuario(String nombreUsuario) throws SQLException {
         Usuario usuario = new Usuario(nombreUsuario);
         return modeloController.validarUsuario(usuario);
@@ -88,7 +84,7 @@ public class VistaController {
         Equipo equipo = new Equipo(nombreEquipo.toLowerCase());
         return modeloController.validarEquipo(equipo);
     }
-    public boolean validarJugador(String nickName) throws Exception {
+    public boolean validarJugador(String nickName) throws SQLException {
         if(validarNik(nickName)){
             Jugador jugador = new Jugador(nickName);
             return modeloController.validarJugador(jugador);
@@ -134,7 +130,7 @@ public class VistaController {
     }
 
     /**Metodos de borrado*/
-    public boolean borrarJugador(String nickName) throws Exception {
+    public boolean borrarJugador(String nickName) throws SQLException {
         Jugador jugador = new Jugador(nickName);
         return modeloController.borrarJugador(jugador);
     }
@@ -169,7 +165,6 @@ public class VistaController {
     }
 
     public void rellenarCamposJugador(JPanel pPrincipal){
-        /*
         consultarJugador.getTfNombre().setText(modeloController.jugador.getNombre());
         consultarJugador.getTfApellido().setText(modeloController.jugador.getApellido());
         consultarJugador.getTfRol().setText(modeloController.jugador.getRol());
@@ -179,7 +174,7 @@ public class VistaController {
         consultarJugador.getTfEquipo().setText(modeloController.jugador.getEquipo().getNombre());
         //se omite el nickname por que si ha llegado aqui es por que es correcto
         pPrincipal.revalidate();
-        pPrincipal.repaint();*/
+        pPrincipal.repaint();
     }
     public void rellenarCamposEquipoUpdate(JPanel pPrincipal) {
         actualizarEquipo.getTfNombreNuevo().setText(modeloController.equipo.getNombre());

@@ -49,9 +49,9 @@ public class PanelUsuario extends JFrame{
         iConsultarJugador.addActionListener(i -> vistaController.setConsultarJugador(vistaController));
         iActualizarJugador.addActionListener(i -> vistaController.setActualizarJugador(vistaController));
 
-
-        iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
         /*
+        iBorrarJugador.addActionListener(_ -> //vistaController.setBorrarJugador(vistaController));
+
         mInformes.addActionListener(_ -> //vistaController.setInformes(vistaController));
 
         bEmpezarComp.addActionListener(_ -> {}// Empezar competición);

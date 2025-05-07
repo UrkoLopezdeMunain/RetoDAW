@@ -18,18 +18,20 @@ public class ModeloController {
     protected EquipoController equipoController;
     protected JornadaController jornadaController;
     protected JugadorController jugadorController;
-    private UsuarioController usuarioController;
+    protected UsuarioController usuarioController;
 
     protected Usuario usuario;
     protected Equipo equipo;
     protected Jugador jugador;
+
     public ModeloController() {
         try {
             //BD
             Connection c = BaseDatos.abrirCon();
 
             //dao + conexion a BD
-            CompeticionDAO competicionDAO = new CompeticionDAO(c);
+            JuegoDAO jDAO = new JuegoDAO(c);
+            CompeticionDAO competicionDAO = new CompeticionDAO(c, jDAO);
             EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
             EquipoDAO equipoDAO = new EquipoDAO(c);
             JornadaDAO jornadaDAO = new JornadaDAO(c, competicionDAO);
@@ -47,55 +49,52 @@ public class ModeloController {
             System.out.println("ERROR EN MODELO CONTROLLER "+e.getMessage());
         }
     }
-
+    /**Metodo auxiliar de Main*/
     public void setVistaController(VistaController vistaController) {
         this.vistaController = vistaController;
+    }
+    /**Metodos para optimizar accesos a BD*/
+    public List<Equipo> getEquipos() throws SQLException {
+        return equipoController.getEquipos();
     }
     public Equipo getEquipo(){
         return equipo;
     }
-    public List<Equipo> getEquipos() throws Exception{
-        return equipoController.getEquipos();
-    }
-    public boolean validarUsuario(Usuario usuario) throws SQLException {
-        usuario = usuarioController.validarUsuario(usuario);
+    /**Metodos de validacion*/
+    public boolean validarUsuario(Usuario u) throws SQLException {
+        usuario = usuarioController.validarUsuario(u);
         return usuario != null;
     }
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
-
-    public boolean validarEquipo(Equipo equipo) throws Exception {
-        //falta meter Patron aqui para el nombre del equipo
-        equipo = equipoController.validarEquipo(equipo);
-
-        if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo));
-            //para poder aprovechar directamente todos sus atributos lo relleno ya
-        }
+    public boolean validarEquipo(Equipo eq) throws Exception {
+        equipo = equipoController.validarEquipo(eq);
         return equipo != null;
     }
+    public boolean validarJugador(Jugador jugador) throws SQLException {
+        jugador = jugadorController.obtnerJugador(jugador);
+        return jugador != null;
+    }
+
+    /**Metodos de creacion*/
     public boolean crearEquipo(Equipo equipo) throws Exception {
         return equipoController.crearEquipo(equipo);
+    }
+    public boolean crearJugador(Jugador jugador) throws SQLException {
+        return jugadorController.crearJugador(jugador);
+    }
+
+    /**Metodos de borrado*/
+    public boolean borrarJugador(Jugador ju) throws SQLException {
+        return jugadorController.borrarJugador(ju);
     }
     public boolean borrarEquipo(Equipo equipo) throws Exception {
         return equipoController.borrarEquipo(equipo);
     }
-    public boolean actualizarEquipoFecha(Equipo equipo) throws Exception {
-        return equipoController.actualizarEquipoFecha(equipo);
-    }
-    public boolean validarJugador(Jugador j) throws Exception {
-        jugador = jugadorController.validarJugador(j);
-        return jugador != null;
-    }
-    public boolean crearJugador(Jugador j) throws Exception {
-        return jugadorController.crearJugador(j);
-    }
-    public boolean borrarJugador(Jugador j) throws Exception {
-        return jugadorController.borrarJugador(j);
-    }
 
-    public boolean iniciarCompeticion() throws SQLException {
-        return competicionController.iniciarCompeticion();
+    /**Metodos de actualizacion*/
+    public boolean actualizarEquipoFecha(Equipo eq) throws Exception {
+        return equipoController.actualizarEquipoFecha(eq);
     }
 }
