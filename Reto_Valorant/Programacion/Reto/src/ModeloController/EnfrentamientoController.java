@@ -31,14 +31,10 @@ public class EnfrentamientoController {
         this.modeloController = modeloController;
     }
 
-    public void crearEnfrentamientos() throws SQLException{
-        try {
+    public void crearEnfrentamientos() throws Exception{
             jornadas = modeloController.getJornadas();
             primeraMitad();
             segundaMitad();
-        } catch (IllegalArgumentException e) {
-            System.out.println("No se han encontrado equipos. " + e.getMessage());
-        }
     }
 
     private void primeraMitad() throws SQLException {
