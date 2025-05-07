@@ -2,11 +2,13 @@ package ModeloController;
 
 import BaseDatos.BaseDatos;
 import Modelo.Equipo;
+import Modelo.Jugador;
 import Modelo.Usuario;
 import ModeloDAO.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ModeloController {
     protected VistaController vistaController;
@@ -20,6 +22,7 @@ public class ModeloController {
 
     protected Usuario usuario;
     protected Equipo equipo;
+    protected Jugador jugador;
     public ModeloController() {
         try {
             //BD
@@ -51,33 +54,47 @@ public class ModeloController {
     public Equipo getEquipo(){
         return equipo;
     }
-    public boolean validarUsuario(String nombreUsuario) throws SQLException {
-        usuario = usuarioController.validarUsuario(nombreUsuario);
+    public List<Equipo> getEquipos() throws Exception{
+        return equipoController.getEquipos();
+    }
+    public boolean validarUsuario(Usuario usuario) throws SQLException {
+        usuario = usuarioController.validarUsuario(usuario);
         return usuario != null;
     }
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
 
-    public boolean validarEquipo(String nombreEquipo) throws Exception {
+    public boolean validarEquipo(Equipo equipo) throws Exception {
         //falta meter Patron aqui para el nombre del equipo
-        equipo = equipoController.validarEquipo(nombreEquipo);
+        equipo = equipoController.validarEquipo(equipo);
 
         if (equipo != null){
-            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo.getCodEquipo()));
+            equipo.setListaJugadores(jugadorController.obtenerJugadores(equipo));
             //para poder aprovechar directamente todos sus atributos lo relleno ya
         }
         return equipo != null;
     }
-    public boolean crearEquipo(String nombre,String fechaFund) throws Exception {
-        return equipoController.crearEquipo(nombre, fechaFund);
+    public boolean crearEquipo(Equipo equipo) throws Exception {
+        return equipoController.crearEquipo(equipo);
     }
-    public boolean borrarEquipo(String nombreEquipo) throws Exception {
-        return equipoController.borrarEquipo(nombreEquipo);
+    public boolean borrarEquipo(Equipo equipo) throws Exception {
+        return equipoController.borrarEquipo(equipo);
     }
-    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        return equipoController.actualizarEquipoFecha(nombreEquipo,fechaFund);
+    public boolean actualizarEquipoFecha(Equipo equipo) throws Exception {
+        return equipoController.actualizarEquipoFecha(equipo);
     }
+    public boolean validarJugador(Jugador j) throws Exception {
+        jugador = jugadorController.validarJugador(j);
+        return jugador != null;
+    }
+    public boolean crearJugador(Jugador j) throws Exception {
+        return jugadorController.crearJugador(j);
+    }
+    public boolean borrarJugador(Jugador j) throws Exception {
+        return jugadorController.borrarJugador(j);
+    }
+
     public boolean iniciarCompeticion() throws SQLException {
         return competicionController.iniciarCompeticion();
     }

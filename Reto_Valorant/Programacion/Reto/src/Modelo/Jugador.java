@@ -46,6 +46,21 @@ public class Jugador {
     public Jugador() {
     }
 
+    public Jugador(String nickName) {
+        this.nickname = nickName;
+    }
+
+    public Jugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, Equipo equipo) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.nacionalidad = nacionalidad;
+        this.fechaNacimiento = LocalDate.parse(fechaNac);
+        this.sueldo = Double.parseDouble(sueldo);
+        this.rol = rol;
+        this.nickname = nickName;
+        this.equipo = equipo;
+    }
+
     public Equipo getEquipo() {
         return equipo;
     }

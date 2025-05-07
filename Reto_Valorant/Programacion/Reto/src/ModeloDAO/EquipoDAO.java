@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EquipoDAO {
 
@@ -17,25 +18,24 @@ public class EquipoDAO {
         this.con = c;
     }
 
-    public boolean crearEquipo(String nombre,String fechaFund) throws SQLException {
+    public boolean crearEquipo(Equipo equipo) throws SQLException {
         sql = "INSERT INTO equipos(nombre,fecha_fundacion) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, nombre);
-        ps.setDate(2, validarFecha(fechaFund));
+        ps.setString(1, equipo.getNombre());
+        ps.setDate(2, validarFecha(equipo.getFechaFundacion()));
         //antes de llegar a ps.executeUpdate si salta un error entonces devolerá false, en otro caso True
         return ps.executeUpdate() != 0;
     }
 
-    public java.sql.Date validarFecha(String fechaFund) {
+    public java.sql.Date validarFecha(LocalDate fechaFund) {
         return java.sql.Date.valueOf(fechaFund);
     }
 
 
-    public Equipo validarEquipo(String nombreEquipo) throws SQLException {
+    public Equipo validarEquipo(Equipo equipo) throws SQLException {
         sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE lower(nombre) = ?";
-        Equipo equipo = new Equipo();
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, nombreEquipo);
+        ps.setString(1, equipo.getNombre());
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
             equipo.setCodEquipo(rs.getInt("cod_equipo"));
@@ -47,19 +47,19 @@ public class EquipoDAO {
             return null; //lo que interesa por que es boolean, para que se pase a false
         }
     }
-    public boolean borrarEquipo(String nombreEquipo) throws SQLException {
+    public boolean borrarEquipo(Equipo equipo) throws SQLException {
         sql = "DELETE FROM equipos WHERE lower(nombre) = ?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, nombreEquipo);
+        ps.setString(1, equipo.getNombre());
         return ps.executeUpdate() != 0;
         //lanzara trigger si tiene jugadores
     }
 
-    public boolean actualizarFechaEquipo(String nombre,String fechaFund) throws SQLException {
+    public boolean actualizarFechaEquipo(Equipo equipo) throws SQLException {
         sql="UPDATE equipos SET fecha_fundacion=? WHERE lower(nombre)=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, nombre);
-        ps.setDate(2, validarFecha(fechaFund));
+        ps.setString(1, equipo.getNombre());
+        ps.setDate(2, validarFecha(equipo.getFechaFundacion()));
         return ps.executeUpdate() != 0;
     }
 
@@ -77,7 +77,7 @@ public class EquipoDAO {
             Equipo equipo = new Equipo(
                     rs.getInt("cod_equipo"),
                     rs.getString("nombre"),
-                    fechaFundacion,
+                    rs.getDate("fecha_fundacion").toLocalDate(),
                     rs.getInt("puntuacion")
             );
 

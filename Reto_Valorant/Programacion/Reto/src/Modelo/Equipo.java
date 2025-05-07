@@ -14,7 +14,7 @@ public class Equipo {
     /*
       Constructor sin argumentos. Inicializa la lista de jugadores.
      */
-    public Equipo() {
+    public Equipo(String nombre, LocalDate localDate) {
         this.listaJugadores = new ArrayList<>();
     }
 
@@ -32,6 +32,14 @@ public class Equipo {
         this.fechaFundacion = fechaFundacion;
         this.puntuacion = puntuacion;
         this.listaJugadores = listaJugadores;
+    }
+
+    public Equipo(String nombre, LocalDate fechaFundacion, int puntuacion) {
+        this.nombre = nombre;
+        this.fechaFundacion = fechaFundacion;
+    }
+    public Equipo(String nombre) {
+        this.nombre = nombre;
     }
 
     // Getters y setters
@@ -97,9 +105,9 @@ public class Equipo {
         StringBuilder sb = new StringBuilder();
         sb.append("Nombre: ").append(getNombre())
                 .append("\n").append("Codigo de equipo: ").append(getCodEquipo())
-                .append("\n").append("Fecha de fundacion: ").append(getFechaFundacion())
-                .append("\n").append("Puntuacion: ").append(getPuntuacion())
-                .append(getListaJugadores().toString());
+                .append("\n").append("Fecha de fundacion: ").append(getFechaFundacion().toString())
+                .append("\n").append("Puntuacion: ").append(getPuntuacion());
+        if (!listaJugadores.isEmpty()) sb.append(getListaJugadores().toString());
     return sb.toString();
     }
 }
