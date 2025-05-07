@@ -34,24 +34,24 @@ public class VistaController {
         iniciarSesion.setVisible(true);
     }
     public void setConsultarEquipo(VistaController vistaController){
-        consultarEquipo = new ConsultarEquipo(this);
+        consultarEquipo = new ConsultarEquipo(vistaController);
         consultarEquipo.setVisible(true);
     }
     public void setBorrarEquipo(VistaController vistaController){
-        BorrarEquipo borrarEquipo = new BorrarEquipo(this);
+        BorrarEquipo borrarEquipo = new BorrarEquipo(vistaController);
         borrarEquipo.setVisible(true);
     }
     public void setBorrarJugador(VistaController vistaController){
-        BorrarJugador borrarJugador = new BorrarJugador(this);
+        BorrarJugador borrarJugador = new BorrarJugador(vistaController);
         borrarJugador.setVisible(true);
     }
 
     public void setConsultarJugador(VistaController vistaController){
-        consultarJugador = new ConsultarJugador(this);
+        consultarJugador = new ConsultarJugador(vistaController);
         consultarJugador.setVisible(true);
     }
     public void setActualizarJugador(VistaController vistaController){
-        ActualizarJugador actualizarJugador = new ActualizarJugador(this);
+        ActualizarJugador actualizarJugador = new ActualizarJugador(vistaController);
         actualizarJugador.setVisible(true);
     }
     public void setCrearJugador(VistaController vistaController) throws SQLException {
@@ -63,17 +63,18 @@ public class VistaController {
         crearEquipo.setVisible(true);
     }
     public void setActualizarEquipo(VistaController vistaController){
-        actualizarEquipo = new ActualizarEquipo(this);
+        actualizarEquipo = new ActualizarEquipo(vistaController);
         actualizarEquipo.setVisible(true);
     }
     public void setGestionarEnfrentamientos(VistaController vistaController){
-        gestionarEnfrentamientos = new GestionarEnfrentamientos(this);
+        gestionarEnfrentamientos = new GestionarEnfrentamientos(vistaController);
         gestionarEnfrentamientos.setVisible(true);
     }
 
     public ConsultarEquipo getIniciarSesion() {
         return consultarEquipo;
     }
+
     public Equipo getEquipo() {
         return modeloController.getEquipo();
     }
@@ -135,7 +136,6 @@ public class VistaController {
 
     public boolean crearJugador(String nombre, String apellido, String nacionalidad, String fechaNac, String sueldo, String rol, String nickName, Equipo equipo) throws Exception {
         Jugador jugador = new Jugador(nombre,apellido,nacionalidad,fechaNac,sueldo,rol,nickName,equipo);
-
         return modeloController.crearJugador(jugador);
     }
 
@@ -173,7 +173,7 @@ public class VistaController {
         pPrincipal.repaint();
     }
     public void rellenarCamposGestionarEnfrentamientos(JPanel pPrincipal) {
-        gestionarEnfrentamientos.getTaEnfrentamientos().setText(modeloController.enfrentamientos.toString());
+        gestionarEnfrentamientos.getTaEnfrentamientos().setText(modeloController.getEnfrentamientos().toString());
 
         pPrincipal.revalidate();
         pPrincipal.repaint();

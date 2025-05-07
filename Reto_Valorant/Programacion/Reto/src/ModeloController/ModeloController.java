@@ -61,11 +61,10 @@ public class ModeloController {
     public Equipo getEquipo(){
         return equipo;
     }
-    /*
+
     public List<Enfrentamiento> getEnfrentamientos(){
         return enfrentamientoController.getEnfrentamientos();
     }
-     */
 
     /**Metodos de validacion*/
     public boolean validarUsuario(Usuario u) throws SQLException {

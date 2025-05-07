@@ -114,6 +114,7 @@ public class EnfrentamientoController {
             }
         }while (yes);
     }
+
     private LocalTime elegirHora() {
         Random rand = new Random();
         int hora = rand.nextInt(15);
@@ -269,5 +270,8 @@ public class EnfrentamientoController {
             enfrentamiento.getEquipo1().setPuntuacion(enfrentamiento.getEquipo1().getPuntuacion()+1);
         else
             enfrentamiento.getEquipo2().setPuntuacion(enfrentamiento.getEquipo2().getPuntuacion()+1);
+    }
+    public List<Enfrentamiento> getEnfrentamientos() throws Exception{
+        return enfrentamientos;
     }
 }
