@@ -32,7 +32,7 @@ public class ModeloController {
 
             //dao + conexion a BD
             JuegoDAO jDAO = new JuegoDAO(c);
-            CompeticionDAO competicionDAO = new CompeticionDAO(c, jDAO);
+            CompeticionDAO competicionDAO = new CompeticionDAO(c);
             EnfrentamientoDAO enfrentamientoDAO = new EnfrentamientoDAO(c);
             EquipoDAO equipoDAO = new EquipoDAO(c);
             JornadaDAO jornadaDAO = new JornadaDAO(c, competicionDAO);
@@ -41,7 +41,7 @@ public class ModeloController {
 
             //Controllers
             competicionController = new CompeticionController(competicionDAO);
-            enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO);
+            enfrentamientoController = new EnfrentamientoController(enfrentamientoDAO,this);
             equipoController = new EquipoController(equipoDAO);
             jornadaController = new JornadaController(jornadaDAO);
             jugadorController= new JugadorController(jugadorDAO);

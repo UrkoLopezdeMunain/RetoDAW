@@ -10,19 +10,18 @@ import java.util.ArrayList;
 
 public class JuegoDAO {
     private final ArrayList<Juego> listaJuegos = new ArrayList<>();
-    protected Connection con;
+    protected static Connection con;
     public JuegoDAO(Connection c) {
         this.con = c;
     }
 
-    public Juego conseguirJuego(int codJuego) throws SQLException{
-        String sql = "SELECT * FROM juegos WHERE cod_juego = ?";
+    public static Juego conseguirJuego() throws SQLException{
+        String sql = "SELECT * FROM juegos WHERE cod_juego = 1";
         Juego j = new Juego();
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setInt(1,codJuego);
         ResultSet rs = ps.executeQuery();
         if (rs.next()) {
-            j.setCodJuego(codJuego);
+            j.setCodJuego(1);
             j.setNombre(rs.getString("nombre"));
             j.setFechaSalida(rs.getDate("fecha_salida").toLocalDate());
             return j;
@@ -30,5 +29,4 @@ public class JuegoDAO {
             return null; //lo que interesa por que es boolean, para que se pase a false
         }
     }
-
 }
