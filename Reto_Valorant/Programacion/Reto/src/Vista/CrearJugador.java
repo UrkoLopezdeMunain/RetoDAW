@@ -141,16 +141,13 @@ public class CrearJugador extends  JDialog{
 
         bAceptar.addActionListener(i -> {
             try {
-                vistaController.crearJugador(
-                        tfNombreJugador.getText().toLowerCase(),
-                        tfApellidoJugador.getText().toLowerCase(),
-                        obtenerCod3(),
-                        tfFechaNaci.getText(),
-                        tfSueldo.getText(),
-                        tfRol.getText().toLowerCase(),
-                        tfNickName.getText().toLowerCase(),
-                        obtenerEquipo());
-                JOptionPane.showMessageDialog(pPrincipal,"El jugador ha creado con exito");
+                if (!vistaController.crearJugador(tfNombreJugador.getText().toLowerCase(),
+                        tfApellidoJugador.getText().toLowerCase(),obtenerCod3(),tfFechaNaci.getText(),
+                        tfSueldo.getText(),tfRol.getText().toLowerCase(),tfNickName.getText().toLowerCase(),
+                        obtenerEquipo())){
+                  throw new Exception("Algo ha ido mal con la creacion del jugador");
+                }
+                JOptionPane.showMessageDialog(pPrincipal,"Jugador creado con éxito!");
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + ex.getMessage());
             }
