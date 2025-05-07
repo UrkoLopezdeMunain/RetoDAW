@@ -45,4 +45,18 @@ public class JornadaDAO {
         }
         return jornadas.stream().toList();
     }
+    public Jornada getJornadaPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM jornadas where num_jornada = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            Jornada j = new Jornada();
+            j.setNumJornada(rs.getInt("num_jornada"));
+            j.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
+            j.setCompeticion(cDAO.conseguirCompeticion());
+            return j;
+        }
+        return null;
+    }
 }
