@@ -40,6 +40,9 @@ public class BorrarJugador extends JDialog {
            @Override
            public void focusGained(FocusEvent e) {
                super.focusGained(e);
+           }
+           public void focusLost(FocusEvent e) {
+               super.focusLost(e);
                try {
                    if (vistaController.validarJugador(tfNickName.getText())) {
                        bAceptar.setEnabled(true);
@@ -49,9 +52,6 @@ public class BorrarJugador extends JDialog {
                } catch (SQLException ex) {
                    throw new RuntimeException(ex);
                }
-           }
-           public void focusLost(FocusEvent e) {
-               super.focusLost(e);
 
            }
         });

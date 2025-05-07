@@ -19,6 +19,7 @@ public class VistaController {
     private ConsultarEquipo consultarEquipo;
     private ActualizarEquipo actualizarEquipo;
     private ConsultarJugador consultarJugador;
+    private GestionarEnfrentamientos gestionarEnfrentamientos;
     private final LocalDate muyPeque = LocalDate.now().minusYears(16);
     private final LocalDate muyMayor = LocalDate.now().plusYears(65);
 
@@ -40,6 +41,11 @@ public class VistaController {
         BorrarEquipo borrarEquipo = new BorrarEquipo(this);
         borrarEquipo.setVisible(true);
     }
+    public void setBorrarJugador(VistaController vistaController){
+        BorrarJugador borrarJugador = new BorrarJugador(this);
+        borrarJugador.setVisible(true);
+    }
+
     public void setConsultarJugador(VistaController vistaController){
         consultarJugador = new ConsultarJugador(this);
         consultarJugador.setVisible(true);
@@ -59,6 +65,10 @@ public class VistaController {
     public void setActualizarEquipo(VistaController vistaController){
         actualizarEquipo = new ActualizarEquipo(this);
         actualizarEquipo.setVisible(true);
+    }
+    public void setGestionarEnfrentamientos(VistaController vistaController){
+        gestionarEnfrentamientos = new GestionarEnfrentamientos(this);
+        gestionarEnfrentamientos.setVisible(true);
     }
 
     public ConsultarEquipo getIniciarSesion() {
@@ -161,7 +171,12 @@ public class VistaController {
         consultarEquipo.getTfPuntuacionTotal().setText(String.valueOf(modeloController.equipo.getPuntuacion()));
         pPrincipal.revalidate();
         pPrincipal.repaint();
+    }
+    public void rellenarCamposGestionarEnfrentamientos(JPanel pPrincipal) {
+        gestionarEnfrentamientos.getTaEnfrentamientos().setText(modeloController.enfrentamientos.toString());
 
+        pPrincipal.revalidate();
+        pPrincipal.repaint();
     }
 
     public void rellenarCamposJugador(JPanel pPrincipal){
