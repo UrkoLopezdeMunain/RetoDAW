@@ -74,5 +74,4 @@ public class EquipoController {
         validarNombre(equipo.getNombre());
         return eDAO.actualizarFechaEquipo(equipo);
     }
-
 }
