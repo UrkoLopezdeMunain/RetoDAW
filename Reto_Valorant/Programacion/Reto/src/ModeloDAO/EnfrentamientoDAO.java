@@ -37,7 +37,7 @@ public class EnfrentamientoDAO {
     }
 
 
-    public ArrayList<Enfrentamiento> getEnfrentamientos() {
+    public ArrayList<Enfrentamiento> getEnfrentamientos() throws SQLException{
         ArrayList<Enfrentamiento> enfrentamientos = new ArrayList<>();
         String sql = "SELECT * FROM enfrentamientos";
         try (PreparedStatement ps = con.prepareStatement(sql);
@@ -46,8 +46,8 @@ public class EnfrentamientoDAO {
             while (rs.next()) {
                 Enfrentamiento e = new Enfrentamiento();
                 e.setIdEnfrentamiento(rs.getInt("id_enfrentamiento"));
-                e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id"), con));
-                e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id"), con));
+                e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id")));
+                e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id")));
                 e.setHora(rs.getTime("hora").toLocalTime());
                 e.setJornada(jornadaDAO.getJornadaPorId(rs.getInt("jornada_id")));
                 e.setResultadosEq1(rs.getInt("resultado_eq1"));
@@ -70,23 +70,24 @@ public class EnfrentamientoDAO {
             if (rs.next()) {
                 Enfrentamiento e = new Enfrentamiento();
                 e.setIdEnfrentamiento(rs.getInt("id_enfrentamiento"));
-                e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id"), con));
-                e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id"), con));
+                e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id")));
+                e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id")));
                 e.setHora(rs.getTime("hora").toLocalTime());
                 e.setJornada(jornadaDAO.getJornadaPorId(rs.getInt("jornada_id")));
                 e.setResultadosEq1(rs.getInt("resultado_eq1"));
                 e.setResultadosEq2(rs.getInt("resultado_eq2"));
                 return e;
-            }
+            }else
+                return null;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
 
 
     public Enfrentamiento getEnfrentamientoPorEquipos(Equipo eq1, Equipo eq2) {
-        String sql = "SELECT * FROM enfrentamientos WHERE equipo1_id = ? AND equipo2_id = ?";
+        String sql = "SELECT * FROM enfrentamientos WHERE cod_equ_1 = ? AND cod_equ_2 = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, eq1.getCodEquipo());
             ps.setInt(2, eq2.getCodEquipo());
@@ -101,11 +102,12 @@ public class EnfrentamientoDAO {
                 e.setResultadosEq1(rs.getInt("resultado_eq1"));
                 e.setResultadosEq2(rs.getInt("resultado_eq2"));
                 return e;
-            }
+            }else
+                return null;
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return null;
     }
     public void actualizarEnfrentamiento(Enfrentamiento enfrentamiento) throws SQLException {
         sql="UPDATE enfrentamientos SET (?)...";

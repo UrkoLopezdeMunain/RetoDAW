@@ -73,7 +73,7 @@ public class EnfrentamientoController {
             enfrentamientosMitad1.add(enfrentamiento);
         }
     }
-    private int generarIdEnfrentamiento(){
+    private int generarIdEnfrentamiento() throws SQLException{
         Set<Integer> codigosEquipo = enfrentamientoDAO.getEnfrentamientos()
                 .stream().map(Enfrentamiento::getIdEnfrentamiento)
                 .collect(Collectors.toSet());

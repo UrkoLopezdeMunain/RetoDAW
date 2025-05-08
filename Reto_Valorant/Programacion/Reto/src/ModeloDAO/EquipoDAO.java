@@ -74,7 +74,7 @@ public class EquipoDAO {
         return equipos;
     }
 
-    public Equipo getEquipoPorId(int id, Connection con) throws SQLException {
+    public Equipo getEquipoPorId(int id) throws SQLException {
         String sql = "SELECT * FROM equipos WHERE id_equipo = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
