@@ -4,6 +4,8 @@ import ModeloController.VistaController;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class ActualizarEquipo extends JDialog {
     private JPanel pPrincipal;
@@ -13,6 +15,7 @@ public class ActualizarEquipo extends JDialog {
     private JLabel lPuncuacionNueva;
     private JButton bAceptar;
     private JButton bCancelar;
+    protected VistaController vistaController;
 
     public ActualizarEquipo(VistaController vistaController) {
         setTitle("Actualizar Equipo");
@@ -70,27 +73,51 @@ public class ActualizarEquipo extends JDialog {
         dispose();
     }
     /**Utilizo ifs para ver si se ha modificado fecha,nombre o ambos, para hacer la programacion mas simle y dividirla en funciones mas pequñas*/
-    private void onOk() {
 
-        //aqui se manda a vista, modelo... y update del equpo
-        /*if(tfNombreNuevo.getText().equals(vistaController.getEquipo().getNombre())){
-            if (vistaController.actualizarEquipoFecha(tfNombreNuevo.getText(),tfFechaFundNueva.getText())){
-                JOptionPane.showMessageDialog(pPrincipal,"Datos actualizados correctamente","Mensaje",JOptionPane.INFORMATION_MESSAGE);
-            }
-        }else if(tfFechaFundNueva.getText().equals(vistaController.getEquipo().getFechaFundacion().toString())){
-            if (vistaController.actualizarEquipoNombre(tfNombreNuevo.getText(),tfFechaFundNueva.getText())){
-                JOptionPane.showMessageDialog(null,vistaController.getEquipo().getNombre(),"Mensaje",JOptionPane.INFORMATION_MESSAGE);
-            }
-        }else {
-            if (vistaController.actualizarEQ(tfNombreNuevo.getText())){
 
-            }
 
-         }
-         */
+    private void onOk() throws Exception {
+        // Validar que los campos no estén vacíos
+        if (tfNombreNuevo.getText().isEmpty() || tfFechaFundNueva.getText().isEmpty()) {
+            throw new Exception("Los campos no pueden estar vacíos.");
+        }
+
+        // Validar el formato de la fecha
+        LocalDate nuevaFecha;
+        try {
+            nuevaFecha = vistaController.validarFecha(tfFechaFundNueva.getText());
+        } catch (Exception e) {
+            throw new Exception("Formato de fecha inválido. Use dd-MM-yyyy");
+        }
+
+        // Obtener datos actuales del equipo
+        String nombreActual = vistaController.getEquipo().getNombre();
+        LocalDate fechaActual = vistaController.getEquipo().getFechaFundacion();
+        String nuevoNombre = tfNombreNuevo.getText();
+
+        // Determinar qué campos han cambiado
+        boolean cambioNombre = !nuevoNombre.equalsIgnoreCase(nombreActual);
+        boolean cambioFecha = !nuevaFecha.equals(fechaActual);
+
+        // Realizar la actualización correspondiente
+        if (cambioNombre && cambioFecha) {
+            if (vistaController.actualizarEquipoNombre(nuevoNombre, nuevaFecha)) {
+                JOptionPane.showMessageDialog(pPrincipal, "Nombre y fecha actualizados correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (cambioNombre) {
+            if (vistaController.actualizarEquipoNombre(nuevoNombre, fechaActual)) {
+                JOptionPane.showMessageDialog(pPrincipal, "Nombre actualizado correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else if (cambioFecha) {
+            if (vistaController.actualizarEquipoFecha(nombreActual, nuevaFecha)) {
+                JOptionPane.showMessageDialog(pPrincipal, "Fecha actualizada correctamente", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(pPrincipal, "No se realizaron cambios", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+        }
+
         dispose();
-
-}
+    }
 
     public JTextField getTfNombreNuevo() {
         return tfNombreNuevo;

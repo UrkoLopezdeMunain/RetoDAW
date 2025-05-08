@@ -1,11 +1,9 @@
 package Vista;
 
-import Modelo.Jornada;
 import ModeloController.VistaController;
 
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.List;
 
 public class GestionarEnfrentamientos extends JDialog {
     private JPanel pPrincipal;
@@ -61,13 +59,9 @@ public class GestionarEnfrentamientos extends JDialog {
     }
     public void obtenerJornadas(){
         try {
-            List<Jornada> jornadas = vistaController.obtenerJornadas();
-            if(!jornadas.isEmpty()) {
-                for (int i = 0; i < jornadas.size(); i++) {
-                    cbJornada.addItem(vistaController.obtenerJornadas().get(i).getNumJornada() + "º JORNADA: ");
-                }
-            }else
-                throw new Exception("No es posible obtener las jornadas");
+            for (int i=0; i< vistaController.obtenerJornadas().size(); i++){
+                cbJornada.addItem(vistaController.obtenerJornadas().get(i));
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
         }

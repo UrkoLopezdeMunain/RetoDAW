@@ -112,6 +112,10 @@ public class ModeloController {
         return equipoController.actualizarEquipoFecha(eq);
     }
 
+    public boolean actualizarEquipoNombre(Equipo eq) throws Exception {
+        return equipoController.actualizarEquipoNombre(eq);
+    }
+
     public List<Jornada> getJornadas() throws SQLException{
         return jornadaController.getJornadas();
     }
