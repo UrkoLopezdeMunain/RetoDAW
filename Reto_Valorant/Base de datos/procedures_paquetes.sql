@@ -1,11 +1,17 @@
 //procedimiento que se encarga de iniciar la competicion
-CREATE OR REPLACE procedure pr_empezar_competicion(continuar out boolean)
+CREATE OR REPLACE procedure pr_empezar_competicion(continuar out number)
     as
     begin
-        continuar := false;
+        continuar := 0;
         update competiciones set estado = 'C' where cod_comp = 1;
-        continuar := true;
+        continuar := 1;
 end pr_empezar_competicion;
+
+select estado from competiciones;
+
+select * from equipos;
+
+update competiciones set estado = 'A' where cod_comp = 1;
 
 /*
 procedimiento que se encarga de devolver un informe con la informacion de los

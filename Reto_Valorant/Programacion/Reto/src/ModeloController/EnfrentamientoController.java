@@ -166,6 +166,7 @@ public class EnfrentamientoController {
             }
         }while (JOptionPane.showConfirmDialog(null,"quiere continuar viendo enfrentamientos por equipo?") == 0);
     }
+    /*
     public void anadirResultado(){
         ArrayList<Enfrentamiento> en = conseguirEq1();
         Enfrentamiento enfrentamiento = conseguirEq2(en);
@@ -264,6 +265,7 @@ public class EnfrentamientoController {
         else
             enfrentamiento.getEquipo2().setPuntuacion(enfrentamiento.getEquipo2().getPuntuacion()+1);
     }
+     */
     public List<Enfrentamiento> getEnfrentamientos() throws Exception{
         return enfrentamientos;
     }
