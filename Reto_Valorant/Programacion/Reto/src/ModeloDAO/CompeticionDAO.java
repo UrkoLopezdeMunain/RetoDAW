@@ -1,6 +1,7 @@
 package ModeloDAO;
 
 import Modelo.Competicion;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.*;
 
@@ -12,10 +13,10 @@ public class CompeticionDAO {
     }
 
     public boolean empezarCompeticion() throws SQLException {
-        String sql = "{call pr_empezar_competicion()}";
+        String sql = "{call pr_empezar_competicion(?)}";
         try (CallableStatement stmt = con.prepareCall(sql)) {
             // Registrar el parámetro de salida como NUMBER
-            stmt.registerOutParameter(1,Types.NUMERIC);
+            stmt.registerOutParameter(1, OracleTypes.NUMBER);
 
             // Ejecutar el procedimiento
             stmt.execute();

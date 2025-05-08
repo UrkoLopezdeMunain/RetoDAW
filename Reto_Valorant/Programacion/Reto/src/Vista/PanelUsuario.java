@@ -18,6 +18,7 @@ public class PanelUsuario extends JFrame{
     private JMenuItem iBorrarJugador;
     private JMenu mInformes;
     private JMenuItem iGestionarEnfrentamientos;
+    private JMenuItem iConsultarTodosEquipos;
     protected VistaController vistaController;
 
     //constructor ADMIN
@@ -56,9 +57,11 @@ public class PanelUsuario extends JFrame{
         bEmpezarComp.addActionListener(i -> {
             try {
                 vistaController.comenzarCompeticion();
+                JOptionPane.showMessageDialog(pPrincipal, "Competicion cerrada exitosamente", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());
             }
+
         });
 
     }
