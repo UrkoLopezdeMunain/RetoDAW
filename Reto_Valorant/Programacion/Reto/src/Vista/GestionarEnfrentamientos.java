@@ -9,6 +9,7 @@ public class GestionarEnfrentamientos extends JDialog {
     private JPanel pPrincipal;
     private JButton bAceptar;
     private JTextArea taEnfrentamientos;
+    private JComboBox cbJornada;
     private VistaController vistaController;
 
     public GestionarEnfrentamientos(VistaController vistaController) {
@@ -37,6 +38,11 @@ public class GestionarEnfrentamientos extends JDialog {
     }
 
     private void onOK() {
+        try {
+            vistaController.guardarResultados(pPrincipal);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
+        }
         dispose();
     }
 
@@ -47,6 +53,15 @@ public class GestionarEnfrentamientos extends JDialog {
     public void rellenarConEquipos(){
         try {
             vistaController.rellenarCamposGestionarEnfrentamientos(pPrincipal);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
+        }
+    }
+    public void obtenerJornadas(){
+        try {
+            for (int i=0; i< vistaController.obtenerJornadas().size(); i++){
+                cbJornada.addItem(vistaController.obtenerJornadas().get(i));
+            }
         }catch (Exception e){
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
         }

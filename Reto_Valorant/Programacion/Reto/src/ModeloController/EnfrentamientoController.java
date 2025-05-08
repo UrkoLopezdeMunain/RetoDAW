@@ -10,10 +10,7 @@ import ModeloDAO.JornadaDAO;
 import javax.swing.*;
 import java.sql.SQLException;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -272,5 +269,9 @@ public class EnfrentamientoController {
     }
     public Jornada getJornadaPorId(int id) throws SQLException{
         return modeloController.getJornadaPorId(id);
+    }
+    public void actualizarResultado(int idEnfrentamiento, Map<Integer,String> resultado) throws SQLException{
+        Enfrentamiento enfrentamiento =new Enfrentamiento(idEnfrentamiento,resultado);
+        enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
     }
 }

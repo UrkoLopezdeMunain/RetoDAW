@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.time.LocalTime;
+import java.util.Map;
 
 public class Enfrentamiento {
     private int resultadosEq1;
@@ -20,6 +21,11 @@ public class Enfrentamiento {
         this.equipo2 = equipo2;
         this.idEnfrentamiento = idEnfrentamiento;
     }
+
+    public Enfrentamiento(int idEnfrentamiento, Map<Integer, String> resultado) {
+        this.idEnfrentamiento = idEnfrentamiento;
+    }
+
 
     public int getIdEnfrentamiento() {
         return idEnfrentamiento;
