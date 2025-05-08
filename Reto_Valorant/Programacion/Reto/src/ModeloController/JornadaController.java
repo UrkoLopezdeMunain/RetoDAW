@@ -23,7 +23,8 @@ public class JornadaController {
         this.modeloController = modeloController;
     }
 
-    private void crearJornada(ArrayList<Equipo> equipos) throws SQLException{
+    public void crearJornada() throws SQLException{
+        List<Equipo> equipos = modeloController.getEquipos();
         for (int i = 0; i < equipos.size(); i++){
             Jornada jornada = new Jornada();
                 jornada.setFechaInicio(elegirFecha());

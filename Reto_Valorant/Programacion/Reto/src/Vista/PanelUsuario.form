@@ -94,6 +94,12 @@
                   <text value="Gestionar Enfrentamientos"/>
                 </properties>
               </component>
+              <component id="c64ca" class="javax.swing.JMenuItem" binding="iConsultarTodosEquipos">
+                <constraints/>
+                <properties>
+                  <text value="Consultar todos los Equipos"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

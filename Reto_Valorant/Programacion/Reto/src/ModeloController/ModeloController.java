@@ -82,7 +82,16 @@ public class ModeloController {
         return jugador != null;
     }
 
-    /**Metodos de creacion*/
+    public void crearJornadas()throws SQLException{
+        jornadaController.crearJornada();
+    }
+
+    public void crearEnfrentamiento() throws Exception {
+        enfrentamientoController.crearEnfrentamientos();
+    }
+
+
+        /**Metodos de creacion*/
     public boolean crearEquipo(Equipo equipo) throws Exception {
         return equipoController.crearEquipo(equipo);
     }
@@ -101,6 +110,10 @@ public class ModeloController {
     /**Metodos de actualizacion*/
     public boolean actualizarEquipoFecha(Equipo eq) throws Exception {
         return equipoController.actualizarEquipoFecha(eq);
+    }
+
+    public boolean actualizarEquipoNombre(Equipo eq) throws Exception {
+        return equipoController.actualizarEquipoNombre(eq);
     }
 
     public List<Jornada> getJornadas() throws SQLException{

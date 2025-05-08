@@ -73,6 +73,13 @@ public class VistaController {
         gestionarEnfrentamientos.rellenarConEquipos();
         gestionarEnfrentamientos.setVisible(true);
     }
+    public void crearJornadas()throws SQLException{
+        modeloController.crearJornadas();
+    }
+
+    public void crearEnfrentamiento() throws Exception {
+        modeloController.crearEnfrentamiento();
+    }
 
     public ConsultarEquipo getIniciarSesion() {
         return consultarEquipo;
@@ -237,9 +244,14 @@ public class VistaController {
     }
 
     /**Metodos de Actualizacion de datos*/
-    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        Equipo equipo = new Equipo(nombreEquipo, validarFecha(fechaFund));
+    public boolean actualizarEquipoFecha(String nombreEquipo, LocalDate fechaFund) throws Exception {
+        Equipo equipo = new Equipo(nombreEquipo, validarFecha(String.valueOf(fechaFund)));
         return modeloController.actualizarEquipoFecha(equipo);
+    }
+
+    public boolean actualizarEquipoNombre(String nombreEquipo, LocalDate fechaFund) throws Exception {
+        Equipo equipo = new Equipo(nombreEquipo, validarFecha(String.valueOf(fechaFund)));
+        return modeloController.actualizarEquipoNombre(equipo);
     }
     public List<Jornada> obtenerJornadas() throws Exception {
         return modeloController.jornadaController.getJornadas();
@@ -286,6 +298,4 @@ public class VistaController {
             throw new Exception("No se seleccionaron resultados para guardar.");
         }
     }
-
-
 }
