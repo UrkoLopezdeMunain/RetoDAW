@@ -11,6 +11,8 @@ public class EnfrentamientoDAO {
     private static ArrayList<Enfrentamiento> enfrentamientos;
     protected Connection con;
     protected String sql;
+    protected EquipoDAO equipoDAO;
+    protected JornadaDAO jornadaDAO;
     protected EnfrentamientoController enfrentamientoController;
     public EnfrentamientoDAO(Connection c) {
         this.con = c;
@@ -36,12 +38,53 @@ public class EnfrentamientoDAO {
 
 
     public ArrayList<Enfrentamiento> getEnfrentamientos() {
-        return null;
+        ArrayList<Enfrentamiento> enfrentamientos = new ArrayList<>();
+        String sql = "SELECT * FROM enfrentamientos";
+        try (PreparedStatement ps = con.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Enfrentamiento e = new Enfrentamiento();
+                e.setIdEnfrentamiento(rs.getInt("id_enfrentamiento"));
+                e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id"), con));
+                e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id"), con));
+                e.setHora(rs.getTime("hora").toLocalTime());
+                e.setJornada(jornadaDAO.getJornadaPorId(rs.getInt("jornada_id")));
+                e.setResultadosEq1(rs.getInt("resultado_eq1"));
+                e.setResultadosEq2(rs.getInt("resultado_eq2"));
+
+                enfrentamientos.add(e);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return enfrentamientos;
     }
 
     public Enfrentamiento getEnfrentamientoPorId(int id) {
+        String sql = "SELECT * FROM enfrentamientos WHERE id_enfrentamiento = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Enfrentamiento e = new Enfrentamiento();
+                e.setIdEnfrentamiento(rs.getInt("id_enfrentamiento"));
+                e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id"), con));
+                e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id"), con));
+                e.setHora(rs.getTime("hora").toLocalTime());
+                e.setJornada(jornadaDAO.getJornadaPorId(rs.getInt("jornada_id")));
+                e.setResultadosEq1(rs.getInt("resultado_eq1"));
+                e.setResultadosEq2(rs.getInt("resultado_eq2"));
+                return e;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
+
+
     public Enfrentamiento getEnfrentamientoPorEquipos(Equipo eq1, Equipo eq2) {
         String sql = "SELECT * FROM enfrentamientos WHERE equipo1_id = ? AND equipo2_id = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {

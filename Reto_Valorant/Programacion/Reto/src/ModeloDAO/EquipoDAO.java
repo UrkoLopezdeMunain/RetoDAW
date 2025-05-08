@@ -74,6 +74,22 @@ public class EquipoDAO {
         return equipos;
     }
 
+    public Equipo getEquipoPorId(int id, Connection con) throws SQLException {
+        String sql = "SELECT * FROM equipos WHERE id_equipo = ?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Equipo equipo = new Equipo();
+                equipo.setCodEquipo(rs.getInt("id_equipo"));
+                equipo.setNombre(rs.getString("nombre"));
+                // Configura otros atributos según tu modelo
+                return equipo;
+            }
+        }
+        return null;
+    }
+
     public java.sql.Date validarFecha(String fechaFund) {
         return java.sql.Date.valueOf(fechaFund);
     }
