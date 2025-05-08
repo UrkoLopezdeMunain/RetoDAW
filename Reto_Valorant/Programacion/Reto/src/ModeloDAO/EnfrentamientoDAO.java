@@ -22,7 +22,7 @@ public class EnfrentamientoDAO {
     }
 
     public boolean anadirEnfrentamientos(Enfrentamiento en) throws SQLException {
-        String sql = "INSERT INTO enfrentamientos (id_enfrentamiento, resultados_eq_1, resultados_eq_2, hora, cod_eq_1, cod_eq_2, num_jornada) " +
+        String sql = "INSERT INTO enfrentamientos (id_enfrentamiento, resultados_eq_1, resultados_eq_2, hora, cod_equ_1, cod_equ_2, num_jornada) " +
                     "VALUES (default, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, en.getResultadosEq1());

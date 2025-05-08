@@ -82,7 +82,16 @@ public class ModeloController {
         return jugador != null;
     }
 
-    /**Metodos de creacion*/
+    public void crearJornadas()throws SQLException{
+        jornadaController.crearJornada();
+    }
+
+    public void crearEnfrentamiento() throws Exception {
+        enfrentamientoController.crearEnfrentamientos();
+    }
+
+
+        /**Metodos de creacion*/
     public boolean crearEquipo(Equipo equipo) throws Exception {
         return equipoController.crearEquipo(equipo);
     }

@@ -73,6 +73,13 @@ public class VistaController {
         gestionarEnfrentamientos.rellenarConEquipos();
         gestionarEnfrentamientos.setVisible(true);
     }
+    public void crearJornadas()throws SQLException{
+        modeloController.crearJornadas();
+    }
+
+    public void crearEnfrentamiento() throws Exception {
+        modeloController.crearEnfrentamiento();
+    }
 
     public ConsultarEquipo getIniciarSesion() {
         return consultarEquipo;

@@ -68,8 +68,8 @@ public class EquipoDAO {
     }
 
     public List<Equipo> getEquipos() throws SQLException {
-        sql="SELECT * FROM equipos";
-        List<Equipo> equipos = new ArrayList<Equipo>();
+        sql="SELECT * FROM EQUIPOS";
+        List<Equipo> equipos = new ArrayList<>();
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

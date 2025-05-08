@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 public class EnfrentamientoController {
     private EnfrentamientoDAO enfrentamientoDAO;
     private ModeloController modeloController;
-    private ArrayList<Enfrentamiento> enfrentamientos;
-    private ArrayList<Enfrentamiento> enfrentamientosMitad1;
+    private ArrayList<Enfrentamiento> enfrentamientos = new ArrayList<>();
+    private ArrayList<Enfrentamiento> enfrentamientosMitad1 = new ArrayList<>();
     private List<Jornada> jornadas;
     private List<Equipo> equipos;
 
@@ -71,6 +71,7 @@ public class EnfrentamientoController {
             enfrentamiento.setIdEnfrentamiento(generarIdEnfrentamiento());
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
             enfrentamientosMitad1.add(enfrentamiento);
+            enfrentamientos.add(enfrentamiento);
         }
     }
     private int generarIdEnfrentamiento() throws SQLException{
@@ -102,7 +103,7 @@ public class EnfrentamientoController {
                             }
                         }
                 }
-            }catch (IndexOutOfBoundsException e){
+            }catch (Exception e){
                 System.out.println();
             }
         }while (yes);
