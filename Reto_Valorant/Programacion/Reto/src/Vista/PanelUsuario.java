@@ -57,6 +57,8 @@ public class PanelUsuario extends JFrame{
         bEmpezarComp.addActionListener(i -> {
             try {
                 vistaController.comenzarCompeticion();
+                vistaController.crearJornadas();
+                vistaController.crearEnfrentamiento();
                 JOptionPane.showMessageDialog(pPrincipal, "Competicion cerrada exitosamente", "", JOptionPane.INFORMATION_MESSAGE);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e.getMessage());

@@ -28,14 +28,14 @@ public class CompeticionDAO {
 
     // Versión alternativa si usas consulta SQL directa
     public Competicion conseguirCompeticion() throws SQLException {
-        String sql = "SELECT cod_competicion, estado " +
-                "FROM competiciones WHERE cod_competicion = 1";
+        String sql = "SELECT cod_comp, estado " +
+                "FROM competiciones WHERE cod_comp = 1";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Competicion(
-                            rs.getInt("cod_competicion"),
+                            rs.getInt("cod_comp"),
                             rs.getString("estado").charAt(0),
                             JuegoDAO.conseguirJuego()
                     );
