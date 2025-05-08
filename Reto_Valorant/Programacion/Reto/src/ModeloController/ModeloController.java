@@ -127,18 +127,10 @@ public class ModeloController {
         return jornadaController.getJornadaPorId(id);
     }
 
-    public void guardarResultados(Map<Integer, String> resultados) throws Exception {
-        for (Map.Entry<Integer, String> entry : resultados.entrySet()) {
-            int idEnfrentamiento = entry.getKey();
-            String resultado = entry.getValue();
-
-            // Validar resultado (opcional)
-            if (!resultado.equals("EQUIPO1") && !resultado.equals("EQUIPO2")) {
-                throw new Exception("Resultado no válido para el enfrentamiento " + idEnfrentamiento);
-            }
-
-            // Delegar al DAO
-            enfrentamientoController.actualizarResultado(idEnfrentamiento, resultados);
-        }
+    public void guardarResultados(Enfrentamiento enfrentamiento) throws Exception {
+        enfrentamientoController.actualizarResultado(enfrentamiento);
+    }
+    public List<Enfrentamiento> enfrentamientos(String jornada) throws Exception {
+        return enfrentamientoController.enfrentamientos(jornada);
     }
 }

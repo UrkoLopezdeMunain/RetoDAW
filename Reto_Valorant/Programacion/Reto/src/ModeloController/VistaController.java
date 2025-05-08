@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ public class VistaController {
     private GestionarEnfrentamientos gestionarEnfrentamientos;
     private final LocalDate muyPeque = LocalDate.now().minusYears(16);
     private final LocalDate muyMayor = LocalDate.now().plusYears(65);
+    private List<Enfrentamiento> enfrentamientos;
+    private Enfrentamiento enfrentamientoElegido;
 
     public VistaController(ModeloController modeloController) {
         this.modeloController = modeloController;
@@ -257,45 +260,50 @@ public class VistaController {
         return modeloController.jornadaController.getJornadas();
     }
 
-    public void guardarResultados(JPanel pPrincipal) throws Exception {
-        Map<Integer, String> resultados = new HashMap<>();
-
-        // 1. Recorrer todos los componentes del panel principal
-        for (Component comp : pPrincipal.getComponents()) {
-            if (comp instanceof JPanel panelEnfrentamiento) {
-
-                // 2. Obtener el ID del enfrentamiento desde el panel (usando el nombre o un campo oculto)
-                int idEnfrentamiento = Integer.parseInt(panelEnfrentamiento.getName()); // Ejemplo: panel.setName("123")
-
-                // 3. Buscar el ButtonGroup y el radio button seleccionado en este panel
-                ButtonGroup grupo = null;
-                JRadioButton seleccionado = null;
-
-                for (Component panelComp : panelEnfrentamiento.getComponents()) {
-                    if (panelComp instanceof JRadioButton radio) {
-                        if (grupo == null) {
-                            // Obtener el ButtonGroup asociado al primer radio button (todos comparten grupo)
-                            grupo = (ButtonGroup) radio.getClientProperty("buttonGroup");
-                        }
-                        if (radio.isSelected()) {
-                            seleccionado = radio;
-                        }
-                    }
-                }
-
-                // 4. Si hay una selección, guardar el resultado
-                if (seleccionado != null) {
-                    String resultado = seleccionado.getActionCommand(); // "EQUIPO1", "EQUIPO2", "EMPATE"
-                    resultados.put(idEnfrentamiento, resultado);
-                }
+    public void guardarResultados(String res1, String res2) throws Exception {
+        if (res1 == null)
+            enfrentamientoElegido.setResultadosEq1(0);
+        else
+            enfrentamientoElegido.setResultadosEq2(Integer.parseInt(res1));
+        if (res2 == null)
+            enfrentamientoElegido.setResultadosEq2(0);
+        else
+            enfrentamientoElegido.setResultadosEq1(Integer.parseInt(res2));
+        modeloController.guardarResultados(enfrentamientoElegido);
+    }
+    public List<String> enfrentamientos(String jornada) throws Exception {
+        enfrentamientos = modeloController.enfrentamientos(jornada);
+        List<String> resultados = new ArrayList<>();
+        for (Enfrentamiento e : enfrentamientos) {
+            resultados.add(enfrentamiento(e.getEquipo1().getNombre(),e.getEquipo2().getNombre()));
+        }
+        return resultados;
+    }
+    public void enfrentamientoElegido(String enfrentamiento) throws Exception {
+        for (Enfrentamiento e : enfrentamientos) {
+            if (enfrentamiento.equals(enfrentamiento(e.getEquipo1().getNombre(),e.getEquipo2().getNombre()))) {
+                enfrentamientoElegido = e;
+                break;
             }
         }
-
-        // 5. Llamar al controlador para guardar en la BD
-        if (!resultados.isEmpty()) {
-            modeloController.guardarResultados(resultados);
-        } else {
-            throw new Exception("No se seleccionaron resultados para guardar.");
-        }
+    }
+    public String enfrentamiento(String eq1, String eq2) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(eq1);
+        sb.append(" - ");
+        sb.append(eq2);
+        return sb.toString();
+    }
+    public String equipo1() {
+        return enfrentamientoElegido.getEquipo1().getNombre();
+    }
+    public String equipo2() {
+        return enfrentamientoElegido.getEquipo2().getNombre();
+    }
+    public int equipo1Res() {
+        return enfrentamientoElegido.getResultadosEq1();
+    }
+    public int equipo2Res() {
+        return enfrentamientoElegido.getResultadosEq2();
     }
 }
