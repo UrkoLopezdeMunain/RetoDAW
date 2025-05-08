@@ -60,7 +60,7 @@ public class GestionarEnfrentamientos extends JDialog {
     public void obtenerJornadas(){
         try {
             for (int i=0; i< vistaController.obtenerJornadas().size(); i++){
-                cbJornada.addItem(vistaController.obtenerJornadas().get(i));
+                cbJornada.addItem(vistaController.obtenerJornadas().get(i).getNumJornada() + "º JORNADA: ");
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());

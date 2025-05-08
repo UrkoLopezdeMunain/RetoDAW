@@ -28,7 +28,10 @@ public class VistaController {
         this.modeloController = modeloController;
         setIniciarSesion();
     }
-
+    /**Metodo para comenzar la competicion*/
+    public boolean comenzarCompeticion() throws Exception{
+        return modeloController.competicionController.comenzarCompeticion();
+    }
     /**Metodos de construccion de ventanas*/
     public void setIniciarSesion() {
         IniciarSesion iniciarSesion = new IniciarSesion(this);
@@ -181,37 +184,21 @@ public class VistaController {
         List<Enfrentamiento> enfrentamientos = modeloController.getEnfrentamientos();
 
         pPrincipal.removeAll();
-        pPrincipal.setLayout(new BoxLayout(pPrincipal, BoxLayout.Y_AXIS)); // Example layout
 
-        // Para el TextArea
-        JTextArea taEnfrentamientos = gestionarEnfrentamientos.getTaEnfrentamientos();
-        taEnfrentamientos.setText("");
-        for (Enfrentamiento e : enfrentamientos) {
-            taEnfrentamientos.append(e.toString() + "\n");
-        }
-        pPrincipal.add(new JScrollPane(taEnfrentamientos));
-
-        // Add matchup selection components
         for (Enfrentamiento enfrentamiento : enfrentamientos) {
-            // Create a panel for each matchup
-            JPanel matchupPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-            matchupPanel.setBorder(BorderFactory.createTitledBorder("Enfrentamiento: " + enfrentamiento.getIdEnfrentamiento()));
+            JRadioButton rb1 = new JRadioButton();
+            JRadioButton rb2 = new JRadioButton();
 
             ButtonGroup bg = new ButtonGroup();
-            JRadioButton rb1 = new JRadioButton(enfrentamiento.getEquipo1().getNombre());
-            JRadioButton rb2 = new JRadioButton(enfrentamiento.getEquipo2().getNombre());
+            bg.add(rb1); bg.add(rb2);
 
-            bg.add(rb1);
-            bg.add(rb2);
+            JLabel lb1 = new JLabel(enfrentamiento.getEquipo1().getNombre());
+            JLabel lb2 = new JLabel(enfrentamiento.getEquipo2().getNombre());
 
-            //guarda la seleccion del boton en caso de necesitarlo luego
-            rb1.setActionCommand(enfrentamiento.getIdEnfrentamiento() + "_team1");
-            rb2.setActionCommand(enfrentamiento.getIdEnfrentamiento() + "_team2");
-
-            matchupPanel.add(rb1);
-            matchupPanel.add(rb2);
-
-            pPrincipal.add(matchupPanel);
+            pPrincipal.add(lb1);
+            pPrincipal.add(lb2);
+            pPrincipal.add(rb1);
+            pPrincipal.add(rb2);
         }
 
         pPrincipal.revalidate();
