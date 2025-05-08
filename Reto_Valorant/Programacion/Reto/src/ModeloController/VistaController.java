@@ -28,10 +28,7 @@ public class VistaController {
         this.modeloController = modeloController;
         setIniciarSesion();
     }
-    /**Metodo para comenzar la competicion*/
-    public boolean comenzarCompeticion() throws Exception{
-        return modeloController.competicionController.comenzarCompeticion();
-    }
+
     /**Metodos de construccion de ventanas*/
     public void setIniciarSesion() {
         IniciarSesion iniciarSesion = new IniciarSesion(this);
@@ -184,21 +181,37 @@ public class VistaController {
         List<Enfrentamiento> enfrentamientos = modeloController.getEnfrentamientos();
 
         pPrincipal.removeAll();
+        pPrincipal.setLayout(new BoxLayout(pPrincipal, BoxLayout.Y_AXIS)); // Example layout
 
+        // Para el TextArea
+        JTextArea taEnfrentamientos = gestionarEnfrentamientos.getTaEnfrentamientos();
+        taEnfrentamientos.setText("");
+        for (Enfrentamiento e : enfrentamientos) {
+            taEnfrentamientos.append(e.toString() + "\n");
+        }
+        pPrincipal.add(new JScrollPane(taEnfrentamientos));
+
+        // Add matchup selection components
         for (Enfrentamiento enfrentamiento : enfrentamientos) {
-            JRadioButton rb1 = new JRadioButton();
-            JRadioButton rb2 = new JRadioButton();
+            // Create a panel for each matchup
+            JPanel matchupPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            matchupPanel.setBorder(BorderFactory.createTitledBorder("Enfrentamiento: " + enfrentamiento.getIdEnfrentamiento()));
 
             ButtonGroup bg = new ButtonGroup();
-            bg.add(rb1); bg.add(rb2);
+            JRadioButton rb1 = new JRadioButton(enfrentamiento.getEquipo1().getNombre());
+            JRadioButton rb2 = new JRadioButton(enfrentamiento.getEquipo2().getNombre());
 
-            JLabel lb1 = new JLabel(enfrentamiento.getEquipo1().getNombre());
-            JLabel lb2 = new JLabel(enfrentamiento.getEquipo2().getNombre());
+            bg.add(rb1);
+            bg.add(rb2);
 
-            pPrincipal.add(lb1);
-            pPrincipal.add(lb2);
-            pPrincipal.add(rb1);
-            pPrincipal.add(rb2);
+            //guarda la seleccion del boton en caso de necesitarlo luego
+            rb1.setActionCommand(enfrentamiento.getIdEnfrentamiento() + "_team1");
+            rb2.setActionCommand(enfrentamiento.getIdEnfrentamiento() + "_team2");
+
+            matchupPanel.add(rb1);
+            matchupPanel.add(rb2);
+
+            pPrincipal.add(matchupPanel);
         }
 
         pPrincipal.revalidate();
@@ -224,9 +237,14 @@ public class VistaController {
     }
 
     /**Metodos de Actualizacion de datos*/
-    public boolean actualizarEquipoFecha(String nombreEquipo, String fechaFund) throws Exception {
-        Equipo equipo = new Equipo(nombreEquipo, validarFecha(fechaFund));
+    public boolean actualizarEquipoFecha(String nombreEquipo, LocalDate fechaFund) throws Exception {
+        Equipo equipo = new Equipo(nombreEquipo, validarFecha(String.valueOf(fechaFund)));
         return modeloController.actualizarEquipoFecha(equipo);
+    }
+
+    public boolean actualizarEquipoNombre(String nombreEquipo, LocalDate fechaFund) throws Exception {
+        Equipo equipo = new Equipo(nombreEquipo, validarFecha(String.valueOf(fechaFund)));
+        return modeloController.actualizarEquipoNombre(equipo);
     }
     public List<Jornada> obtenerJornadas() throws Exception {
         return modeloController.jornadaController.getJornadas();
@@ -273,6 +291,4 @@ public class VistaController {
             throw new Exception("No se seleccionaron resultados para guardar.");
         }
     }
-
-
 }

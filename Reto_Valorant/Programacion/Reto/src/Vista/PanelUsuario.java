@@ -27,6 +27,7 @@ public class PanelUsuario extends JFrame{
     public PanelUsuario(VistaController vistaController) {
         setTitle("Iniciar Sesión");
         setContentPane(pPrincipal);
+        bEmpezarComp.setVisible(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 550);
         setLocationRelativeTo(null);
@@ -52,15 +53,10 @@ public class PanelUsuario extends JFrame{
 
         iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
         iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
+/*
+        bEmpezarComp.addActionListener(_ -> {}// Empezar competición);
+        */
 
-        bEmpezarComp.addActionListener(i -> {
-            try {
-                vistaController.comenzarCompeticion();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e.getMessage());
-            }
-        });
-
-    }
+        }
 
 }
