@@ -15,7 +15,4 @@ public class CompeticionController {
     public Competicion getCompeticion() throws SQLException {
         return competicionDAO.conseguirCompeticion();
     }
-    public boolean comenzarCompeticion() throws Exception{
-        return competicionDAO.empezarCompeticion();
-    }
 }

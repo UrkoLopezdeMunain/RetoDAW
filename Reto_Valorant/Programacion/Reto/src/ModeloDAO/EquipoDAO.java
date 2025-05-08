@@ -53,9 +53,18 @@ public class EquipoDAO {
     public boolean actualizarFechaEquipo(Equipo equipo) throws SQLException {
         sql="UPDATE equipos SET fecha_fundacion=? WHERE lower(nombre)=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, equipo.getNombre());
-        ps.setDate(2, validarFecha(String.valueOf(equipo.getFechaFundacion())));
+        ps.setDate(1, validarFecha(String.valueOf(equipo.getFechaFundacion()))); // Fecha primero
+        ps.setString(2, equipo.getNombre().toLowerCase()); // Nombre después
         return ps.executeUpdate() != 0;
+    }
+
+    public boolean actualizarNombreEquipo(Equipo equipo) throws SQLException {
+        sql = "UPDATE equipos SET nombre=? WHERE lower(nombre)=?";
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, equipo.getNombre());
+            ps.setString(2, equipo.getNombre().toLowerCase()); // Buscar por el nombre original (en minúsculas)
+            return ps.executeUpdate() != 0;
+        }
     }
 
     public List<Equipo> getEquipos() throws SQLException {

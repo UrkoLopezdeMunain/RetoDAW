@@ -74,4 +74,9 @@ public class EquipoController {
         validarNombre(equipo.getNombre());
         return eDAO.actualizarFechaEquipo(equipo);
     }
+
+    public boolean actualizarEquipoNombre(Equipo equipo) throws Exception {
+        validarNombre(equipo.getNombre());
+        return eDAO.actualizarNombreEquipo(equipo);
+    }
 }
