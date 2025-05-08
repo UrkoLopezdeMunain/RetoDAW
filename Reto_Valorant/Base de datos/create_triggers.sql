@@ -39,6 +39,8 @@ end tr_juegos_sequencia;
 insert into juegos (cod_juego,fecha_salida,nombre)
 values(default,to_date('02-06-2020','DD-MM-YYYY'),'valorant');
 
+commit;
+
 create sequence sequencia_usuarios
   start with 1
   increment by 1;
@@ -73,6 +75,8 @@ insert into usuarios (cod_usuario,nombre,contraseña,tipo_usuario)
 values(default,'eider','Jm12345','a');
 insert into usuarios (cod_usuario,nombre,contraseña,tipo_usuario)
 values(default,'invitado','Jm12345','n');
+
+commit;
 
 create sequence sequencia_equipos
   start with 1
@@ -121,6 +125,8 @@ end tr_sequencia_competiciones;
 
 insert into competiciones (cod_comp,estado,cod_juego)
 values(default,'A',1);
+
+commit;
 
 create sequence sequencia_jornadas
   start with 1
@@ -182,9 +188,9 @@ create table jugadores(
     cod_jugador number(2),
     nombre varchar2(20) not null,
     apellido varchar2(20) not null,
-    nacionalidad varchar2(20) not null,
+    nacionalidad varchar2(3) not null,
     fecha_nac date not null,
-    sueldo number(5,2) not null,
+    sueldo number(7,2) not null,
     nickname varchar2(20) not null unique,
     rol varchar2(20) not null,
     cod_equipo number(2),
@@ -365,7 +371,7 @@ end tr_max_6_jugadores;
 /
 
 --Trigger para comprobar si la competicion puede comenzar
-create or replace trigger tr_empezar_competicion1
+create or replace trigger tr_empezar_competicion3
 before update of estado on competiciones
 declare
     cantidad_equipos number;
@@ -426,5 +432,5 @@ exception
         raise_application_error(-20098,'Los equipos no pueden ser impares');
     when e_no_hay_equipos then
         raise_application_error(-20098,'No se ha encontrado ningun equipo');
-end tr_empezar_competicion1;
+end tr_empezar_competicion3;
 /

@@ -1,29 +1,28 @@
 set serveroutput on;
 
-select * from equipos;
-
 insert into equipos values(default, 'gma', to_date('18-02-2022','DD-MM-YYYY'),default);
 insert into equipos values(default, 'pat', to_date('18-02-2022','DD-MM-YYYY'),default);
-insert into equipos values(default, 'JUU', to_date('18-02-2022','DD-MM-YYYY'),default);
-insert into equipos values(default, 'LIK', to_date('18-02-2022','DD-MM-YYYY'),default);
+insert into equipos values(default, 'juu', to_date('18-02-2022','DD-MM-YYYY'),default);
+insert into equipos values(default, 'lik', to_date('18-02-2022','DD-MM-YYYY'),default);
 
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'habsf','Centinela',3);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'wdsadf','Duelista',3);
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'habsf','centinela',3);
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'wdsadf','duelista',3);
 insert into jugadores values(default,'pepe','perez','ESP',
 to_date('18-02-2002','DD-MM-YYYY'),2000,'afw4','centinela',1);
 insert into jugadores values(default,'popo','poroz','ESP',
 to_date('18-02-2002','DD-MM-YYYY'),2000,'ff32','duelista',1);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'g53','Centinela',2);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'gw43qh5g','Duelista',2);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'afs4','Centinela',4);
-insert into jugadores values(default,'Pepe','Perez','ESP',
-to_date('18-02-2002','DD-MM-YYYY'),2000,'q3g25h','Duelista',4);
-delete from jugadores;
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'g53','centinela',2);
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'gw43qh5g','duelista',2);
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'afs4','centinela',4);
+insert into jugadores values(default,'pepe','perez','ESP',
+to_date('18-02-2002','DD-MM-YYYY'),2000,'q3g25h','duelista',4);
+
+commit;
 
 declare
     continuar boolean;
@@ -64,7 +63,7 @@ declare
         );
     c_leer jugadores_datos;
 begin
-    pr_conseguir_info_jugadores('puta',c_cursor);
+    pr_conseguir_info_jugadores('gma',c_cursor);
     
     fetch c_cursor into c_leer;
     
