@@ -4,6 +4,7 @@ import Modelo.Enfrentamiento;
 import Modelo.Equipo;
 import Modelo.Jornada;
 import ModeloController.EnfrentamientoController;
+import oracle.jdbc.OracleTypes;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -54,6 +55,54 @@ public class EnfrentamientoDAO {
 
                 enfrentamientos.add(e);
             }
+        return enfrentamientos;
+    }
+    public ArrayList<Enfrentamiento> enfrentamientos(int j) throws Exception{
+        ArrayList<Enfrentamiento> enfrentamientos = new ArrayList<>();
+        String sql = "SELECT * FROM enfrentamientos where num_jornada = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, j);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            Enfrentamiento e = new Enfrentamiento();
+            e.setIdEnfrentamiento(rs.getInt("id_enfrentamiento"));
+            e.setEquipo1(enfrentamientoController.getEquipoPorId(rs.getInt("cod_equ_1")));
+            e.setEquipo2(enfrentamientoController.getEquipoPorId(rs.getInt("cod_equ_1")));
+            e.setHora(rs.getTime("hora").toLocalTime());
+            e.setJornada(enfrentamientoController.getJornadaPorId(rs.getInt("jornada_id")));
+            e.setResultadosEq1(rs.getInt("resultados_eq_1"));
+            e.setResultadosEq2(rs.getInt("resultados_eq_2"));
+
+            enfrentamientos.add(e);
+        }
+        return enfrentamientos;
+    }
+    public List<String> enfrentamientosProcedimiento(int j) throws Exception {
+        ResultSet rs = null;
+        String sql = "{call pr_conseguir_info_equipos(?)}";
+        CallableStatement stmt = con.prepareCall(sql);
+        // Registrar el parámetro de salida como CURSOR
+        stmt.registerOutParameter(1, OracleTypes.CURSOR);
+        List<String> enfrentamientos = new ArrayList<>();
+        // Ejecutar el procedimiento
+        stmt.execute();
+
+        // Obtener el resultado y convertirlo Lista de equipos
+        rs = (java.sql.ResultSet)stmt.getObject(2);
+        while (rs.next()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(rs.getString("equipo1"));
+            sb.append("\t");
+            sb.append(rs.getString("reseq1"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("reseq2"));
+            sb.append("\t");
+            sb.append(rs.getString("equipo2"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("hora"));
+            enfrentamientos.add(sb.toString());
+        }
+        rs.close();
         return enfrentamientos;
     }
 

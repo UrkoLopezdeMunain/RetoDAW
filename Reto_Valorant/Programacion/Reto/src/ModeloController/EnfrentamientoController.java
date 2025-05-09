@@ -34,7 +34,7 @@ public class EnfrentamientoController {
             segundaMitad();
     }
 
-    private void primeraMitad() throws SQLException {
+    private void primeraMitad() throws Exception {
         for (int p = 0; p < jornadas.size()/2; p++) {
             equipos = modeloController.getEquipos();
             hacerEnfrentamiento(p);
@@ -57,7 +57,7 @@ public class EnfrentamientoController {
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
         }
     }
-    private void hacerEnfrentamiento(int p) throws SQLException{
+    private void hacerEnfrentamiento(int p) throws Exception{
         for (int i = 0; i <= equipos.size()/2; i++) {
             Enfrentamiento enfrentamiento = new Enfrentamiento();
             enfrentamiento.setHora(elegirHora());
@@ -75,7 +75,7 @@ public class EnfrentamientoController {
         }
     }
 
-    private int generarIdEnfrentamiento() throws SQLException{
+    private int generarIdEnfrentamiento() throws Exception{
         Set<Integer> codigosEquipo = enfrentamientoDAO.getEnfrentamientos()
                 .stream().map(Enfrentamiento::getIdEnfrentamiento)
                 .collect(Collectors.toSet());
@@ -226,12 +226,19 @@ public class EnfrentamientoController {
     public List<Enfrentamiento> getEnfrentamientos(){
         return enfrentamientos;
     }
-
     public Jornada getJornadaPorId(int id) throws SQLException{
         return modeloController.getJornadaPorId(id);
     }
-    public void actualizarResultado(int idEnfrentamiento, Map<Integer,String> resultado) throws SQLException{
-        Enfrentamiento enfrentamiento =new Enfrentamiento(idEnfrentamiento,resultado);
+    public Equipo getEquipoPorId(int id) throws Exception{
+        return modeloController.getEquipoPorId(id);
+    }
+    public List<Enfrentamiento> enfrentamientos(int j) throws Exception {
+        return enfrentamientoDAO.enfrentamientos(j);
+    }
+    public List<String> enfrentamientosProcedimiento(int j) throws Exception {
+        return enfrentamientoDAO.enfrentamientosProcedimiento(j);
+    }
+    public void actualizarResultado(Enfrentamiento enfrentamiento) throws SQLException{
         enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
     }
 }
