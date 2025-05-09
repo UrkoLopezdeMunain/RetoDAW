@@ -260,6 +260,9 @@ public class VistaController {
         return modeloController.jornadaController.getJornadas();
     }
 
+    public void empezarCompeticion() throws SQLException {
+        modeloController.empezarCompeticion();
+    }
     public void guardarResultados(String res1, String res2) throws Exception {
         if (res1 == null)
             enfrentamientoElegido.setResultadosEq1(0);
