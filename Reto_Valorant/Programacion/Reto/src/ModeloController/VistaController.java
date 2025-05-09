@@ -10,9 +10,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +20,7 @@ public class VistaController {
     private ActualizarEquipo actualizarEquipo;
     private ConsultarJugador consultarJugador;
     private GestionarEnfrentamientos gestionarEnfrentamientos;
+    private VerEnfrentamientos verEnfrentamientos;
     private final LocalDate muyPeque = LocalDate.now().minusYears(16);
     private final LocalDate muyMayor = LocalDate.now().plusYears(65);
     private List<Enfrentamiento> enfrentamientos;
@@ -77,6 +76,12 @@ public class VistaController {
         gestionarEnfrentamientos.obtenerJornadas();
         //gestionarEnfrentamientos.rellenarConEquipos();
         gestionarEnfrentamientos.setVisible(true);
+    }
+    public void setVerEnfrentamientos(VistaController vistaController){
+        verEnfrentamientos = new VerEnfrentamientos(vistaController);
+        verEnfrentamientos.obtenerJornadas();
+        //gestionarEnfrentamientos.rellenarConEquipos();
+        verEnfrentamientos.setVisible(true);
     }
     public void crearJornadas()throws SQLException{
         modeloController.crearJornadas();
