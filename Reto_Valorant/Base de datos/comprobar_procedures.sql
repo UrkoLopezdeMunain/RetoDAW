@@ -25,10 +25,10 @@ to_date('18-02-2002','DD-MM-YYYY'),2000,'q3g25h','duelista',4);
 commit;
 
 declare
-    continuar boolean;
+    continuar number;
 begin
     pr_empezar_competicion(continuar);
-    if continuar then
+    if continuar = 1 then
         dbms_output.put_line('La competicion se ha cerrado');
     else
         dbms_output.put_line('La competicion no se ha podido cerrar');

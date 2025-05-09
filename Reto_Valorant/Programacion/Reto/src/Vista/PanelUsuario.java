@@ -54,9 +54,17 @@ public class PanelUsuario extends JFrame{
         iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
 
         iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
-/*
-        bEmpezarComp.addActionListener(_ -> {}// Empezar competición);
-        */
+        bEmpezarComp.addActionListener(i -> {
+            try{
+                vistaController.empezarCompeticion();
+                vistaController.crearJornadas();
+                vistaController.crearEnfrentamiento();
+                JOptionPane.showMessageDialog(pPrincipal, "Competicion cerrada correctamente");
+            }catch (Exception ex){
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage());
+            }
+        });
+
 
         }
 

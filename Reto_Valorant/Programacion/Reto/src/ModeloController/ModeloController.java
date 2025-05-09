@@ -130,10 +130,13 @@ public class ModeloController {
     public void guardarResultados(Enfrentamiento enfrentamiento) throws Exception {
         enfrentamientoController.actualizarResultado(enfrentamiento);
     }
-    public List<Enfrentamiento> enfrentamientos(Jornada j) throws Exception {
+    public List<Enfrentamiento> enfrentamientos(int j) throws Exception {
         return enfrentamientoController.enfrentamientos(j);
     }
     public void empezarCompeticion() throws SQLException {
         competicionController.empezarCompeticion();
+    }
+    public Equipo getEquipoPorId(int id) throws Exception{
+        return equipoController.getEquipoPorId(id);
     }
 }

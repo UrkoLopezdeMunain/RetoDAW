@@ -7,10 +7,6 @@ CREATE OR REPLACE procedure pr_empezar_competicion(continuar out number)
         continuar := 1;
 end pr_empezar_competicion;
 
-select estado from competiciones;
-
-select * from equipos;
-
 update competiciones set estado = 'A' where cod_comp = 1;
 
 /*
@@ -59,7 +55,7 @@ end pr_conseguir_info_jugadores;
 procedimiento que se encarga de devolver un informe con la informacion de los
 enfrentamientos
 */
-create or replace procedure pr_conseguir_info_enfrentamientos
+create or replace procedure pr_conseguir_info_enfren
 (v_num_jornada in jornadas.num_jornada%type, c_cursor out sys_refcursor)
 as
 begin
@@ -76,4 +72,4 @@ exception
     when no_data_found then
         raise_application_error(-20098,'No se ha encontrado ningún enfrentamiento '
         || 'en la jornada '|| v_num_jornada);
-end pr_conseguir_info_enfrentamientos;
+end pr_conseguir_info_enfren;

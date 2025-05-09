@@ -1,9 +1,11 @@
 package Vista;
 
+import Modelo.Jornada;
 import ModeloController.VistaController;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class GestionarEnfrentamientos extends JDialog {
@@ -58,29 +60,32 @@ public class GestionarEnfrentamientos extends JDialog {
                 pJornadas.setVisible(false);
                 pEnfrentamientos.setVisible(true);
 
-            } else if (cbEnfrentamientos.isVisible()) {
+            } else if (pEnfrentamientos.isVisible()) {
                 vistaController.enfrentamientoElegido(cbEnfrentamientos.getSelectedItem().toString());
                 lEq1.setText(vistaController.equipo1());
                 tfEq1.setText(String.valueOf(vistaController.equipo1Res()));
                 lEq2.setText(vistaController.equipo2());
-                tfEq1.setText(String.valueOf(vistaController.equipo2Res()));
+                tfEq2.setText(String.valueOf(vistaController.equipo2Res()));
                 pEnfrentamientos.setVisible(false);
                 pResultados.setVisible(true);
             }else {
-                vistaController.guardarResultados(tfEq1.toString(),tfEq2.toString());
+                vistaController.guardarResultados(tfEq1.getText(),tfEq2.getText());
                 JOptionPane.showMessageDialog(null,"Se ha guardado el resultado correctamente.");
                 dispose();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
+            dispose();
+        }catch (Exception e) {
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
         }
-        dispose();
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
     }
+    /*
     public void rellenarConEquipos(){
         try {
             vistaController.rellenarCamposGestionarEnfrentamientos(pPrincipal);
@@ -88,10 +93,12 @@ public class GestionarEnfrentamientos extends JDialog {
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
         }
     }
+
+     */
     public void obtenerJornadas(){
         try {
-            for (int i=0; i< vistaController.obtenerJornadas().size(); i++){
-                cbJornada.addItem(vistaController.obtenerJornadas().get(i));
+            for (Jornada jornada : vistaController.obtenerJornadas()){
+                cbJornada.addItem(jornada.getNumJornada());
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());
