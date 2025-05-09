@@ -25,7 +25,7 @@ public class PanelUsuario extends JFrame{
     /**
      Todos los listeners MENOS el de Infromes seránmodales, ya qeu son mas 'volatiles' y tienen una informacion que se verá en otro sitio
      */
-    public PanelUsuario(VistaController vistaController) {
+    public PanelUsuario(VistaController vistaController, String tipoUsuario) {
         setTitle("Iniciar Sesión");
         setContentPane(pPrincipal);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,9 +36,22 @@ public class PanelUsuario extends JFrame{
         this.vistaController = vistaController ;
 
         //crear Listeners
-        iCrearEquipo.addActionListener(i -> vistaController.setCrearEquipo(vistaController));
-        iConsultarEquipo.addActionListener(i -> vistaController.setConsultarEquipo(vistaController));
+        try {
+            if (tipoUsuario.equalsIgnoreCase("n") && vistaController.estadoCompeticion() == 'a') {
+                JOptionPane.showMessageDialog(null, "ERROR: " +
+                        "un usuario normal no puede entrar a la aplicación si la competición sigue" +
+                        "abierta.");
+                System.exit(0);
+            }else if (tipoUsuario.equalsIgnoreCase("n") && vistaController.estadoCompeticion() == 'c'){
+
+            }else {
+
+            }
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
+        }iCrearEquipo.addActionListener(i -> vistaController.setCrearEquipo(vistaController));
         iActualizarEquipo.addActionListener(i -> vistaController.setActualizarEquipo(vistaController));
+        iConsultarEquipo.addActionListener(i -> vistaController.setConsultarEquipo(vistaController));
         iBorrarEquipo.addActionListener(i -> vistaController.setBorrarEquipo(vistaController));
         iCrearJugador.addActionListener(i -> {
             try {
@@ -60,6 +73,12 @@ public class PanelUsuario extends JFrame{
                 vistaController.crearJornadas();
                 vistaController.crearEnfrentamiento();
                 JOptionPane.showMessageDialog(pPrincipal, "Competicion cerrada correctamente");
+                iCrearEquipo.setEnabled(false);
+                iActualizarEquipo.setEnabled(false);
+                iBorrarEquipo.setEnabled(false);
+                iCrearJugador.setEnabled(false);
+                iActualizarJugador.setEnabled(false);
+                iBorrarJugador.setEnabled(false);
             }catch (Exception ex){
                 JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage());
             }

@@ -105,6 +105,12 @@ public class VistaController {
     public boolean validarPassWord(String passWord) throws SQLException {
         return modeloController.validarPassWord(passWord);
     }
+    public String tipoUsuario(){
+        return modeloController.tipoUsuario();
+    }
+    public char estadoCompeticion() throws SQLException{
+        return modeloController.estadoCompeticion();
+    }
     public boolean validarEquipo(String nombreEquipo) throws Exception {
         //Hecho con toLowerCase para consultas y transacciones con BD
         Equipo equipo = new Equipo(nombreEquipo.toLowerCase());

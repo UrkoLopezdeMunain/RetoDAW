@@ -55,7 +55,7 @@ public class IniciarSesion extends JFrame{
                 if (vistaController.validarPassWord(String.valueOf(tfPassword.getPassword()))){
                     //se puede obtener el tipoUsuario para el contructor de PanelUsuario
                     dispose();
-                    PanelUsuario panelUsuario = new PanelUsuario(vistaController);
+                    PanelUsuario panelUsuario = new PanelUsuario(vistaController,vistaController.tipoUsuario());
                     panelUsuario.setVisible(true);
                 }else {
                     JOptionPane.showMessageDialog(pPricipal,"El usuario o contraseña no es correcto");
