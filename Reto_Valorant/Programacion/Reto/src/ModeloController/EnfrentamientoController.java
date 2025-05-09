@@ -68,22 +68,10 @@ public class EnfrentamientoController {
 
             equipos.remove(enfrentamiento.getEquipo2());
             enfrentamiento.setJornada(jornadas.get(p));
-            enfrentamiento.setIdEnfrentamiento(generarIdEnfrentamiento());
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
             enfrentamientosMitad1.add(enfrentamiento);
             enfrentamientos.add(enfrentamiento);
         }
-    }
-    private int generarIdEnfrentamiento() throws SQLException{
-        Set<Integer> codigosEquipo = enfrentamientoDAO.getEnfrentamientos()
-                .stream().map(Enfrentamiento::getIdEnfrentamiento)
-                .collect(Collectors.toSet());
-        int idEnfrentamiento = 0;
-        while (codigosEquipo.contains(idEnfrentamiento)) {
-            idEnfrentamiento++;
-            //hasta que no encuentra un nuevo codigo no sale del loop
-        }
-        return idEnfrentamiento;
     }
     private void noSeHanEnfrentado(Enfrentamiento enfrentamiento){
         boolean yes = false;
@@ -188,7 +176,10 @@ public class EnfrentamientoController {
         ponerResultados(enfrentamiento.getResultadosEq1(), enfrentamiento.getResultadosEq2());
         enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
     }
-    public List<Enfrentamiento> enfrentamientos(Jornada j) throws Exception {
+    public List<Enfrentamiento> enfrentamientos(int j) throws Exception {
         return enfrentamientoDAO.getEnfrentamientoPorJornada(j);
+    }
+    public Equipo getEquipoPorId(int id) throws Exception{
+        return modeloController.getEquipoPorId(id);
     }
 }

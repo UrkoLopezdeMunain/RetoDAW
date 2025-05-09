@@ -85,13 +85,13 @@ public class EquipoDAO {
     }
 
     public Equipo getEquipoPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM equipos WHERE id_equipo = ?";
+        String sql = "SELECT * FROM equipos WHERE cod_equipo = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             Equipo equipo = new Equipo();
             if (rs.next()) {
-                equipo.setCodEquipo(rs.getInt("id_equipo"));
+                equipo.setCodEquipo(id);
                 equipo.setNombre(rs.getString("nombre"));
                 // Configura otros atributos según tu modelo
                 ps.close(); rs.close();

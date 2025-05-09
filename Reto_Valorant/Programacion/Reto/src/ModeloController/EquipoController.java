@@ -79,4 +79,7 @@ public class EquipoController {
         validarNombre(equipo.getNombre());
         return eDAO.actualizarNombreEquipo(equipo);
     }
+    public Equipo getEquipoPorId(int id) throws Exception{
+        return eDAO.getEquipoPorId(id);
+    }
 }

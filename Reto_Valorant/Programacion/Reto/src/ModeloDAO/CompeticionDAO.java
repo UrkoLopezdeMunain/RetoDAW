@@ -14,16 +14,15 @@ public class CompeticionDAO {
 
     public boolean empezarCompeticion() throws SQLException {
         String sql = "{call pr_empezar_competicion(?)}";
-        try (CallableStatement stmt = con.prepareCall(sql)) {
-            // Registrar el parámetro de salida como NUMBER
-            stmt.registerOutParameter(1, OracleTypes.NUMBER);
+        CallableStatement stmt = con.prepareCall(sql);
+        // Registrar el parámetro de salida como NUMBER
+        stmt.registerOutParameter(1, OracleTypes.NUMBER);
 
-            // Ejecutar el procedimiento
-            stmt.execute();
+        // Ejecutar el procedimiento
+        stmt.execute();
 
-            // Obtener el resultado y convertirlo a boolean
-            return stmt.getInt(1) == 1;
-        }
+        // Obtener el resultado y convertirlo a boolean
+        return stmt.getInt(1) == 1;
     }
 
     // Versión alternativa si usas consulta SQL directa

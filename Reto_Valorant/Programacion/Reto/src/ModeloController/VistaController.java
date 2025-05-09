@@ -73,7 +73,7 @@ public class VistaController {
     public void setGestionarEnfrentamientos(VistaController vistaController){
         gestionarEnfrentamientos = new GestionarEnfrentamientos(vistaController);
         gestionarEnfrentamientos.obtenerJornadas();
-        gestionarEnfrentamientos.rellenarConEquipos();
+        //gestionarEnfrentamientos.rellenarConEquipos();
         gestionarEnfrentamientos.setVisible(true);
     }
     public void crearJornadas()throws SQLException{
@@ -187,6 +187,7 @@ public class VistaController {
     }
 
     /**El objetivo es que con cada Jornada el TA cambie tambien*/
+    /*
     public void rellenarCamposGestionarEnfrentamientos(JPanel pPrincipal) throws Exception {
         List<Enfrentamiento> enfrentamientos = modeloController.getEnfrentamientos();
 
@@ -227,6 +228,7 @@ public class VistaController {
         pPrincipal.revalidate();
         pPrincipal.repaint();
     }
+     */
 
     public void rellenarCamposJugador(JPanel pPrincipal){
         consultarJugador.getTfNombre().setText(modeloController.jugador.getNombre());
@@ -275,8 +277,7 @@ public class VistaController {
         modeloController.guardarResultados(enfrentamientoElegido);
     }
     public List<String> enfrentamientos(String jornada) throws Exception {
-        Jornada j= new Jornada(jornada);
-        enfrentamientos = modeloController.enfrentamientos(j);
+        enfrentamientos = modeloController.enfrentamientos(Integer.parseInt(jornada));
         List<String> resultados = new ArrayList<>();
         for (Enfrentamiento e : enfrentamientos) {
             resultados.add(enfrentamiento(e.getEquipo1().getNombre(),e.getEquipo2().getNombre()));
