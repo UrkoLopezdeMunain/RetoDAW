@@ -14,7 +14,7 @@ public class JuegoDAO {
         this.con = c;
     }
 
-    public static Juego conseguirJuego() throws SQLException{
+    public Juego conseguirJuego() throws SQLException{
         String sql = "SELECT * FROM juegos WHERE cod_juego = 1";
         Juego j = new Juego();
         PreparedStatement ps = con.prepareStatement(sql);

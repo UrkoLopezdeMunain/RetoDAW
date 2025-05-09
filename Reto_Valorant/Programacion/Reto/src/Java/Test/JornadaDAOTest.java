@@ -39,6 +39,7 @@ class JornadaDAOTest {
     }
 
     @Test
-    void getJornadaPorId() {
+    void getJornadaPorId() throws SQLException {
+        assertNotNull(jornadaDAO.getJornadaPorId(1));
     }
 }

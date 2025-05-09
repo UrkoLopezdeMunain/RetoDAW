@@ -29,6 +29,7 @@ public class CompeticionDAO {
     public Competicion conseguirCompeticion() throws SQLException {
         String sql = "SELECT cod_comp, estado " +
                 "FROM competiciones WHERE cod_comp = 1";
+        JuegoDAO jdao = new JuegoDAO(con);
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             try (ResultSet rs = ps.executeQuery()) {
@@ -36,7 +37,7 @@ public class CompeticionDAO {
                     return new Competicion(
                             rs.getInt("cod_comp"),
                             rs.getString("estado").charAt(0),
-                            JuegoDAO.conseguirJuego()
+                            jdao.conseguirJuego()
                     );
                 }
                 rs.close(); ps.close(); //si llega aqui se prefiere que al menos se cierren los cursores y se lance la excp
