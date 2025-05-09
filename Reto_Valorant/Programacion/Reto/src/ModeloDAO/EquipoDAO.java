@@ -9,17 +9,34 @@ import java.util.List;
 
 public class EquipoDAO {
 
+    /**
+     * Conexión a la base de datos.
+     */
     protected Connection con;
     protected String sql;
 
+    /**
+     * El Constructor que recibe una conexión a la base de datos.
+     * @param c conexión a la base de datos.
+     */
     public EquipoDAO(Connection c) {
         this.con = c;
     }
 
+    
+   /**
+    * Constructor por defecto.
+    */
     public EquipoDAO() {
 
     }
-
+    
+    /**
+     * Crea un nuevo equipo 
+     * @param equipo el equipo que hay que crear
+     * @return true si se insertó correctamente,distinto a 0, hay equipo insertado, false sino
+     * @throws SQLException si ocurre un error
+    */
     public boolean crearEquipo(Equipo equipo) throws SQLException {
         sql = "INSERT INTO equipos(nombre,fecha_fundacion) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -29,6 +46,13 @@ public class EquipoDAO {
         return ps.executeUpdate() != 0;
     }
 
+
+     /**
+      * Valida si un equipo existe en y da su informacion
+      * @param equipo equipo con el nombre a validar
+      * @return el uquipo, con su informacion
+      * @throws SQLException si ocurre un error 
+     */
     public Equipo validarEquipo(Equipo equipo) throws SQLException {
         sql = "SELECT cod_equipo,nombre,fecha_fundacion,puntuacion FROM equipos WHERE lower(nombre) = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -42,8 +66,15 @@ public class EquipoDAO {
         }  ; //lo que interesa por que es boolean, para que se pase a false
         rs.close(); ps.close();
         return equipo;
-
     }
+
+
+    /**
+     * Borrar un equpio ya existente
+     * @param equipo el equipo a borrar
+     * @return true si se eliminó correctamente, false sino
+     * @throws SQLException si ocurre un error 
+     */
     public boolean borrarEquipo(Equipo equipo) throws SQLException {
         sql = "DELETE FROM equipos WHERE lower(nombre) = ?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -52,6 +83,13 @@ public class EquipoDAO {
         //lanzara trigger si tiene jugadores
     }
 
+
+    /**
+     * Actualizar fecha de fundacion de equipo
+     * @param equipo equipo con la nueva fecha de fundación
+     * @return true si se actualizó correctamente, false sino
+     * @throws SQLException si ocurre un error 
+     */
     public boolean actualizarFechaEquipo(Equipo equipo) throws SQLException {
         sql="UPDATE equipos SET fecha_fundacion=? WHERE lower(nombre)=?";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -60,6 +98,12 @@ public class EquipoDAO {
         return ps.executeUpdate() != 0;
     }
 
+    /**
+     * Actualiza el nombre de un equipo.
+     * @param equipo equipo con nuevo nombre
+     * @return true si se actualizó correctamente,false sino
+     * @throws SQLException si ocurre un error 
+     */
     public boolean actualizarNombreEquipo(Equipo equipo) throws SQLException {
         sql = "UPDATE equipos SET nombre=? WHERE lower(nombre)=?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -69,6 +113,12 @@ public class EquipoDAO {
         }
     }
 
+    
+    /**
+     * Para obtener la  lista de todos los equipos 
+     * @return lista de equipos
+     * @throws SQLException si ocurre un error
+     */
     public List<Equipo> getEquipos() throws SQLException {
         sql="SELECT * FROM EQUIPOS";
         List<Equipo> equipos = new ArrayList<>();
@@ -86,6 +136,12 @@ public class EquipoDAO {
         return equipos;
     }
 
+    /**
+     * Obtiene un equipo por su I
+     * @param id identificador del equipo.
+     * @return equipo con los datos 
+     * @throws SQLException si ocurre un error
+     */
     public Equipo getEquipoPorId(int id) throws SQLException {
         String sql = "SELECT * FROM equipos WHERE cod_equipo = ?";
         try (PreparedStatement ps = con.prepareStatement(sql)) {
@@ -102,6 +158,13 @@ public class EquipoDAO {
             return equipo;
         }
     }
+
+    
+    /**
+     * Obtiene información de equipos usando procedimiento
+     * @return lista de información de cada equipo
+     * @throws SQLException si ocurre un error 
+     */
     public List<String> getEquiposProcedimiento() throws SQLException {
         ResultSet rs = null;
         String sql = "{call pr_conseguir_info_equipos(?)}";
@@ -132,6 +195,13 @@ public class EquipoDAO {
         rs.close();
         return equipos;
     }
+
+
+    public java.sql.Date validarFecha(String fechaFund) {
+        return java.sql.Date.valueOf(fechaFund);
+    }
+
+}
 
     public java.sql.Date validarFecha(String fechaFund) {
         return java.sql.Date.valueOf(fechaFund);
