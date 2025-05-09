@@ -133,6 +133,7 @@ public class VistaController {
         }
         return false;
     }
+
     public  boolean validarFechaNac(String fechaNaci) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDate fecha = LocalDate.parse(fechaNaci, formatter);
@@ -190,7 +191,7 @@ public class VistaController {
 
     /**El objetivo es que con cada Jornada el TA cambie tambien*/
     /*
-    public void rellenarCamposGestionarEnfrentamientos(JPanel pPrincipal) throws Exception {
+    public void rellenarCamposGestionarEnfrentamientos(JPanel pPrincipal) {
         List<Enfrentamiento> enfrentamientos = modeloController.getEnfrentamientos();
 
         pPrincipal.removeAll();

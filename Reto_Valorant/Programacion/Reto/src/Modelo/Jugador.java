@@ -60,6 +60,16 @@ public class Jugador {
         this.nickname = nickName;
     }
 
+    public Jugador(int codJugador, String nombre, String apellido, String nacionalidad, LocalDate fechaNacimiento, int sueldo, String rol) {
+        this.codJugador = codJugador;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.nacionalidad = nacionalidad;
+        this.fechaNacimiento = fechaNacimiento;
+        this.sueldo = sueldo;
+        this.rol = rol;
+    }
+
 
     public Equipo getEquipo() {
         return equipo;

@@ -18,6 +18,10 @@ public class EquipoDAO {
         this.con = c;
     }
 
+    public EquipoDAO() {
+
+    }
+
     public boolean crearEquipo(Equipo equipo) throws SQLException {
         sql = "INSERT INTO equipos(nombre,fecha_fundacion) VALUES(?,?)";
         PreparedStatement ps = con.prepareStatement(sql);

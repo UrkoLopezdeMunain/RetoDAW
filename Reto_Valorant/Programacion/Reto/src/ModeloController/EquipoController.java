@@ -17,7 +17,6 @@ import java.util.regex.Pattern;
 public class EquipoController {
 
     private final EquipoDAO eDAO;
-    private LocalDate FECHAFUNDACION;
     //fecha fundacion hay que meterla en Juego
     private List<Equipo> equipos;
 
@@ -25,8 +24,10 @@ public class EquipoController {
         this.eDAO = eDAO;
     }
 
+    public EquipoController() {}
+
     public void definirFechaFundacion(Juego j) {
-        FECHAFUNDACION = j.getFechaSalida();
+        LocalDate FECHAFUNDACION = j.getFechaSalida();
     }
     public List<Equipo> getEquipos() throws SQLException {
         equipos = eDAO.getEquipos();
@@ -36,9 +37,11 @@ public class EquipoController {
 
     /**Metodos de validacion:
      * Pasa por este metodo validando el nombre y devolviendo el String a validarEquipo()*/
+
     public Equipo validarEquipo(Equipo equipo) throws Exception {
         return eDAO.validarEquipo(equipo);
     }
+
     public String validarNombre(String nombre) throws Exception {
         Pattern p = Pattern.compile("^[a-zA-Z0-9][a-zA-Z0-9 _-]{3,15}$"); //15 como mucho como en MER/MR
         Matcher matcher = p.matcher(nombre);
@@ -47,6 +50,7 @@ public class EquipoController {
         }
         return nombre;
     }
+
     /**Se pasa a java.sql.Date en DAO*/
     public LocalDate validarFecha(String fecha) throws Exception {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");

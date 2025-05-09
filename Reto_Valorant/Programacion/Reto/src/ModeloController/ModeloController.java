@@ -61,7 +61,7 @@ public class ModeloController {
         return equipo;
     }
 
-    public List<Enfrentamiento> getEnfrentamientos() throws Exception{
+    public List<Enfrentamiento> getEnfrentamientos(){
         return enfrentamientoController.getEnfrentamientos();
     }
 
@@ -73,6 +73,7 @@ public class ModeloController {
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
+
     public boolean validarEquipo(Equipo eq) throws Exception {
         equipo = equipoController.validarEquipo(eq);
         return equipo != null;
