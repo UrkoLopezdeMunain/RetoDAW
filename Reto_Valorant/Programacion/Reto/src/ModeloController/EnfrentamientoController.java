@@ -332,7 +332,4 @@ public class EnfrentamientoController {
     public void actualizarResultado(Enfrentamiento enfrentamiento) throws SQLException {
         enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
     }
-    public void actualizarResultado(Enfrentamiento enfrentamiento) throws SQLException{
-        enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
-    }
 }

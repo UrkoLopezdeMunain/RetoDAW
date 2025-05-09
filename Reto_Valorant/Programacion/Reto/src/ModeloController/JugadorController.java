@@ -88,4 +88,15 @@ public class JugadorController {
     public boolean borrarJugador(Jugador jugador) throws SQLException {
         return jugadorDAO.borrarJugador(jugador);
     }
+
+    /**
+     * Lleva el nombre del equipo a la bd para que le devuelva los datos de los
+     * jugadores
+     * @param equipo Nombre del equipo a buscar
+     * @return Lista de informacion de jugadores
+     * @throws Exception si ocurre un error en la busqueda
+     */
+    public List<String> jugadores(String equipo) throws Exception {
+        return jugadorDAO.jugadores(equipo);
+    }
 }
