@@ -15,6 +15,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+
+/**
+ * @author Equipo tres
+ * @version (2.0)
+ * @see Enfrentamiento
+ */
 public class EnfrentamientoController {
     private EnfrentamientoDAO enfrentamientoDAO;
     private ModeloController modeloController;
@@ -23,17 +29,31 @@ public class EnfrentamientoController {
     private List<Jornada> jornadas;
     private List<Equipo> equipos;
 
+    /**
+     * Constructor 
+     * @param enfrentamientoDAO DAO 
+     * @param modeloController  
+     */
     public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO, ModeloController modeloController) {
         this.enfrentamientoDAO = enfrentamientoDAO;
         this.modeloController = modeloController;
     }
 
+    
+    /**
+     * Crea los enfrentamientos para todas las jornadas
+     * @throws Exception si ocurre un error al obtener los datos o crear enfrentamientos
+     */
     public void crearEnfrentamientos() throws Exception{
             jornadas = modeloController.getJornadas();
             primeraMitad();
             segundaMitad();
     }
 
+    /**
+     * Genera los enfrentamientos pero para la primera mitad 
+     * @throws Exception si ocurre un error al obtener los equipos o crear enfrentamientos
+     */
     private void primeraMitad() throws Exception {
         for (int p = 0; p < jornadas.size()/2; p++) {
             equipos = modeloController.getEquipos();
@@ -44,6 +64,11 @@ public class EnfrentamientoController {
             }
         }
     }
+
+    /**
+     * Genera los enfrentamientos para la otra mitad 
+     * @throws SQLException si ocurre un error con los enfrentamientos
+     */
     private void segundaMitad() throws SQLException {
         Random rand = new Random();
         for (int p = jornadas.size()/2; p < jornadas.size(); p++) {
@@ -57,6 +82,12 @@ public class EnfrentamientoController {
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
         }
     }
+    
+    /**
+     * Genera enfrentamientos para una jornada pero de la primera mitad.
+     * @param p inicio de la jornada.
+     * @throws Exception si ocurre un error al generar o insertar enfrentamientos
+     */
     private void hacerEnfrentamiento(int p) throws Exception{
         for (int i = 0; i <= equipos.size()/2; i++) {
             Enfrentamiento enfrentamiento = new Enfrentamiento();
@@ -75,6 +106,12 @@ public class EnfrentamientoController {
         }
     }
 
+    
+    /**
+     * Genera un ID que es único para un nuevo enfrentamiento
+     * @return ID el id unico
+     * @throws Exception si ocurre un error al obtener los enfrentamientos
+     */
     private int generarIdEnfrentamiento() throws Exception{
         Set<Integer> codigosEquipo = enfrentamientoDAO.getEnfrentamientos()
                 .stream().map(Enfrentamiento::getIdEnfrentamiento)
@@ -86,6 +123,11 @@ public class EnfrentamientoController {
         }
         return idEnfrentamiento;
     }
+
+    /**
+     * Que los equipos seleccionados no se hayan enfrentado anteriormente
+     * @param enfrentamiento enfrentamientos que se estan creando
+     */
     private void noSeHanEnfrentado(Enfrentamiento enfrentamiento){
         boolean yes = false;
         do {
@@ -110,12 +152,21 @@ public class EnfrentamientoController {
         }while (yes);
     }
 
+     /**
+     * Selecciona una hora
+     * @return hora seleccionada
+     */
     private LocalTime elegirHora() {
         Random rand = new Random();
         int hora = rand.nextInt(15);
         return LocalTime.of(7, 0, 0).plusHours(hora);
     }
 
+    /**
+     * Selecciona aleatoriamente un equipo
+     * @param equipos lista de equipos disponibles para elegir
+     * @return equipo seleccionado eq1
+     */
     private Equipo elegirEquipo(List<Equipo> equipos) {
         Random rand = new Random();
         int eq1 = rand.nextInt(equipos.size());
@@ -223,20 +274,63 @@ public class EnfrentamientoController {
     }
      */
 
+
+    /**
+     * Devuelve la lista de enfrentamientos generados
+     * @return enedrentamientos
+     */
     public List<Enfrentamiento> getEnfrentamientos(){
         return enfrentamientos;
     }
+
+    /**
+     * Devuelve una jornada teniendo en cuenta su ID
+     * @param id identificador de la jornada
+     * @return jornada 
+     * @throws SQLException si ocurre un error 
+     */
     public Jornada getJornadaPorId(int id) throws SQLException{
         return modeloController.getJornadaPorId(id);
     }
+
+    /**
+     * Devuelve un equipo teniendo en cuenta su ID
+     * @param id identificador del equipo
+     * @return equipo 
+     * @throws Exception si ocurre un error 
+     */
     public Equipo getEquipoPorId(int id) throws Exception{
         return modeloController.getEquipoPorId(id);
     }
+
+    /**
+     * Devuelve los enfrentamientos de una jornada 
+     * @param j jornada
+     * @return  enfrentamientos.
+     * @throws Exception si ocurre un error
+     */
     public List<Enfrentamiento> enfrentamientos(int j) throws Exception {
         return enfrentamientoDAO.enfrentamientos(j);
     }
+
+    
+    /**
+     * Devuelve los enfrentamientos de una jornada 
+     * @param j  jornada.
+     * @return enfrentamientos
+     * @throws Exception si ocurre un error al ejecutar 
+     */
     public List<String> enfrentamientosProcedimiento(int j) throws Exception {
         return enfrentamientoDAO.enfrentamientosProcedimiento(j);
+    }
+
+    /**
+     * Actualizar  resultado de enfrentamiento
+     * @param enfrentamiento enfrentamientoque hay que actualizar
+     * @throws SQLException si ocurre un error al actualizar 
+     */
+    public void actualizarResultado(Enfrentamiento enfrentamiento) throws SQLException {
+        enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
     }
     public void actualizarResultado(Enfrentamiento enfrentamiento) throws SQLException{
         enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
