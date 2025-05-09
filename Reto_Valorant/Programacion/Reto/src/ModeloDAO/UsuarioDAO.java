@@ -26,8 +26,8 @@ public class UsuarioDAO {
             usuario.setNombreUsuario(rs.getString("nombre"));
             usuario.setPaswd(rs.getString("contraseña"));
             usuario.setTipoUsuario(rs.getString("tipo_usuario"));
-            return usuario;
         }
-        return null;
+        rs.close(); ps.close();
+        return usuario;
     }
 }

@@ -188,7 +188,7 @@ public class EnfrentamientoController {
         ponerResultados(enfrentamiento.getResultadosEq1(), enfrentamiento.getResultadosEq2());
         enfrentamientoDAO.actualizarEnfrentamiento(enfrentamiento);
     }
-    public List<Enfrentamiento> enfrentamientos(String jornada) throws Exception {
-        return enfrentamientoDAO.getEnfrentamientoPorJornada(jornada);
+    public List<Enfrentamiento> enfrentamientos(Jornada j) throws Exception {
+        return enfrentamientoDAO.getEnfrentamientoPorJornada(j);
     }
 }

@@ -2,6 +2,7 @@ package ModeloDAO;
 
 import Modelo.Enfrentamiento;
 import Modelo.Equipo;
+import Modelo.Jornada;
 import ModeloController.EnfrentamientoController;
 
 import java.sql.*;
@@ -33,7 +34,8 @@ public class EnfrentamientoDAO {
             ps.setInt(5, en.getEquipo2().getCodEquipo()); // cod_eq_2
             ps.setInt(6, en.getJornada().getNumJornada()); // num_jornada
 
-            return ps.executeUpdate() > 0;
+        ps.close();
+        return ps.executeUpdate() > 0;
     }
 
 
@@ -62,8 +64,8 @@ public class EnfrentamientoDAO {
         PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Enfrentamiento e = new Enfrentamiento();
+        Enfrentamiento e = new Enfrentamiento();
+        if (rs.next()) {
                 e.setIdEnfrentamiento(rs.getInt("id_enfrentamiento"));
                 e.setEquipo1(equipoDAO.getEquipoPorId(rs.getInt("equipo1_id")));
                 e.setEquipo2(equipoDAO.getEquipoPorId(rs.getInt("equipo2_id")));
@@ -71,9 +73,10 @@ public class EnfrentamientoDAO {
                 e.setJornada(jornadaDAO.getJornadaPorId(rs.getInt("jornada_id")));
                 e.setResultadosEq1(rs.getInt("resultado_eq1"));
                 e.setResultadosEq2(rs.getInt("resultado_eq2"));
+            }
+                rs.close(); ps.close();
                 return e;
-            }else
-                return null;
+
     }
 
 
@@ -104,12 +107,11 @@ public class EnfrentamientoDAO {
         ps.setInt(3, enfrentamiento.getIdEnfrentamiento());
         ps.executeUpdate();
     }
-    public List<Enfrentamiento> getEnfrentamientoPorJornada(String jornada) throws Exception {
-        ArrayList<Enfrentamiento> enfrentamientos = new ArrayList<>();
+    public List<Enfrentamiento> getEnfrentamientoPorJornada(Jornada jornada) throws Exception {
+        List<Enfrentamiento> enfrentamientos = new ArrayList<>();
         String sql = "SELECT * FROM enfrentamientos WHERE num_jornada = ?";
-        int numJornada = Integer.parseInt(jornada);
         PreparedStatement ps = con.prepareStatement(sql);
-             ps.setInt(1,numJornada);
+             ps.setInt(1,jornada.getNumJornada());
              ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -124,7 +126,8 @@ public class EnfrentamientoDAO {
 
                 enfrentamientos.add(e);
             }
-        return enfrentamientos.stream().toList();
+            rs.close(); ps.close();
+        return enfrentamientos;
     }
 
 

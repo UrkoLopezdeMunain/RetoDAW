@@ -16,6 +16,10 @@ public class Jornada {
     public Jornada() {
     }
 
+    public Jornada(String jornada) {
+        this.numJornada = Integer.parseInt(jornada);
+    }
+
     public int getNumJornada() {
         return numJornada;
     }
