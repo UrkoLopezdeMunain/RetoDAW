@@ -9,15 +9,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+/**
+ * @author Equipo tres
+ * @version (2.0)
+ * @see Jugador}.
+ */
 public class JugadorDAO {
 
+        
+        /**
+         * Lista  almacena los jugadores obtenidos por equipo.
+         */
         private static final ArrayList<Jugador> jugadores = new ArrayList<>();
+        
+        /**
+         * Conexión a la base de datos.
+         */
         protected Connection con;
         private String sql;
+
+        /**
+         * @param c conexión 
+         */
         public JugadorDAO(Connection c) {
             this.con = c;
         }
 
+
+        /**
+         * Obtiene todos los jugadores que pertenecen a un equipo 
+         * @param equipo el equipo del cual se quieren obtener jugadores
+         * @return lista de jugadores 
+         * @throws SQLException si ocurre un error 
+         */
         public ArrayList<Jugador> obtenerPorEquipo(Equipo equipo) throws SQLException {
             sql = "SELECT * FROM jugadores WHERE cod_equipo = ?";
             PreparedStatement ps = con.prepareStatement(sql);
@@ -38,6 +62,13 @@ public class JugadorDAO {
             return jugadores;
         }
 
+
+   /**
+     * Crea un nuevo jugador
+     * @param jugador 
+     * @return true si la operación bien; false sino
+     * @throws SQLException si ocurre un error al insertar
+     */
     public boolean crearJugador(Jugador jugador) throws SQLException {
         sql="INSERT INTO jugadores(nombre,apellido,nacionalidad,fecha_nac,sueldo,nickname,rol,cod_equipo) VALUES(?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -52,12 +83,26 @@ public class JugadorDAO {
 
         return ps.executeUpdate() != 0;
     }
+
+   /**
+     * Elimina un jugador 
+     * @param jugador el jugador a eliminar
+     * @return  true si el jugador fue eliminado correctamente;  false sino
+     * @throws SQLException si ocurre un error 
+     */
     public boolean borrarJugador(Jugador jugador) throws SQLException {
             sql="DELETE FROM jugadores WHERE lower(nickname) = lower(?)";
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, jugador.getNickname());
             return ps.executeUpdate() != 0;
     }
+
+   /**
+     * Recupera un jugador utilizando nickname.
+     * @param jugador jugador q buscar con el nickname
+     * @return jugador
+     * @throws SQLException si ocurre un error 
+     */
     public Jugador obtenerJugador(Jugador jugador)throws SQLException {
         sql="SELECT * FROM jugadores WHERE lower(nickname) = lower(?)";
         PreparedStatement ps = con.prepareStatement(sql);
@@ -77,6 +122,12 @@ public class JugadorDAO {
         return j;
     }
 
+   /**
+     * Actualiza los datos de un jugador 
+     * @param jugador el jugador con la información actualizada.
+     * @return true si la actualización fue echa correctamnete; false de lo contrario
+     * @throws SQLException si ocurre un error 
+     */
     public boolean actualizarJugador(Jugador jugador) throws SQLException {
         sql = "UPDATE jugadores SET nombre=?, apellido=?, nacionalidad=?, fecha_nac=?, sueldo=?, nickname=?, rol=?, cod_equipo=? WHERE cod_jugador=?";
         PreparedStatement ps = con.prepareStatement(sql);
