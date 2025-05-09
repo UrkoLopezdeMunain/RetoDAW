@@ -23,14 +23,6 @@ public class JornadaController {
         this.modeloController = modeloController;
     }
 
-    public JornadaController(JornadaDAO jornadaDAO) {
-
-    }
-
-    public JornadaController() {
-
-    }
-
     public void crearJornada() throws SQLException{
         List<Equipo> equipos = modeloController.getEquipos();
         for (int i = 0; i < equipos.size(); i++){

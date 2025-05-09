@@ -29,7 +29,7 @@ class JuegoDAOTest {
     void conseguirJuego() {
         assertAll(
                 () -> assertNotNull(juegoDAO.conseguirJuego()),
-                () -> assertDoesNotThrow(juegoDAO::conseguirJuego)
+                () -> assertDoesNotThrow(() -> juegoDAO.conseguirJuego())
         );
     }
 }

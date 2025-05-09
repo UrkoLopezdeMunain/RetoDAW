@@ -2,12 +2,11 @@ package ModeloDAO;
 
 import Modelo.Equipo;
 import Modelo.Jugador;
+import oracle.jdbc.OracleTypes;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Equipo tres
@@ -125,7 +124,7 @@ public class JugadorDAO {
    /**
      * Actualiza los datos de un jugador 
      * @param jugador el jugador con la información actualizada.
-     * @return true si la actualización fue echa correctamnete; false de lo contrario
+     * @return true si la actualización fue hecha correctamnete; false de lo contrario
      * @throws SQLException si ocurre un error 
      */
     public boolean actualizarJugador(Jugador jugador) throws SQLException {
@@ -142,5 +141,38 @@ public class JugadorDAO {
         ps.setInt(9, jugador.getCodJugador());
         return ps.executeUpdate() != 0;
     }
+    /**
+     * Consigue los datos de los jugadores a partir del nombre del equipo y con un
+     * procedimiento almacenado en la base de datos
+     * @param equipo el jugador con la información actualizada.
+     * @return true si la actualización fue hecha correctamnete; false de lo contrario
+     * @throws SQLException si ocurre un error
+     */
+    public List<String> jugadores(String equipo) throws Exception {
+        ResultSet rs = null;
+        String sql = "{call pr_conseguir_info_jugadores(?)}";
+        CallableStatement stmt = con.prepareCall(sql);
+        // Registrar el parámetro de salida como CURSOR
+        stmt.registerOutParameter(1, OracleTypes.CURSOR);
+        List<String> jugadores = new ArrayList<>();
+        // Ejecutar el procedimiento
+        stmt.execute();
 
+        // Obtener el resultado y convertirlo Lista de equipos
+        rs = (java.sql.ResultSet)stmt.getObject(2);
+        while (rs.next()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(rs.getString("nombre"));
+            sb.append(" ");
+            sb.append(rs.getString("apellido"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("rol"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("sueldo"));
+            sb.append("€\n");
+            jugadores.add(sb.toString());
+        }
+        rs.close();
+        return jugadores;
+    }
 }
