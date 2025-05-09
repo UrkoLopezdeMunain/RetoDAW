@@ -16,7 +16,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="63ee6" class="javax.swing.JButton" binding="aceptarButton" default-binding="true">
+          <component id="63ee6" class="javax.swing.JButton" binding="bAceptar">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -24,7 +24,7 @@
               <text value="Aceptar"/>
             </properties>
           </component>
-          <component id="3a514" class="javax.swing.JButton" binding="cancelarButton" default-binding="true">
+          <component id="3a514" class="javax.swing.JButton" binding="bCancelar">
             <constraints>
               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -162,7 +162,7 @@
         <properties/>
         <border type="etched"/>
         <children>
-          <component id="47270" class="javax.swing.JTextField" binding="tfNicnkame">
+          <component id="47270" class="javax.swing.JTextField" binding="tfNickName">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>

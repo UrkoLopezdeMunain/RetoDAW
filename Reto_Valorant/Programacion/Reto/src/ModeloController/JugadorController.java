@@ -21,6 +21,17 @@ public class JugadorController {
         return jugadorDAO.obtenerPorEquipo(equipo);
     }
 
+    public boolean actualizarJugador(Jugador jugador) throws SQLException {
+        return jugadorDAO.actualizarJugador(jugador);
+    }
+
+    public Jugador obtenerJugadorPorNickname(String nickname) throws SQLException {
+        Jugador j = new Jugador();
+        j.setNickname(nickname);
+        return jugadorDAO.obtenerJugador(j);
+    }
+
+
 
     /**CRUD de JUGADOR(JugadorController)*/
     public boolean crearJugador(Jugador jugador) throws SQLException {
