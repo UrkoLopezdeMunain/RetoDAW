@@ -82,8 +82,8 @@ public class VistaController {
         //gestionarEnfrentamientos.rellenarConEquipos();
         gestionarEnfrentamientos.setVisible(true);
     }
-    public void setVerEnfrentamientos(VistaController vistaController){
-        verEnfrentamientos = new VerEnfrentamientos(vistaController);
+    public void setVerEnfrentamientos(VistaController vistaController, String tipoUsuario){
+        verEnfrentamientos = new VerEnfrentamientos(vistaController, tipoUsuario);
         verEnfrentamientos.obtenerJornadas();
         //gestionarEnfrentamientos.rellenarConEquipos();
         verEnfrentamientos.setVisible(true);
