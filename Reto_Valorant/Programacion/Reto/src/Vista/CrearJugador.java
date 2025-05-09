@@ -148,6 +148,7 @@ public class CrearJugador extends  JDialog{
                   throw new Exception("Algo ha ido mal con la creacion del jugador");
                 }
                 JOptionPane.showMessageDialog(pPrincipal,"Jugador creado con éxito!");
+                dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + ex.getMessage());
             }

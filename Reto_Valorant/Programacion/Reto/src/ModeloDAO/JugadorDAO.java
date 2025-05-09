@@ -74,8 +74,8 @@ public class JugadorDAO {
         ps.setString(1, jugador.getNombre());
         ps.setString(2, jugador.getApellido());
         ps.setString(3, jugador.getNacionalidad());
-        ps.setString(4, jugador.getFechaNacimiento().toString());
-        ps.setString(5, String.valueOf(jugador.getSueldo()));
+        ps.setDate(4, java.sql.Date.valueOf(jugador.getFechaNacimiento()));
+        ps.setDouble(5, jugador.getSueldo());
         ps.setString(6, jugador.getNickname());
         ps.setString(7, jugador.getRol());
         ps.setInt(8, jugador.getEquipo().getCodEquipo());
@@ -150,10 +150,11 @@ public class JugadorDAO {
      */
     public List<String> jugadores(String equipo) throws Exception {
         ResultSet rs = null;
-        String sql = "{call pr_conseguir_info_jugadores(?)}";
+        String sql = "{call pr_conseguir_info_jugadores(?,?)}";
         CallableStatement stmt = con.prepareCall(sql);
         // Registrar el parámetro de salida como CURSOR
-        stmt.registerOutParameter(1, OracleTypes.CURSOR);
+        stmt.setString(1, equipo);
+        stmt.registerOutParameter(2, OracleTypes.CURSOR);
         List<String> jugadores = new ArrayList<>();
         // Ejecutar el procedimiento
         stmt.execute();

@@ -256,13 +256,14 @@ public class VistaController {
      */
 
     public void rellenarCamposJugador(JPanel pPrincipal){
-        consultarJugador.getTfNombre().setText(modeloController.jugador.getNombre());
-        consultarJugador.getTfApellido().setText(modeloController.jugador.getApellido());
-        consultarJugador.getTfRol().setText(modeloController.jugador.getRol());
-        consultarJugador.getTfFechaNaci().setText(modeloController.jugador.getFechaNacimiento().toString());
-        consultarJugador.getTfNacionalidad().setText(modeloController.jugador.getNacionalidad());
-        consultarJugador.getTfSueldo().setText(String.valueOf(modeloController.jugador.getSueldo()));
-        consultarJugador.getTfEquipo().setText(modeloController.jugador.getEquipo().getNombre());
+        Jugador jugador  = modeloController.devolverJugador();
+        consultarJugador.getTfNombre().setText(jugador.getNombre());
+        consultarJugador.getTfApellido().setText(jugador.getApellido());
+        consultarJugador.getTfRol().setText(jugador.getRol());
+        consultarJugador.getTfFechaNaci().setText(jugador.getFechaNacimiento().toString());
+        consultarJugador.getTfNacionalidad().setText(jugador.getNacionalidad());
+        consultarJugador.getTfSueldo().setText(String.valueOf(jugador.getSueldo()));
+        consultarJugador.getTfEquipo().setText(jugador.getEquipo().getNombre());
         //se omite el nickname por que si ha llegado aqui es por que es correcto
         pPrincipal.revalidate();
         pPrincipal.repaint();
@@ -272,14 +273,8 @@ public class VistaController {
         actualizarEquipo.getTfFechaFundNueva().setText(modeloController.equipo.getFechaFundacion().toString());
         pPrincipal.revalidate(); pPrincipal.repaint();
     }
-    public void rellenarEquipos(JPanel pPrincipal) throws SQLException {
-        List<String> equipos = modeloController.getEquiposProcedimiento();
-        for (String equipo : equipos) {
-            JLabel label = new JLabel(equipo);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            pPrincipal.add(label);
-        }
-        pPrincipal.revalidate(); pPrincipal.repaint();
+    public List<String> rellenarEquipos() throws SQLException {
+        return modeloController.getEquiposProcedimiento();
     }
 
     /**Metodos de Actualizacion de datos*/
@@ -326,13 +321,8 @@ public class VistaController {
             pPrincipal.add(label);
         }
     }
-    public void jugadores(String equipo, JPanel pPrincipal) throws Exception {
-        List<String> jugadores = modeloController.jugadores(equipo);
-        for (String jugador : jugadores) {
-            JLabel label = new JLabel(jugador);
-            label.setHorizontalAlignment(SwingConstants.CENTER);
-            pPrincipal.add(label);
-        }
+    public List<String> jugadores(String equipo, JPanel pPrincipal) throws Exception {
+        return modeloController.jugadores(equipo);
     }
     public Jugador getJugador() {
         return this.jugador;

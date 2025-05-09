@@ -99,29 +99,10 @@ public class EnfrentamientoController {
 
             equipos.remove(enfrentamiento.getEquipo2());
             enfrentamiento.setJornada(jornadas.get(p));
-            enfrentamiento.setIdEnfrentamiento(generarIdEnfrentamiento());
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
             enfrentamientosMitad1.add(enfrentamiento);
             enfrentamientos.add(enfrentamiento);
         }
-    }
-
-    
-    /**
-     * Genera un ID que es único para un nuevo enfrentamiento
-     * @return ID el id unico
-     * @throws Exception si ocurre un error al obtener los enfrentamientos
-     */
-    private int generarIdEnfrentamiento() throws Exception{
-        Set<Integer> codigosEquipo = enfrentamientoDAO.getEnfrentamientos()
-                .stream().map(Enfrentamiento::getIdEnfrentamiento)
-                .collect(Collectors.toSet());
-        int idEnfrentamiento = 0;
-        while (codigosEquipo.contains(idEnfrentamiento)) {
-            idEnfrentamiento++;
-            //hasta que no encuentra un nuevo codigo no sale del loop
-        }
-        return idEnfrentamiento;
     }
 
     /**

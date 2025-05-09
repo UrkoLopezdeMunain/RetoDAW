@@ -128,7 +128,7 @@ end tr_max_6_jugadores;
 /
 
 --Trigger para comprobar si la competicion puede comenzar
-create or replace trigger tr_empezar_competicion4
+create or replace trigger tr_empezar_competicion11
 before update of estado on competiciones
 declare
     cantidad_equipos number;
@@ -189,5 +189,5 @@ exception
         raise_application_error(-20098,'Los equipos no pueden ser impares');
     when e_no_hay_equipos then
         raise_application_error(-20098,'No se ha encontrado ningun equipo');
-end tr_empezar_competicion4;
+end tr_empezar_competicion11;
 /

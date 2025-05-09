@@ -63,9 +63,9 @@ public class EquipoDAO {
             equipo.setNombre(rs.getString("nombre"));
             equipo.setFechaFundacion(rs.getDate("fecha_fundacion").toLocalDate());
             equipo.setPuntuacion(rs.getInt("puntuacion"));
-        }  ; //lo que interesa por que es boolean, para que se pase a false
-        rs.close(); ps.close();
-        return equipo;
+            return equipo;
+        }else
+            return null;
     }
 
 
@@ -176,7 +176,7 @@ public class EquipoDAO {
         stmt.execute();
 
         // Obtener el resultado y convertirlo Lista de equipos
-        rs = (java.sql.ResultSet)stmt.getObject(2);
+        rs = (java.sql.ResultSet)stmt.getObject(1);
         while (rs.next()) {
             StringBuilder sb = new StringBuilder();
             sb.append(rs.getString("nombre"));

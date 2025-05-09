@@ -1,6 +1,8 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class Jugador {
     private int codJugador;
@@ -49,7 +51,8 @@ public class Jugador {
         this.nombre = nombre;
         this.apellido = apellido;
         this.nacionalidad = nacionalidad;
-        this.fechaNacimiento = LocalDate.parse(fechaNac);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        this.fechaNacimiento = LocalDate.parse(fechaNac,formatter);
         this.sueldo = Double.parseDouble(sueldo);
         this.rol = rol;
         this.nickname = nickName;

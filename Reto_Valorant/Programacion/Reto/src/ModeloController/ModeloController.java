@@ -94,6 +94,9 @@ public class ModeloController {
     public void crearJornadas()throws SQLException{
         jornadaController.crearJornada();
     }
+    public Jugador devolverJugador(){
+        return jugador;
+    }
 
     public void crearEnfrentamiento() throws Exception {
         enfrentamientoController.crearEnfrentamientos();

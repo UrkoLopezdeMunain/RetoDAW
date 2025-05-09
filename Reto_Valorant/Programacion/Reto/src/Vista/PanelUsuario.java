@@ -19,10 +19,8 @@ public class PanelUsuario extends JFrame{
     private JMenuItem iBorrarJugador;
     private JMenu mInformes;
     private JMenuItem iGestionarEnfrentamientos;
-    private JMenuItem iConsultarTodosEquipos;
     private JMenuItem iVerEnfrentamientos;
     private JMenuItem iVerTodosEquipos;
-    private JMenuItem iVerJugadoresEquipo;
     protected VistaController vistaController;
     private String tipoUsuario;
 
@@ -47,7 +45,7 @@ public class PanelUsuario extends JFrame{
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
-
+        iConsultarJugador.addActionListener(i -> vistaController.setConsultarJugador(vistaController));
         iCrearEquipo.addActionListener(i -> vistaController.setCrearEquipo(vistaController));
         iActualizarEquipo.addActionListener(i -> vistaController.setActualizarEquipo(vistaController));
         iConsultarEquipo.addActionListener(i -> vistaController.setConsultarEquipo(vistaController));
@@ -63,7 +61,9 @@ public class PanelUsuario extends JFrame{
         iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
         iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
         iVerEnfrentamientos.addActionListener(i -> vistaController.setVerEnfrentamientos(vistaController,tipoUsuario));
+
         iVerTodosEquipos.addActionListener(i -> vistaController.setVerTodosEquipos(vistaController));
+
         iConsultarJugadoresPorEquipo.addActionListener(i -> vistaController.setConsultarJugadoresPorEquipo(vistaController));
         bEmpezarComp.addActionListener(i -> {
             try{
@@ -81,13 +81,14 @@ public class PanelUsuario extends JFrame{
         }
         public void quePoner(char estado) {
             try {
-                if (estado == 'a') {
+                if (estado == 'A') {
                     if (tipoUsuario.equalsIgnoreCase("n")) {
                         JOptionPane.showMessageDialog(null, "ERROR: " +
                                 "un usuario normal no puede entrar a la aplicación si la competición sigue" +
                                 "abierta.");
                         System.exit(0);
                     }else {
+                        iVerEnfrentamientos.setEnabled(false);
                         iGestionarEnfrentamientos.setEnabled(false);
                     }
                 }else{
@@ -98,6 +99,7 @@ public class PanelUsuario extends JFrame{
                     iCrearJugador.setEnabled(false);
                     iActualizarJugador.setEnabled(false);
                     iBorrarJugador.setEnabled(false);
+                    iVerEnfrentamientos.setEnabled(true);
                     if (tipoUsuario.equalsIgnoreCase("n")) {
                         iGestionarEnfrentamientos.setEnabled(false);
                     }else{

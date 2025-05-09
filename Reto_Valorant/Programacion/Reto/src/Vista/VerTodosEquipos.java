@@ -1,5 +1,6 @@
 package Vista;
 
+import Modelo.Equipo;
 import Modelo.Jornada;
 import ModeloController.VistaController;
 
@@ -20,12 +21,19 @@ public class VerTodosEquipos extends JDialog {
         setTitle("Gestionar Enfrentamientos");
         setModal(true);
         getRootPane().setDefaultButton(bAceptar);
-        setSize(450,550);
+        setSize(700,550);
         setContentPane(pPrincipal);
         setLocationRelativeTo(pPrincipal.getRootPane());
         setResizable(false); //para que sea de posicion y tamaño fijo
         try {
-            vistaController.rellenarEquipos(pPrincipal);
+            List<String> equipos = vistaController.rellenarEquipos();
+            for (String equipo : equipos) {
+                JLabel label = new JLabel(equipo);
+                label.setHorizontalAlignment(SwingConstants.CENTER);
+                JPanel panel = new JPanel();
+                panel.add(label);
+                pEquipos.add(panel);
+            }
         }catch (SQLException e){
             JOptionPane.showMessageDialog(null, "ERROR: " + e.getMessage());
         }
