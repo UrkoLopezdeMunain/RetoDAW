@@ -8,6 +8,7 @@ import java.sql.SQLException;
 public class PanelUsuario extends JFrame{
     private JPanel pPrincipal;
     private JButton bEmpezarComp;
+    private JMenuItem iConsultarJugadoresPorEquipo;
     private JMenuItem iCrearEquipo;
     private JMenuItem iConsultarEquipo;
     private JMenuItem iActualizarEquipo;
@@ -63,6 +64,7 @@ public class PanelUsuario extends JFrame{
         iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
         iVerEnfrentamientos.addActionListener(i -> vistaController.setVerEnfrentamientos(vistaController,tipoUsuario));
         iVerTodosEquipos.addActionListener(i -> vistaController.setVerTodosEquipos(vistaController));
+        iConsultarJugadoresPorEquipo.addActionListener(i -> vistaController.setConsultarJugadoresPorEquipo(vistaController));
         bEmpezarComp.addActionListener(i -> {
             try{
                 vistaController.empezarCompeticion();

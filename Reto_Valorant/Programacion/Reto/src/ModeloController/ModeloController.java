@@ -145,6 +145,9 @@ public class ModeloController {
     public List<String> enfrentamientosProcedimiento(int j) throws Exception {
         return enfrentamientoController.enfrentamientosProcedimiento(j);
     }
+    public List<String> jugadores(String equipo) throws Exception {
+        return jugadorController.jugadores(equipo);
+    }
     public void empezarCompeticion() throws SQLException {
         competicionController.empezarCompeticion();
     }

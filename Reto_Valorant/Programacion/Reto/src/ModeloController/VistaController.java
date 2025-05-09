@@ -19,6 +19,7 @@ public class VistaController {
     private ConsultarEquipo consultarEquipo;
     private ActualizarEquipo actualizarEquipo;
     private ConsultarJugador consultarJugador;
+    private ConsultarJugadoresPorEquipo consultarJugadoresPorEquipo;
     private GestionarEnfrentamientos gestionarEnfrentamientos;
     private VerEnfrentamientos verEnfrentamientos;
     private VerTodosEquipos verTodosEquipos;
@@ -87,6 +88,11 @@ public class VistaController {
         verEnfrentamientos.obtenerJornadas();
         //gestionarEnfrentamientos.rellenarConEquipos();
         verEnfrentamientos.setVisible(true);
+    }
+    public void setConsultarJugadoresPorEquipo(VistaController vistaController){
+        consultarJugadoresPorEquipo = new ConsultarJugadoresPorEquipo(vistaController);
+        consultarJugadoresPorEquipo.obtenerEquipos();
+        consultarJugadoresPorEquipo.setVisible(true);
     }
     public void crearJornadas()throws SQLException{
         modeloController.crearJornadas();
@@ -316,6 +322,14 @@ public class VistaController {
         List<String> enfrentamientosProcedimientos = modeloController.enfrentamientosProcedimiento(Integer.parseInt(jornada));
         for (String enfrentamiento : enfrentamientosProcedimientos) {
             JLabel label = new JLabel(enfrentamiento);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            pPrincipal.add(label);
+        }
+    }
+    public void jugadores(String equipo, JPanel pPrincipal) throws Exception {
+        List<String> jugadores = modeloController.jugadores(equipo);
+        for (String jugador : jugadores) {
+            JLabel label = new JLabel(jugador);
             label.setHorizontalAlignment(SwingConstants.CENTER);
             pPrincipal.add(label);
         }

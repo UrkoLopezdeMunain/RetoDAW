@@ -139,6 +139,7 @@ public class EnfrentamientoDAO {
             sb.append(rs.getString("equipo2"));
             sb.append("\t-\t");
             sb.append(rs.getString("hora"));
+            sb.append("\n");
             enfrentamientos.add(sb.toString());
         }
         rs.close();
