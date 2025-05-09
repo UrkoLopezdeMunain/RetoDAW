@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnfrentamientoDAO {
-    private static ArrayList<Enfrentamiento> enfrentamientos;
     protected Connection con;
     protected String sql;
     protected EnfrentamientoController enfrentamientoController;
