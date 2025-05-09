@@ -10,6 +10,7 @@ import java.util.List;
 
 public class VerEnfrentamientos extends JDialog {
     private VistaController vistaController;
+    String tipoUsuario;
     private JPanel pPrincipal;
     private JButton bAceptar;
     private JComboBox cbJornada;
@@ -17,8 +18,9 @@ public class VerEnfrentamientos extends JDialog {
     private JPanel pJornadas;
     private JButton buttonCancel;
 
-    public VerEnfrentamientos(VistaController vistaController) {
+    public VerEnfrentamientos(VistaController vistaController, String tipoUsuario) {
         this.vistaController = vistaController;
+        this.tipoUsuario = tipoUsuario;
         setTitle("Gestionar Enfrentamientos");
         setModal(true);
         getRootPane().setDefaultButton(bAceptar);
@@ -75,8 +77,13 @@ public class VerEnfrentamientos extends JDialog {
      */
     public void obtenerJornadas(){
         try {
-            for (Jornada jornada : vistaController.obtenerJornadas()){
-                cbJornada.addItem(jornada.getNumJornada());
+            List<Jornada> jornadas = vistaController.obtenerJornadas();
+            if (tipoUsuario.equals("n")) {
+                cbJornada.addItem(jornadas.getLast().getNumJornada());
+            }else {
+                for (Jornada jornada : jornadas) {
+                    cbJornada.addItem(jornada.getNumJornada());
+                }
             }
         }catch (Exception e){
             JOptionPane.showMessageDialog(pPrincipal,"ERROR: " + e.getMessage());

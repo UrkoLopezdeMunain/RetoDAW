@@ -61,7 +61,7 @@ public class PanelUsuario extends JFrame{
         iActualizarJugador.addActionListener(i -> vistaController.setActualizarJugador(vistaController));
         iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
         iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
-        iVerEnfrentamientos.addActionListener(i -> vistaController.setVerEnfrentamientos(vistaController));
+        iVerEnfrentamientos.addActionListener(i -> vistaController.setVerEnfrentamientos(vistaController,tipoUsuario));
         iVerTodosEquipos.addActionListener(i -> vistaController.setVerTodosEquipos(vistaController));
         bEmpezarComp.addActionListener(i -> {
             try{
