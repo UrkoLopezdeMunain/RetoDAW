@@ -44,7 +44,14 @@ public class ConsultarJugadoresPorEquipo extends JDialog {
     private void onOK() {
         try {
             if (pEquipos.isVisible()) {
-                vistaController.jugadores(cbEquipos.getSelectedItem().toString(),pJugadores);
+                List<String> jugadores = vistaController.jugadores(cbEquipos.getSelectedItem().toString(),pJugadores);
+                for (String jugador : jugadores) {
+                    JLabel label = new JLabel(jugador);
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    JPanel panel = new JPanel();
+                    panel.add(label);
+                    pJugadores.add(panel);
+                }
                 pEquipos.setVisible(false);
                 pJugadores.setVisible(true);
 

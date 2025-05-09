@@ -6,9 +6,7 @@ CREATE OR REPLACE procedure pr_empezar_competicion(continuar out number)
         update competiciones set estado = 'C' where cod_comp = 1;
         continuar := 1;
 end pr_empezar_competicion;
-
-update competiciones set estado = 'A' where cod_comp = 1;
-
+/
 /*
 procedimiento que se encarga de devolver un informe con la informacion de los
 equipos y sus jugadores
@@ -26,6 +24,7 @@ exception
     when no_datos then
         raise_application_error(-20098,'No se ha encontrado ningun equipo');
 end pr_conseguir_info_equipos;
+/
 /*
 procedimiento que se encarga de devolver un informe con la informacion de los
 jugadores de un equipo en concreto
@@ -50,7 +49,7 @@ exception
         raise_application_error(-20098,'No se ha encontrado el equipo '
         || v_nom_equipo);
 end pr_conseguir_info_jugadores;
-
+/
 /*
 procedimiento que se encarga de devolver un informe con la informacion de los
 enfrentamientos
@@ -68,9 +67,10 @@ begin
         on en.cod_equ_1 = eq1.cod_equipo
         join equipos eq2
         on en.cod_equ_2 = eq2.cod_equipo
-        where en.num_jornada = 1;
+        where en.num_jornada = v_num_jornada;
 exception
     when no_data_found then
         raise_application_error(-20098,'No se ha encontrado ning�n enfrentamiento '
         || 'en la jornada '|| v_num_jornada);
 end pr_conseguir_info_enfren;
+/

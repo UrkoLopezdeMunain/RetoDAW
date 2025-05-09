@@ -94,12 +94,6 @@
                   <text value="Gestionar Enfrentamientos"/>
                 </properties>
               </component>
-              <component id="c64ca" class="javax.swing.JMenuItem" binding="iConsultarTodosEquipos">
-                <constraints/>
-                <properties>
-                  <text value="Consultar todos los Equipos"/>
-                </properties>
-              </component>
               <component id="e413d" class="javax.swing.JMenuItem" binding="iConsultarJugadoresPorEquipo">
                 <constraints/>
                 <properties>
@@ -116,12 +110,6 @@
                 <constraints/>
                 <properties>
                   <text value="Ver todos los equipos"/>
-                </properties>
-              </component>
-              <component id="4875a" class="javax.swing.JMenuItem" binding="iVerJugadoresEquipo">
-                <constraints/>
-                <properties>
-                  <text value="Ver los jugadores de un equipo"/>
                 </properties>
               </component>
             </children>
