@@ -26,6 +26,8 @@ public class VistaController {
     private final LocalDate muyMayor = LocalDate.now().plusYears(65);
     private List<Enfrentamiento> enfrentamientos;
     private Enfrentamiento enfrentamientoElegido;
+    private Jugador jugador;
+    protected JugadorController jugadorController;
 
     public VistaController(ModeloController modeloController) {
         this.modeloController = modeloController;
@@ -283,6 +285,49 @@ public class VistaController {
             resultados.add(enfrentamiento(e.getEquipo1().getNombre(),e.getEquipo2().getNombre()));
         }
         return resultados;
+    }
+    public Jugador getJugador() {
+        return this.jugador;
+    }
+    public void rellenarCamposJugadorUpdate(JPanel pPrincipal) throws SQLException {
+        // Obtener el jugador actual desde el atributo del controlador
+        Jugador jugador = getJugador();
+        if (jugador == null) {
+            throw new SQLException("No se pudo obtener el jugador.");
+        }
+
+        // Iterar por cada componente del panel
+        for (Component comp : pPrincipal.getComponents()) {
+            if (comp instanceof JTextField textField) {
+                // Usamos los nombres asignados para identificar cada campo
+                switch (textField.getName()) {
+                    case "tfNombre" -> textField.setText(jugador.getNombre());
+                    case "tfApellido" -> textField.setText(jugador.getApellido());
+                    case "tfNacionalidad" -> textField.setText(jugador.getNacionalidad());
+                    case "tfFechaNacimiento" -> textField.setText(jugador.getFechaNacimiento().toString());
+                    case "tfSueldo" -> textField.setText(String.valueOf(jugador.getSueldo()));
+                    case "tfRol" -> textField.setText(jugador.getRol());
+                }
+            } else if (comp instanceof JComboBox<?> comboBox && "cbEquipos".equals(comboBox.getName())) {
+                comboBox.setSelectedItem(jugador.getEquipo());
+            }
+        }
+    }
+    public boolean actualizarJugador(Jugador jugadorActualizado) {
+        try {
+            return jugadorController.actualizarJugador(jugadorActualizado);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public void cargarEquiposEnComboBox(JComboBox<Equipo> comboBox) throws SQLException {
+        comboBox.removeAllItems(); // Limpia el ComboBox
+        List<Equipo> equipos = getEquipos(); // Método que obtiene la lista de equipos desde la base de datos
+        for (Equipo equipo : equipos) {
+            comboBox.addItem(equipo); // Agrega cada equipo al ComboBox
+        }
     }
     public void enfrentamientoElegido(String enfrentamiento) throws Exception {
         for (Enfrentamiento e : enfrentamientos) {

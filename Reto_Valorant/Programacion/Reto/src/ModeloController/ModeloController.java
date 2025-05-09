@@ -116,6 +116,10 @@ public class ModeloController {
         return equipoController.actualizarEquipoNombre(eq);
     }
 
+    public void actualizarJugador(Jugador jugador) throws SQLException {
+        jugadorController.actualizarJugador(jugador);
+    }
+
     public List<Jornada> getJornadas() throws SQLException{
         return jornadaController.getJornadas();
     }
@@ -139,4 +143,6 @@ public class ModeloController {
     public Equipo getEquipoPorId(int id) throws Exception{
         return equipoController.getEquipoPorId(id);
     }
+
+
 }
