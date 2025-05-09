@@ -33,7 +33,7 @@ public class JornadaDAO {
 
     public List<Jornada> getJornadas() throws SQLException {
         String sql = "SELECT * FROM jornadas";
-        ArrayList<Jornada> jornadas = new ArrayList<>();
+        List<Jornada> jornadas = new ArrayList<>();
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -43,20 +43,20 @@ public class JornadaDAO {
             j.setCompeticion(cDAO.conseguirCompeticion());
             jornadas.add(j);
         }
-        return jornadas.stream().toList();
+        ps.close(); rs.close();
+        return jornadas;
     }
     public Jornada getJornadaPorId(int id) throws SQLException {
         String sql = "SELECT * FROM jornadas where num_jornada = ?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
+        Jornada j = new Jornada();
         if (rs.next()) {
-            Jornada j = new Jornada();
             j.setNumJornada(rs.getInt("num_jornada"));
             j.setFechaInicio(rs.getDate("fecha_inicio").toLocalDate());
             j.setCompeticion(cDAO.conseguirCompeticion());
-            return j;
         }
-        return null;
+        return j;
     }
 }

@@ -130,7 +130,7 @@ public class ModeloController {
     public void guardarResultados(Enfrentamiento enfrentamiento) throws Exception {
         enfrentamientoController.actualizarResultado(enfrentamiento);
     }
-    public List<Enfrentamiento> enfrentamientos(String jornada) throws Exception {
-        return enfrentamientoController.enfrentamientos(jornada);
+    public List<Enfrentamiento> enfrentamientos(Jornada j) throws Exception {
+        return enfrentamientoController.enfrentamientos(j);
     }
 }

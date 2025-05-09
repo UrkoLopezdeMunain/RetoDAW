@@ -37,10 +37,10 @@ public class EquipoDAO {
             equipo.setNombre(rs.getString("nombre"));
             equipo.setFechaFundacion(rs.getDate("fecha_fundacion").toLocalDate());
             equipo.setPuntuacion(rs.getInt("puntuacion"));
-            return equipo;
-        } else {
-            return null; //lo que interesa por que es boolean, para que se pase a false
-        }
+        }  ; //lo que interesa por que es boolean, para que se pase a false
+        rs.close(); ps.close();
+        return equipo;
+
     }
     public boolean borrarEquipo(Equipo equipo) throws SQLException {
         sql = "DELETE FROM equipos WHERE lower(nombre) = ?";
@@ -80,6 +80,7 @@ public class EquipoDAO {
             equipo.setPuntuacion(rs.getInt("puntuacion"));
             equipos.add(equipo);
         }
+        ps.close(); rs.close();
         return equipos;
     }
 
@@ -88,15 +89,16 @@ public class EquipoDAO {
         try (PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
+            Equipo equipo = new Equipo();
             if (rs.next()) {
-                Equipo equipo = new Equipo();
                 equipo.setCodEquipo(rs.getInt("id_equipo"));
                 equipo.setNombre(rs.getString("nombre"));
                 // Configura otros atributos según tu modelo
-                return equipo;
+                ps.close(); rs.close();
             }
+            rs.close(); ps.close();
+            return equipo;
         }
-        return null;
     }
 
     public java.sql.Date validarFecha(String fechaFund) {

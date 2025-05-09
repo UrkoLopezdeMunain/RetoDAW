@@ -272,7 +272,8 @@ public class VistaController {
         modeloController.guardarResultados(enfrentamientoElegido);
     }
     public List<String> enfrentamientos(String jornada) throws Exception {
-        enfrentamientos = modeloController.enfrentamientos(jornada);
+        Jornada j= new Jornada(jornada);
+        enfrentamientos = modeloController.enfrentamientos(j);
         List<String> resultados = new ArrayList<>();
         for (Enfrentamiento e : enfrentamientos) {
             resultados.add(enfrentamiento(e.getEquipo1().getNombre(),e.getEquipo2().getNombre()));

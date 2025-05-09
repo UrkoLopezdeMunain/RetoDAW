@@ -40,8 +40,10 @@ public class CompeticionDAO {
                             JuegoDAO.conseguirJuego()
                     );
                 }
+                rs.close(); ps.close(); //si llega aqui se prefiere que al menos se cierren los cursores y se lance la excp
             }
         }
+
         throw new SQLException("Competición no encontrada con código: " + 1);
     }
 }

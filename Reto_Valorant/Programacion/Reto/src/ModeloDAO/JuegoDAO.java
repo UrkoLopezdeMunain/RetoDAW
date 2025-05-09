@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class JuegoDAO {
-    private final ArrayList<Juego> listaJuegos = new ArrayList<>();
     protected static Connection con;
     public JuegoDAO(Connection c) {
         this.con = c;
@@ -24,9 +23,8 @@ public class JuegoDAO {
             j.setCodJuego(1);
             j.setNombre(rs.getString("nombre"));
             j.setFechaSalida(rs.getDate("fecha_salida").toLocalDate());
-            return j;
-        } else {
-            return null; //lo que interesa por que es boolean, para que se pase a false
         }
+        rs.close(); ps.close();
+        return j;
     }
 }
