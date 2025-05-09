@@ -26,6 +26,10 @@ public class Enfrentamiento {
         this.idEnfrentamiento = idEnfrentamiento;
     }
 
+    public Enfrentamiento(int id) {
+        this.idEnfrentamiento = id;
+    }
+
 
     public int getIdEnfrentamiento() {
         return idEnfrentamiento;

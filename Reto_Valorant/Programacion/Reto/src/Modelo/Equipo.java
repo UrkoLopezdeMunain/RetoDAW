@@ -38,6 +38,10 @@ public class Equipo {
         this.nombre = nombre;
         this.fechaFundacion = fechaFund;
     }
+    public Equipo(int codEquipo,String nombre) {
+        this.codEquipo = codEquipo;
+        this.nombre = nombre;
+    }
 
     public Equipo(String nombreEquipo) {
         this.nombre = nombreEquipo;

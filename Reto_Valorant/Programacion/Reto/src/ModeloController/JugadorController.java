@@ -16,6 +16,10 @@ public class JugadorController {
         this.jugadorDAO = jugadorDAO;
     }
 
+    public JugadorController() {
+
+    }
+
     /** Metodos para optimizar accesos a BD*/
     public ArrayList<Jugador> obtenerJugadores(Equipo equipo) throws SQLException {
         return jugadorDAO.obtenerPorEquipo(equipo);

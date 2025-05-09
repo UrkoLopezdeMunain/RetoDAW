@@ -23,6 +23,14 @@ public class JornadaController {
         this.modeloController = modeloController;
     }
 
+    public JornadaController(JornadaDAO jornadaDAO) {
+
+    }
+
+    public JornadaController() {
+
+    }
+
     public void crearJornada() throws SQLException{
         List<Equipo> equipos = modeloController.getEquipos();
         for (int i = 0; i < equipos.size(); i++){
@@ -32,7 +40,7 @@ public class JornadaController {
             jornadaDAO.anadirJornada(jornada);
         }
     }
-    private LocalDate elegirFecha() throws SQLException{
+    public LocalDate elegirFecha() throws SQLException{
         int mes;
         int dia;
         int year;
@@ -48,11 +56,11 @@ public class JornadaController {
         }
         return LocalDate.of(year,mes,dia);
     }
-    private int elegirMes(){
+    public int elegirMes(){
         Random random = new Random();
         return random.nextInt(11)+1;
     }
-    private int elegirDiaInicial(int mes){
+    public int elegirDiaInicial(int mes){
         Random random = new Random();
         int randomDia = 0;
         if (mes == 2)
@@ -67,7 +75,7 @@ public class JornadaController {
         }
         return randomDia;
     }
-    private LocalDate elegirDia() throws SQLException {
+    public LocalDate elegirDia() throws SQLException {
         Random random = new Random();
         int randomDia;
         randomDia = random.nextInt(7);

@@ -6,7 +6,9 @@ public class Usuario {
     private String paswd;
     private String tipoUsuario;
 
-    public Usuario() {
+    public Usuario(String nombreUsuario, String paswd) {
+        this.nombreUsuario = nombreUsuario;
+        this.paswd = paswd;
     }
 
     public Usuario(String nombreUsuario, String paswd, String tipoUsuario) {
@@ -18,6 +20,8 @@ public class Usuario {
     public Usuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
+
+    public Usuario() {}
 
     public String getNombreUsuario() {
         return nombreUsuario;

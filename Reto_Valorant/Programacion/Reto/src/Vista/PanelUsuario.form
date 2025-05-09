@@ -100,6 +100,12 @@
                   <text value="Consultar todos los Equipos"/>
                 </properties>
               </component>
+              <component id="e413d" class="javax.swing.JMenuItem" binding="iConsutlarJugadoresPorEquipo">
+                <constraints/>
+                <properties>
+                  <text value="Consultar Jugadores Por Equipo"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>
