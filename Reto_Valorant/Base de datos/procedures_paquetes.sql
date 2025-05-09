@@ -60,8 +60,9 @@ create or replace procedure pr_conseguir_info_enfren
 as
 begin
     open c_cursor for
-        select eq1.nombre, en.resultados_eq_1, en.resultados_eq_2,
-                eq2.nombre, to_char(en.hora, 'HH24:MI') as hora
+        select eq1.nombre as equipo1, en.resultados_eq_1 as reseq1, 
+            en.resultados_eq_2 as reseq2,eq2.nombre as equipo2, 
+            to_char(en.hora, 'HH24:MI') as hora
         from equipos eq1
         join enfrentamientos en
         on en.cod_equ_1 = eq1.cod_equipo
@@ -70,6 +71,6 @@ begin
         where en.num_jornada = 1;
 exception
     when no_data_found then
-        raise_application_error(-20098,'No se ha encontrado ningún enfrentamiento '
+        raise_application_error(-20098,'No se ha encontrado ningï¿½n enfrentamiento '
         || 'en la jornada '|| v_num_jornada);
 end pr_conseguir_info_enfren;

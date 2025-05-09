@@ -312,6 +312,14 @@ public class VistaController {
         }
         return resultados;
     }
+    public void enfrentamientosProcedimiento(String jornada, JPanel pPrincipal) throws Exception {
+        List<String> enfrentamientosProcedimientos = modeloController.enfrentamientosProcedimiento(Integer.parseInt(jornada));
+        for (String enfrentamiento : enfrentamientosProcedimientos) {
+            JLabel label = new JLabel(enfrentamiento);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            pPrincipal.add(label);
+        }
+    }
     public Jugador getJugador() {
         return this.jugador;
     }

@@ -46,12 +46,7 @@ public class VerEnfrentamientos extends JDialog {
     private void onOK() {
         try {
             if (pJornadas.isVisible()) {
-                List<String> enfrentamientos = vistaController.enfrentamientos(cbJornada.getSelectedItem().toString());
-                for (String enfrentamiento : enfrentamientos){
-                    JLabel label = new JLabel(enfrentamiento);
-                    label.setHorizontalAlignment(SwingConstants.CENTER);
-                    pEnfrentamientos.add(label);
-                }
+                vistaController.enfrentamientosProcedimiento(cbJornada.getSelectedItem().toString(),pEnfrentamientos);
                 pJornadas.setVisible(false);
                 pEnfrentamientos.setVisible(true);
             } else
