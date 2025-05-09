@@ -146,15 +146,15 @@ public class ModeloController {
         equipo = equipoController.validarEquipo(eq);
         return equipo != null;
     }
-
     /**
      * Valida un jugador 
      * @param jugador jugador a validar
      * @return jugador valido, y q sea distinto de null
      * @throws SQLException si ocurre un error
      */
-    public boolean validarJugador(Jugador jugador) throws SQLException {
-        jugador = jugadorController.obtnerJugador(jugador);
+
+    public boolean validarJugador(Jugador j) throws SQLException {
+        jugador = jugadorController.obtnerJugador(j);
         return jugador != null;
     }
 
