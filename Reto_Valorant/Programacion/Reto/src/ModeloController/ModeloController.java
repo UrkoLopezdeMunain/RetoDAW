@@ -142,6 +142,9 @@ public class ModeloController {
     public List<Enfrentamiento> enfrentamientos(int j) throws Exception {
         return enfrentamientoController.enfrentamientos(j);
     }
+    public List<String> enfrentamientosProcedimiento(int j) throws Exception {
+        return enfrentamientoController.enfrentamientosProcedimiento(j);
+    }
     public void empezarCompeticion() throws SQLException {
         competicionController.empezarCompeticion();
     }
