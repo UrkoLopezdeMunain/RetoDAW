@@ -20,6 +20,8 @@ public class PanelUsuario extends JFrame{
     private JMenuItem iGestionarEnfrentamientos;
     private JMenuItem iConsultarTodosEquipos;
     private JMenuItem iVerEnfrentamientos;
+    private JMenuItem iVerTodosEquipos;
+    private JMenuItem iVerJugadoresEquipo;
     protected VistaController vistaController;
     private String tipoUsuario;
 
@@ -53,13 +55,14 @@ public class PanelUsuario extends JFrame{
             try {
                 vistaController.setCrearJugador(vistaController);
             } catch (SQLException ex) {
-                throw new RuntimeException(ex);
+                JOptionPane.showMessageDialog(null, "ERROR: " + ex.getMessage());
             }
         });
         iActualizarJugador.addActionListener(i -> vistaController.setActualizarJugador(vistaController));
         iBorrarJugador.addActionListener(i -> vistaController.setBorrarJugador(vistaController));
         iGestionarEnfrentamientos.addActionListener(i -> vistaController.setGestionarEnfrentamientos(vistaController));
         iVerEnfrentamientos.addActionListener(i -> vistaController.setVerEnfrentamientos(vistaController));
+        iVerTodosEquipos.addActionListener(i -> vistaController.setVerTodosEquipos(vistaController));
         bEmpezarComp.addActionListener(i -> {
             try{
                 vistaController.empezarCompeticion();

@@ -57,6 +57,9 @@ public class ModeloController {
     public List<Equipo> getEquipos() throws SQLException {
         return equipoController.getEquipos();
     }
+    public List<String> getEquiposProcedimiento() throws SQLException {
+        return equipoController.getEquiposProcedimiento();
+    }
     public Equipo getEquipo(){
         return equipo;
     }

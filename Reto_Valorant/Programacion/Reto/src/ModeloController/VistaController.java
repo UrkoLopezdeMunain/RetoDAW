@@ -21,6 +21,7 @@ public class VistaController {
     private ConsultarJugador consultarJugador;
     private GestionarEnfrentamientos gestionarEnfrentamientos;
     private VerEnfrentamientos verEnfrentamientos;
+    private VerTodosEquipos verTodosEquipos;
     private final LocalDate muyPeque = LocalDate.now().minusYears(16);
     private final LocalDate muyMayor = LocalDate.now().plusYears(65);
     private List<Enfrentamiento> enfrentamientos;
@@ -41,6 +42,10 @@ public class VistaController {
     public void setConsultarEquipo(VistaController vistaController){
         consultarEquipo = new ConsultarEquipo(vistaController);
         consultarEquipo.setVisible(true);
+    }
+    public void setVerTodosEquipos(VistaController vistaController){
+        verTodosEquipos = new VerTodosEquipos(vistaController);
+        verTodosEquipos.setVisible(true);
     }
     public void setBorrarEquipo(VistaController vistaController){
         BorrarEquipo borrarEquipo = new BorrarEquipo(vistaController);
@@ -259,6 +264,15 @@ public class VistaController {
     public void rellenarCamposEquipoUpdate(JPanel pPrincipal) {
         actualizarEquipo.getTfNombreNuevo().setText(modeloController.equipo.getNombre());
         actualizarEquipo.getTfFechaFundNueva().setText(modeloController.equipo.getFechaFundacion().toString());
+        pPrincipal.revalidate(); pPrincipal.repaint();
+    }
+    public void rellenarEquipos(JPanel pPrincipal) throws SQLException {
+        List<String> equipos = modeloController.getEquiposProcedimiento();
+        for (String equipo : equipos) {
+            JLabel label = new JLabel(equipo);
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            pPrincipal.add(label);
+        }
         pPrincipal.revalidate(); pPrincipal.repaint();
     }
 
