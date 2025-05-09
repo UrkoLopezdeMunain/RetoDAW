@@ -18,4 +18,5 @@ public class CompeticionController {
     public void empezarCompeticion() throws SQLException {
         competicionDAO.empezarCompeticion();
     }
+
 }

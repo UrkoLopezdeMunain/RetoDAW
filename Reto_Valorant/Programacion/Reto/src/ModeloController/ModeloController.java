@@ -61,7 +61,7 @@ public class ModeloController {
         return equipo;
     }
 
-    public List<Enfrentamiento> getEnfrentamientos(){
+    public List<Enfrentamiento> getEnfrentamientos() throws Exception{
         return enfrentamientoController.getEnfrentamientos();
     }
 
@@ -73,7 +73,12 @@ public class ModeloController {
     public boolean validarPassWord(String passWord){
         return usuario.getPaswd().equals(passWord);
     }
-
+    public String tipoUsuario(){
+        return usuario.getTipoUsuario();
+    }
+    public char estadoCompeticion() throws SQLException{
+        return competicionController.getCompeticion().getEstado();
+    }
     public boolean validarEquipo(Equipo eq) throws Exception {
         equipo = equipoController.validarEquipo(eq);
         return equipo != null;
@@ -117,10 +122,6 @@ public class ModeloController {
         return equipoController.actualizarEquipoNombre(eq);
     }
 
-    public void actualizarJugador(Jugador jugador) throws SQLException {
-        jugadorController.actualizarJugador(jugador);
-    }
-
     public List<Jornada> getJornadas() throws SQLException{
         return jornadaController.getJornadas();
     }
@@ -144,6 +145,4 @@ public class ModeloController {
     public Equipo getEquipoPorId(int id) throws Exception{
         return equipoController.getEquipoPorId(id);
     }
-
-
 }
