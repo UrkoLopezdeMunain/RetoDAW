@@ -16,10 +16,6 @@ public class JugadorController {
         this.jugadorDAO = jugadorDAO;
     }
 
-    public JugadorController() {
-
-    }
-
     /** Metodos para optimizar accesos a BD*/
     public ArrayList<Jugador> obtenerJugadores(Equipo equipo) throws SQLException {
         return jugadorDAO.obtenerPorEquipo(equipo);
@@ -48,5 +44,8 @@ public class JugadorController {
 
     public boolean borrarJugador(Jugador jugador) throws SQLException {
         return jugadorDAO.borrarJugador(jugador);
+    }
+    public List<String> jugadores(String equipo) throws Exception {
+        return jugadorDAO.jugadores(equipo);
     }
 }

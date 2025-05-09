@@ -190,6 +190,7 @@ public class EquipoDAO {
             sb.append(rs.getString("salario_minimo"));
             sb.append("\t-\t");
             sb.append(rs.getString("salario_medio"));
+            sb.append("\n");
             equipos.add(sb.toString());
         }
         rs.close();
@@ -200,11 +201,4 @@ public class EquipoDAO {
     public java.sql.Date validarFecha(String fechaFund) {
         return java.sql.Date.valueOf(fechaFund);
     }
-
-}
-
-    public java.sql.Date validarFecha(String fechaFund) {
-        return java.sql.Date.valueOf(fechaFund);
-    }
-
 }
