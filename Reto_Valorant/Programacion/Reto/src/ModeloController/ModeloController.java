@@ -86,8 +86,8 @@ public class ModeloController {
         equipo = equipoController.validarEquipo(eq);
         return equipo != null;
     }
-    public boolean validarJugador(Jugador jugador) throws SQLException {
-        jugador = jugadorController.obtnerJugador(jugador);
+    public boolean validarJugador(Jugador j) throws SQLException {
+        jugador = jugadorController.obtnerJugador(j);
         return jugador != null;
     }
 
