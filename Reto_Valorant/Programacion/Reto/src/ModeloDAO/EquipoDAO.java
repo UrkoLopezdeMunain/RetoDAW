@@ -1,11 +1,9 @@
 package ModeloDAO;
 
 import Modelo.Equipo;
+import oracle.jdbc.OracleTypes;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +101,36 @@ public class EquipoDAO {
             rs.close(); ps.close();
             return equipo;
         }
+    }
+    public List<String> getEquiposProcedimiento() throws SQLException {
+        ResultSet rs = null;
+        String sql = "{call pr_conseguir_info_equipos(?)}";
+        CallableStatement stmt = con.prepareCall(sql);
+        // Registrar el parámetro de salida como CURSOR
+        stmt.registerOutParameter(1, OracleTypes.CURSOR);
+        List<String> equipos = new ArrayList<>();
+        // Ejecutar el procedimiento
+        stmt.execute();
+
+        // Obtener el resultado y convertirlo Lista de equipos
+        rs = (java.sql.ResultSet)stmt.getObject(2);
+        while (rs.next()) {
+            StringBuilder sb = new StringBuilder();
+            sb.append(rs.getString("nombre"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("fecha_fundacion"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("cantidad_jugadores"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("salario_maximo"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("salario_minimo"));
+            sb.append("\t-\t");
+            sb.append(rs.getString("salario_medio"));
+            equipos.add(sb.toString());
+        }
+        rs.close();
+        return equipos;
     }
 
     public java.sql.Date validarFecha(String fechaFund) {

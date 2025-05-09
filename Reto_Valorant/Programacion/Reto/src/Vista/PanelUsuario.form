@@ -112,6 +112,18 @@
                   <text value="Ver los enfrentamientos"/>
                 </properties>
               </component>
+              <component id="670d9" class="javax.swing.JMenuItem" binding="iVerTodosEquipos">
+                <constraints/>
+                <properties>
+                  <text value="Ver todos los equipos"/>
+                </properties>
+              </component>
+              <component id="4875a" class="javax.swing.JMenuItem" binding="iVerJugadoresEquipo">
+                <constraints/>
+                <properties>
+                  <text value="Ver los jugadores de un equipo"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>

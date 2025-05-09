@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class EquipoController {
 
-    private final EquipoDAO eDAO;
+    private EquipoDAO eDAO;
     //fecha fundacion hay que meterla en Juego
     private List<Equipo> equipos;
 
@@ -85,5 +85,8 @@ public class EquipoController {
     }
     public Equipo getEquipoPorId(int id) throws Exception{
         return eDAO.getEquipoPorId(id);
+    }
+    public List<String> getEquiposProcedimiento() throws SQLException {
+        return eDAO.getEquiposProcedimiento();
     }
 }
