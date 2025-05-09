@@ -15,7 +15,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-public class EnfrentamientoController {
+
+
+ class EnfrentamientoController {
     private EnfrentamientoDAO enfrentamientoDAO;
     private ModeloController modeloController;
     private ArrayList<Enfrentamiento> enfrentamientos = new ArrayList<>();
@@ -23,17 +25,32 @@ public class EnfrentamientoController {
     private List<Jornada> jornadas;
     private List<Equipo> equipos;
 
+     
+     
+    /**
+     * Constructor para iniciar  controlador de enfrentamientos.
+     * @param enfrentamientoDAO 
+     * @param modeloController 
+     */
+
     public EnfrentamientoController(EnfrentamientoDAO enfrentamientoDAO, ModeloController modeloController) {
         this.enfrentamientoDAO = enfrentamientoDAO;
         this.modeloController = modeloController;
     }
-
+    /**
+    *Crea los enfrentamientos de las jornadas dividiendolos en dos partes
+    *@throws Exception Si ocurre un error al crear los enfrentamientos.
+    */
     public void crearEnfrentamientos() throws Exception{
             jornadas = modeloController.getJornadas();
             primeraMitad();
             segundaMitad();
     }
 
+    /**
+     * Crea los enfrentamientos para la primera mitad 
+     * @throws SQLException Si ocurre un error en la base de datos
+     */
     private void primeraMitad() throws SQLException {
         for (int p = 0; p < jornadas.size()/2; p++) {
             equipos = modeloController.getEquipos();
@@ -44,6 +61,11 @@ public class EnfrentamientoController {
             }
         }
     }
+
+    /**
+     * En este los crea  para la segunda mitad 
+     * @throws SQLException Si ocurre un error en la base de datos 
+     */
     private void segundaMitad() throws SQLException {
         Random rand = new Random();
         for (int p = jornadas.size()/2; p < jornadas.size(); p++) {
@@ -57,6 +79,12 @@ public class EnfrentamientoController {
             enfrentamientoDAO.anadirEnfrentamientos(enfrentamiento);
         }
     }
+
+    /**
+     *Asigna los enfrentamientos de la jornada
+     * @param p para el principio de la jornada 
+     * @throws SQLException Si ocurre un error en la base de datos 
+     */
     private void hacerEnfrentamiento(int p) throws SQLException{
         for (int i = 0; i <= equipos.size()/2; i++) {
             Enfrentamiento enfrentamiento = new Enfrentamiento();
@@ -73,6 +101,12 @@ public class EnfrentamientoController {
             enfrentamientos.add(enfrentamiento);
         }
     }
+
+     
+    /**
+     * Verificar equipos no se hayan enfrentado previamente
+     * @param enfrentamiento el enfrentamiento a verificar
+     */
     private void noSeHanEnfrentado(Enfrentamiento enfrentamiento){
         boolean yes = false;
         do {
@@ -97,11 +131,22 @@ public class EnfrentamientoController {
         }while (yes);
     }
 
+     /**
+     *Elegir hora aleatoria para el enfrentamient
+     *
+     * @return  hora elegida para el enfrentamiento.
+     */
     private LocalTime elegirHora() {
         Random rand = new Random();
         int hora = rand.nextInt(15);
         return LocalTime.of(7, 0, 0).plusHours(hora);
     }
+
+    /**
+     *Eliger  equipo aleatorio de la lista
+     * @param equipos La lista de equipos 
+     * @return Un equipo aleatorio.
+     */
     private Equipo elegirEquipo(List<Equipo> equipos) {
         Random rand = new Random();
         int eq1 = rand.nextInt(equipos.size());
